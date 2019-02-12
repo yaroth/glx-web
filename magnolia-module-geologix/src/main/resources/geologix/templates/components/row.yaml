@@ -1,0 +1,18 @@
+title: Row
+templateScript: /geologix/templates/components/row.ftl
+renderType: freemarker
+areas:
+  row:
+    renderType: freemarker
+    type: list
+    availableComponents:
+      fourSmallTeasers:
+        id: geologix:components/fourSmallTeasers
+      teaserBig:
+        id: geologix:components/teaserBig
+      teaserText:
+        id: geologix:components/teaserText
+      teamMember:
+        id: geologix:components/teamMember
+      newsList:
+        id: geologix:components/newsList

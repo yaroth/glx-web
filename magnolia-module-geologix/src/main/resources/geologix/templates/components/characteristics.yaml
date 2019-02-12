@@ -1,0 +1,3 @@
+title: Merkmale
+templateScript: /geologix/templates/components/characteristics.ftl
+renderType: freemarker

@@ -1,0 +1,4 @@
+title: Module item
+dialog: geologix:components/moduleItem
+templateScript: /geologix/templates/components/moduleItem.ftl
+renderType: freemarker

@@ -1,0 +1,4 @@
+title: Teaser text only
+dialog: geologix:components/teaserText
+templateScript: /geologix/templates/components/teaserText.ftl
+renderType: freemarker

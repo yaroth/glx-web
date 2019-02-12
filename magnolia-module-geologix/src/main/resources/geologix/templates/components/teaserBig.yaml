@@ -1,0 +1,4 @@
+title: Teaser big
+dialog: geologix:components/teaserBig
+templateScript: /geologix/templates/components/teaserBig.ftl
+renderType: freemarker

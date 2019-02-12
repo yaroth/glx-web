@@ -1,0 +1,30 @@
+const cantonsMap = new Map();
+
+cantonsMap.set('Aargau', 'ag');
+cantonsMap.set('Appenzell Ausserrhoden', 'ar');
+cantonsMap.set('Appenzell Innerrhoden', 'ai');
+cantonsMap.set('Basel Land', 'bl');
+cantonsMap.set('Basel Stadt', 'bs');
+cantonsMap.set('Bern', 'be');
+cantonsMap.set('Freiburg', 'fr');
+cantonsMap.set('Genf', 'ge');
+cantonsMap.set('Glarus', 'gl');
+cantonsMap.set('Graubünden', 'gr');
+cantonsMap.set('Jura', 'ju');
+cantonsMap.set('Luzern', 'lu');
+cantonsMap.set('Neuenburg', 'ne');
+cantonsMap.set('Nidwalden', 'nw');
+cantonsMap.set('Obwalden', 'ow');
+cantonsMap.set('St. Gallen', 'sg');
+cantonsMap.set('Schaffhausen', 'sh');
+cantonsMap.set('Schwyz', 'sz');
+cantonsMap.set('Solothurn', 'so');
+cantonsMap.set('Thurgau', 'tg');
+cantonsMap.set('Tessin', 'ti');
+cantonsMap.set('Uri', 'ur');
+cantonsMap.set('Waadt', 'vd');
+cantonsMap.set('Wallis', 'vs');
+cantonsMap.set('Zug', 'zg');
+cantonsMap.set('Zürich', 'zh');
+
+export const cMap = cantonsMap;

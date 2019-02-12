@@ -1,0 +1,10 @@
+templateScript: /geologix/templates/pages/dummy-page.ftl
+renderType: freemarker
+visible: true
+dialog: geologix:pages/dummy-page-properties
+areas:
+  main:
+    renderType: freemarker
+    availableComponents:
+      dummy-component:
+        id: geologix:components/dummy-component

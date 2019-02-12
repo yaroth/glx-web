@@ -1,0 +1,255 @@
+@import url(normalize.css);
+@import url("//hello.myfonts.net/count/2c7873");
+@font-face {
+  font-family: 'CaeciliaLTPro-45Light';
+  src: url("../webfonts/2C7873_0_0.eot");
+  src: url("../webfonts/2C7873_0_0.eot?#iefix") format("embedded-opentype"), url("../webfonts/2C7873_0_0.woff2") format("woff2"), url("../webfonts/2C7873_0_0.woff") format("woff"), url("../webfonts/2C7873_0_0.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'CaeciliaLTPro-46LightItalic';
+  src: url("../webfonts/2C7873_1_0.eot");
+  src: url("../webfonts/2C7873_1_0.eot?#iefix") format("embedded-opentype"), url("../webfonts/2C7873_1_0.woff2") format("woff2"), url("../webfonts/2C7873_1_0.woff") format("woff"), url("../webfonts/2C7873_1_0.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'AvenirLTStd-Book';
+  src: url("../webfonts/2C7873_2_0.eot");
+  src: url("../webfonts/2C7873_2_0.eot?#iefix") format("embedded-opentype"), url("../webfonts/2C7873_2_0.woff2") format("woff2"), url("../webfonts/2C7873_2_0.woff") format("woff"), url("../webfonts/2C7873_2_0.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'AvenirLTStd-Black';
+  src: url("../webfonts/2C7873_3_0.eot");
+  src: url("../webfonts/2C7873_3_0.eot?#iefix") format("embedded-opentype"), url("../webfonts/2C7873_3_0.woff2") format("woff2"), url("../webfonts/2C7873_3_0.woff") format("woff"), url("../webfonts/2C7873_3_0.ttf") format("truetype"); }
+
+* {
+  box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 100%; }
+
+.bgorange {
+  background-color: #ef793b; }
+
+.bgdark {
+  background-color: #4c4c4c;
+  background-color: #838386; }
+
+p {
+  margin: 0; }
+
+.box {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%; }
+
+header {
+  position: absolute;
+  display: block;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 200px;
+  z-index: 99;
+  background-color: #fff; }
+
+#icon {
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  float: left;
+  font-family: AvenirLTStd-Black;
+  border: 2px solid #fff;
+  display: block;
+  width: 128px;
+  height: 128px;
+  color: #fff;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 15px;
+  background-color: #ef793b; }
+  #icon span {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 3.3em;
+    text-transform: none; }
+
+header h1 {
+  font-family: AvenirLTStd-Black;
+  position: absolute;
+  left: 180px;
+  top: 60px;
+  font-size: 4.0em;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #838386;
+  padding: 0px;
+  margin: 0px; }
+
+.details {
+  display: none; }
+
+.centered {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1300px; }
+
+.bg {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: top center;
+  z-index: 1; }
+
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 25px; }
+  .content a {
+    overflow: hidden;
+    background-image: url(../images/link.svg);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    background-size: 25px 25px;
+    text-decoration: none;
+    color: #aaa;
+    padding-right: 30px;
+    font-weight: bolder; }
+    .content a:visited {
+      overflow: hidden;
+      background-image: url(../images/link.svg);
+      background-repeat: no-repeat;
+      background-position: 100% 50%;
+      background-size: 25px 25px;
+      text-decoration: none;
+      color: #aaa;
+      padding-right: 30px;
+      font-weight: bolder; }
+
+.title {
+  position: relative;
+  display: block;
+  font-family: AvenirLTStd-Black;
+  font-weight: normal;
+  font-size: 3.4em;
+  text-transform: uppercase;
+  z-index: 10;
+  color: #fff;
+  letter-spacing: 3px; }
+
+.beschreibung {
+  position: relative;
+  font-family: AvenirLTStd-Book;
+  font-weight: normal;
+  font-size: 1.5em;
+  z-index: 10;
+  color: #fff;
+  display: block;
+  margin-top: 20px;
+  background-image: url(../images/transparent55.png);
+  padding: 20px; }
+  .beschreibung li {
+    margin-bottom: 10px; }
+
+footer {
+  position: absolute;
+  height: 100px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  font-family: CaeciliaLTPro-45Light;
+  font-size: 0.9em;
+  color: #838386;
+  line-height: 1.35em;
+  letter-spacing: 0.05em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  z-index: 99;
+  background-color: #fff; }
+  footer a {
+    display: inline-block;
+    text-align: left;
+    height: 50px;
+    margin-right: 20px;
+    margin-left: 0px;
+    text-decoration: none;
+    color: #838386;
+    font-weight: bolder; }
+    footer a:hover {
+      color: #008cd2; }
+    footer a[href^=tel] {
+      height: auto; }
+  footer img.logo {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    vertical-align: middle;
+    height: 45px; }
+  footer .mail {
+    height: 22px; }
+  footer .map {
+    height: 30px;
+    margin-left: 0px; }
+  footer span {
+    display: inline; }
+  footer .sep {
+    display: inline;
+    position: relative;
+    top: -2px;
+    font-family: AvenirLTStd-Black;
+    color: #008cd2;
+    font-weight: bolder;
+    font-size: 0.9em;
+    padding: 0px 5px; }
+
+.swiper-container-vertical > .swiper-pagination .swiper-pagination-bullet {
+  margin: 14px 0;
+  display: block; }
+
+.swiper-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ccc;
+  padding-top: 200px;
+  padding-bottom: 100px; }
+
+.swiper-slide {
+  padding: 0px 50px;
+  background-color: #ccc;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex; }
+
+.swiper-pagination-bullet {
+  color: #eee;
+  opacity: 1;
+  background: #eee;
+  width: 24px;
+  height: 24px; }
+
+.swiper-pagination-bullet-active {
+  color: #fff;
+  background: #4c4c4c; }
+
+.fa-eye {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #fff;
+  z-index: 999; }

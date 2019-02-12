@@ -1,0 +1,4 @@
+title: Team member
+dialog: geologix:components/teamMember
+templateScript: /geologix/templates/components/teamMember.ftl
+renderType: freemarker

@@ -1,0 +1,9 @@
+name: categories
+label: glx-cats
+subApps:
+  browser:
+    contentConnector:
+      rootPath: /glx
+  detail:
+    contentConnector:
+      rootPath: /glx

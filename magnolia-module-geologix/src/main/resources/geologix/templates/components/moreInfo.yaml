@@ -1,0 +1,4 @@
+title: More info
+dialog: geologix:components/moreInfo
+templateScript: /geologix/templates/components/moreInfo.ftl
+renderType: freemarker

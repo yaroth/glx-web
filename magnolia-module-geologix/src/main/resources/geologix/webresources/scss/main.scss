@@ -1,0 +1,1656 @@
+@import "normalize.css";
+@import url("//hello.myfonts.net/count/2c7873");
+
+//colors
+$color_gunsmoke_approx: #828185;
+$color_lochmara_approx: rgb(0, 140, 210);
+$color_gallery_approx: #eeeeee;
+$color_gray_approx: #808082;
+$white: #fff;
+$red: red;
+$color_gravel_approx: #4c4c4c;
+$color_mercury_approx: #e6e6e7;
+$color_star_dust_approx: #99999b;
+$white_50: rgba(255, 255, 255, 0.5);
+$color_mid_gray_approx: #56626c;
+
+//fonts
+$font_0: CaeciliaLTPro-45Light;
+$font_1: CaeciliaLTPro-46LightItalic;
+$font_2: AvenirLTStd-Book;
+$font_3: AvenirLTStd-Black;
+
+//urls
+//$url_0: url(//hello.myfonts.net/count/2c7873);
+$url_1: url(../fonts/2C7873_0_0.eot);
+$url_1: url(../fonts/2C7873_0_0.eot);
+$url_2: url(../fonts/2C7873_0_0.eot?#iefix);
+$url_3: url(../fonts/2C7873_0_0.woff2);
+$url_4: url(../fonts/2C7873_0_0.woff);
+$url_5: url(../fonts/2C7873_0_0.ttf);
+$url_6: url(../fonts/2C7873_1_0.eot);
+$url_7: url(../fonts/2C7873_1_0.eot?#iefix);
+$url_8: url(../fonts/2C7873_1_0.woff2);
+$url_9: url(../fonts/2C7873_1_0.woff);
+$url_10: url(../fonts/2C7873_1_0.ttf);
+$url_11: url(../fonts/2C7873_2_0.eot);
+$url_12: url(../fonts/2C7873_2_0.eot?#iefix);
+$url_13: url(../fonts/2C7873_2_0.woff2);
+$url_14: url(../fonts/2C7873_2_0.woff);
+$url_15: url(../fonts/2C7873_2_0.ttf);
+$url_16: url(../fonts/2C7873_3_0.eot);
+$url_17: url(../fonts/2C7873_3_0.eot?#iefix);
+$url_18: url(../fonts/2C7873_3_0.woff2);
+$url_19: url(../fonts/2C7873_3_0.woff);
+$url_20: url(../fonts/2C7873_3_0.ttf);
+$url_21: url(../img/arrow.svg);
+$url_22: url(../img/link.svg);
+$url_23: url(../img/playwhite.svg);
+$url_24: url(../img/transparent55.png);
+$url_25: url(../img/pdf.svg);
+$url_26: url(../img/transparent.png);
+$url_27: url(../img/close.svg);
+
+//@extend-elements
+//original selectors
+//.huge, .huge-big
+%extend_1 {
+  font-family: $font_3;
+  font-size: 1.6em;
+  text-transform: uppercase;
+  color: $white;
+  font-weight: normal;
+  letter-spacing: 2px;
+  line-height: 1.2em;
+}
+
+//original selectors
+//table, p
+%extend_2 {
+  font-family: $font_0;
+  font-size: 0.8em;
+  line-height: 1.65;
+}
+
+//original selectors
+//table a, table a:visited
+%extend_3 {
+  overflow: hidden;
+  background-image: $url_22;
+  background-repeat: no-repeat;
+  background-position: 100% 10%;
+  background-size: 10px 10px;
+  text-decoration: none;
+  color: inherit;
+  padding-right: 15px;
+}
+
+//original selectors
+//.row:before, .row:after
+%extend_4 {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+//original selectors
+//.col-1, .col-2, .col-3, .col-4, .col-startbox
+%extend_5 {
+  position: relative;
+  float: left;
+  min-height: 1px;
+  width: 25%;
+}
+
+//original selectors
+//.col-startbox a.link, .col-startbox a.link-dark
+%extend_6 {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  color: $white;
+}
+
+//original selectors
+//.content a, .box-flow-content a, .content a:visited, .box-flow-content a:visited
+%extend_7 {
+  color: $color_gray_approx;
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+@font-face {
+  font-family: $font_0;
+  src: $url_1;
+  src: $url_2 format('embedded-opentype'), $url_3 format('woff2'), $url_4 format('woff'), $url_5 format('truetype');
+}
+
+@font-face {
+  font-family: $font_1;
+  src: $url_6;
+  src: $url_7 format('embedded-opentype'), $url_8 format('woff2'), $url_9 format('woff'), $url_10 format('truetype');
+}
+
+@font-face {
+  font-family: $font_2;
+  src: $url_11;
+  src: $url_12 format('embedded-opentype'), $url_13 format('woff2'), $url_14 format('woff'), $url_15 format('truetype');
+}
+
+@font-face {
+  font-family: $font_3;
+  src: $url_16;
+  src: $url_17 format('embedded-opentype'), $url_18 format('woff2'), $url_19 format('woff'), $url_20 format('truetype');
+}
+
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  background: $color_gallery_approx;
+  height: 100%;
+}
+
+* {
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a[href^=tel] {
+  color: inherit;
+  text-decoration: none;
+}
+
+.styled-select {
+  overflow: hidden;
+  background-image: $url_21;
+  background-repeat: no-repeat;
+  background-position: 98% 50%;
+  border: 1px solid $color_gray_approx;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 6px;
+  width: 90%;
+  select::-ms-expand {
+    display: none;
+  }
+  select {
+    background: transparent;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 0;
+    border: none;
+    font-family: $font_2;
+    color: $color_gray_approx;
+    margin: 0;
+    padding: 5px 30px 5px 10px;
+    width: 100%;
+  }
+}
+
+.huge {
+  @extend %extend_1;
+}
+
+.huge-big {
+  @extend %extend_1;
+  line-height: 1.1em;
+}
+
+h2 {
+  font-family: $font_3;
+  font-size: 1.15em;
+  text-transform: uppercase;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 5px;
+  letter-spacing: 0;
+  &.inline-blue {
+    font-weight: normal;
+    color: $color_lochmara_approx;
+    margin: 0;
+    padding: 0;
+  }
+  &.grey {
+    font-size: 1.6em;
+    color: $color_gunsmoke_approx;
+  }
+}
+
+table {
+  @extend %extend_2;
+  table-layout: fixed;
+  margin-bottom: 60px;
+  width: 100%;
+  thead {
+    text-align: left;
+  }
+  caption {
+    font-family: $font_3;
+    text-align: left;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: normal;
+    margin-bottom: 10px;
+  }
+  tr {
+    border-bottom: 1px solid $color_gray_approx;
+    th {
+      word-wrap: break-word;
+      padding: 0 10px 0 0;
+    }
+    td {
+      padding: 0 10px 0 0;
+      padding-top: 10px;
+      vertical-align: bottom;
+    }
+    &.hover td {
+      background-color: $color_gallery_approx;
+    }
+  }
+  a {
+    @extend %extend_3;
+    &:visited {
+      @extend %extend_3;
+    }
+    &:hover {
+      font-weight: bolder;
+      color: $color_lochmara_approx;
+    }
+  }
+}
+
+p {
+  @extend %extend_2;
+  margin-top: 0;
+  margin-bottom: 35px;
+}
+
+.AjaxUploadDropHere {
+  display: none;
+}
+
+.inline-title {
+  font-family: $font_3;
+  font-size: 1em;
+  line-height: 1.35em;
+  text-transform: uppercase;
+}
+
+.contact {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  span {
+    display: block;
+  }
+  .big {
+    font-family: $font_0;
+    font-size: 2em;
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.box {
+  position: relative;
+  color: $white;
+  background-size: cover;
+  background-position: center center;
+  &.color-box1 {
+    background-color: $color_gravel_approx;
+    color: $white;
+    h1 {
+      background-color: $color_gravel_approx;
+      color: $white;
+    }
+    h2 {
+      background-color: $color_gravel_approx;
+      color: $white;
+    }
+  }
+  &.color-box2 {
+    background-color: $color_mercury_approx;
+    color: $color_gunsmoke_approx;
+    h1 {
+      background-color: $color_mercury_approx;
+      color: $color_gunsmoke_approx;
+    }
+    h2 {
+      background-color: $color_mercury_approx;
+      color: $color_gunsmoke_approx;
+    }
+  }
+  &.color-box3 {
+    background-color: $color_gunsmoke_approx;
+    color: $white;
+    h1 {
+      background-color: $color_gunsmoke_approx;
+      color: $white;
+    }
+    h2 {
+      background-color: $color_gunsmoke_approx;
+      color: $white;
+    }
+  }
+  &.color-box4 {
+    background-color: $white;
+    color: $color_gunsmoke_approx;
+    h1 {
+      background-color: $white;
+      color: $color_gunsmoke_approx;
+    }
+    h2 {
+      background-color: $white;
+      color: $color_gunsmoke_approx;
+    }
+  }
+  &.color-box5 {
+    background-color: $color_lochmara_approx;
+    color: $white;
+    h1 {
+      background-color: $color_lochmara_approx;
+      color: $white;
+    }
+    h2 {
+      background-color: $color_lochmara_approx;
+      color: $white;
+    }
+    .title {
+      background-color: $color_lochmara_approx;
+      color: $white;
+    }
+  }
+  &.bg {
+    display: none;
+  }
+  &:before {
+    content: "";
+    display: block;
+    padding-top: 90%;
+  }
+}
+
+.box-2:before {
+  content: "";
+  display: block;
+  padding-top: 90%;
+}
+
+.bgbox {
+  background-color: $color_gravel_approx;
+  color: $white;
+  .morelink {
+    color: $white;
+    border: 1px solid $white;
+    &:hover {
+      background-color: $white;
+      color: $color_gravel_approx;
+    }
+  }
+}
+
+.morelink {
+  font-family: $font_2;
+  text-decoration: none;
+  font-size: 0.85em;
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  width: 112px;
+  border: 1px solid $white;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 4px;
+  padding: 4px 8px 7px;
+  color: $white;
+  text-align: center;
+  z-index: 1000;
+  &:hover {
+    background-color: $white;
+    color: $color_gravel_approx;
+  }
+}
+
+.bwstyle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  filter: grayscale(100%);
+  z-index: 99;
+}
+
+.layer-transparent {
+  position: absolute;
+  background-image: $url_24;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-size: cover;
+  z-index: 100;
+}
+
+#modalwindow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: $url_24;
+  background-size: cover;
+  z-index: 99999999999;
+  display: none;
+  text-align: center;
+  margin: 0;
+  .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.video-player {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0;
+  text-align: center;
+}
+
+.videocontent {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%;
+}
+
+#ytvideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.inpage-header {
+  background-color: $white;
+  padding: 18px;
+  h1 {
+    text-transform: uppercase;
+    color: $color_lochmara_approx;
+    font-size: 1.5em;
+    font-family: $font_3;
+    font-weight: normal;
+  }
+}
+
+.pdf {
+  background-image: $url_25;
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  background-position: center left;
+  padding: 20px;
+  padding-left: 40px;
+}
+
+nav {
+  position: fixed;
+  z-index: 1000;
+  padding-left: auto;
+  padding-right: auto;
+  width: 100%;
+  height: 60px;
+  background-color: $white;
+  cursor: pointer;
+}
+
+#nav-container {
+  position: relative;
+  display: block;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100%;
+  width: 100%;
+  max-width: 1400px;
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+  //Instead of the line below you could use @include user-select($select)
+  user-select: none;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 8px;
+}
+
+#main-content {
+  position: relative;
+  top: 60px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100%;
+  width: 100%;
+  max-width: 1400px;
+  padding-left: 6px;
+  padding-right: 6px;
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+}
+
+#navbar-logo {
+  float: left;
+  position: relative;
+  top: 16px;
+  left: 18px;
+  display: block;
+  width: 115px;
+  margin: 0;
+  img {
+    width: 115px;
+    height: 27px;
+  }
+}
+
+#navbar-menu {
+  position: absolute;
+  right: 18px;
+  top: 25px;
+  cursor: pointer;
+  img {
+    position: relative;
+    display: block;
+    &.menu {
+      width: 20px;
+      height: 12px;
+    }
+    &.close {
+      display: none;
+      width: 20px;
+      height: 12px;
+    }
+  }
+  span {
+    display: none;
+  }
+}
+
+#navmenu {
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+  background-color: $color_gallery_approx;
+  padding: 15px 2px 20px 40px;
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  right: -350px;
+  width: 350px;
+  height: 100%;
+  overflow: auto;
+  z-index: 999;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      margin-top: 25px;
+      border-bottom: 1px dashed $color_gunsmoke_approx;
+      padding: 8px 0;
+      a {
+        font-family: $font_3;
+        color: $color_lochmara_approx;
+        text-transform: uppercase;
+      }
+    }
+    &.submenu li {
+      margin: 0;
+      a {
+        font-family: $font_2;
+        color: $color_gunsmoke_approx;
+        text-transform: none;
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+    display: block;
+  }
+}
+
+#navinpage {
+  display: none;
+  li.active a {
+    color: $color_gallery_approx;
+    background-color: $color_star_dust_approx;
+  }
+  &.fixed li {
+    margin: 20px 10px;
+  }
+}
+
+.navinpage {
+  position: relative;
+  background-color: $color_gallery_approx;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  ul {
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+    li {
+      display: inline-block;
+      margin: 10px;
+    }
+  }
+  a {
+    display: block;
+    width: 130px;
+    font-family: $font_2;
+    font-size: 1em;
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: $color_star_dust_approx;
+    background-color: $color_gallery_approx;
+    padding: 5px;
+    border: 2px solid $color_star_dust_approx;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 4px;
+    &:hover {
+      color: $color_gallery_approx;
+      background-color: $color_star_dust_approx;
+    }
+  }
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    background-image: $url_26;
+    background-repeat: repeat;
+    background-color: transparent;
+  }
+}
+
+#navinpage-mobile {
+  position: absolute;
+  bottom: 18px;
+  right: 0;
+  width: 70%;
+  z-index: 999999;
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      display: inline-block;
+      list-style: none;
+      border: 1px solid $white;
+      //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+      border-radius: 6px;
+      padding: 3px 6px;
+      margin: 2px 5px;
+      width: 95px;
+    }
+  }
+  a {
+    font-family: $font_2;
+    text-decoration: none;
+    color: $white;
+    display: block;
+  }
+}
+
+.row {
+  &:before {
+    @extend %extend_4;
+  }
+  &:after {
+    @extend %extend_4;
+  }
+}
+
+.col-1 {
+  @extend %extend_5;
+  width: 100%;
+}
+
+.col-2 {
+  @extend %extend_5;
+  width: 100%;
+}
+
+.col-3 {
+  @extend %extend_5;
+  width: 100%;
+}
+
+.col-4 {
+  @extend %extend_5;
+  width: 100%;
+}
+
+.col-startbox {
+  @extend %extend_5;
+  width: 100%;
+  a {
+    &.link {
+      @extend %extend_6;
+    }
+    &.link-dark {
+      @extend %extend_6;
+      color: $color_gunsmoke_approx;
+    }
+  }
+  .bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-size: cover;
+    &.hover {
+      display: none;
+    }
+  }
+}
+
+.col-fright {
+  float: right;
+}
+
+.vcenter {
+  display: table;
+  height: 100%;
+  p {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.icon-container {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  font-family: $font_3;
+  border: 2px solid $white;
+  display: block;
+  width: 64px;
+  height: 64px;
+  color: $white;
+  //Instead of the line below you could use @include user-select($select)
+  user-select: none;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 8px;
+  span {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-size: 1.5em;
+  }
+}
+
+.bg {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+.box-content {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 18px;
+  z-index: 999;
+  .headline {
+    position: absolute;
+    top: 45px;
+    left: 18px;
+    right: 18px;
+    display: block;
+    font-family: $font_2;
+    font-size: 1.1em;
+    letter-spacing: 2px;
+  }
+  &.fotos {
+    padding: 0;
+  }
+}
+
+.title {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: block;
+  font-family: $font_3;
+  font-size: 1em;
+}
+
+.title-only {
+  display: block;
+  font-family: $font_3;
+  font-size: 1.1em;
+  letter-spacing: 2px;
+}
+
+.body {
+  position: absolute;
+  top: 55px;
+  bottom: 18px;
+  p {
+    font-family: $font_2;
+    font-size: 1.0em;
+  }
+  .contact {
+    left: 0;
+    bottom: 0;
+  }
+}
+
+.box-flow-content {
+  position: relative;
+  padding: 50px 18px 25px;
+  font-family: $font_0;
+  font-size: 1em;
+  line-height: 1.35em;
+  background-color: $white;
+  color: $color_gray_approx;
+  a {
+    @extend %extend_7;
+    &:visited {
+      @extend %extend_7;
+    }
+    &:hover {
+      color: $color_lochmara_approx;
+    }
+  }
+  h2 {
+    text-transform: none;
+    &.upper {
+      text-transform: uppercase;
+    }
+  }
+  .close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 22px;
+    height: 22px;
+    background-image: $url_27;
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    cursor: pointer;
+  }
+  .date {
+    font-family: $font_3;
+    display: block;
+    position: relative;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+  }
+  img {
+    margin: 2px;
+  }
+}
+
+figcaption {
+  font-size: 0.8em;
+  margin-left: 6px;
+  margin-top: -7px;
+  font-weight: bolder;
+}
+
+.content {
+  position: relative;
+  display: block;
+  margin: 18px;
+  font-family: $font_0;
+  a {
+    @extend %extend_7;
+    &:visited {
+      @extend %extend_7;
+    }
+    &:hover {
+      color: $color_lochmara_approx;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      padding: 10px 0;
+      margin: 0 0 0 10px;
+      list-style: circle;
+    }
+  }
+  .Inputfields {
+    list-style: none;
+    margin: 1em 0;
+    padding: 0;
+    li {
+      list-style: none;
+      margin: 1em 0;
+      padding: 0;
+      label {
+        font-weight: bold;
+      }
+      p {
+        margin: 0;
+        &.description {
+          font-style: italic;
+        }
+      }
+    }
+    textarea {
+      width: 100%;
+    }
+    .InputfieldMaxWidth {
+      width: 100%;
+    }
+    .InputfieldSubmit label {
+      display: none;
+    }
+  }
+  .ui-state-error-text {
+    color: $red;
+  }
+}
+
+.bg-blue {
+  background-color: $color_lochmara_approx;
+  color: $white;
+}
+
+.bg-white {
+  background-color: $white;
+  color: $color_lochmara_approx;
+  &.active {
+    background-color: $color_lochmara_approx;
+    color: $white;
+  }
+  .morelink {
+    background-color: $white;
+    color: $color_lochmara_approx;
+    border-color: $color_lochmara_approx;
+    &:hover {
+      background-color: $color_lochmara_approx;
+      color: $white;
+    }
+  }
+}
+
+.bg-grey {
+  background-color: $color_mercury_approx;
+}
+
+.bg-darkgrey {
+  background-color: $color_star_dust_approx;
+  color: $white;
+}
+
+.content-top {
+  position: relative;
+  display: block;
+  margin: 45px 18px;
+}
+
+.content-bottom {
+  position: relative;
+  display: block;
+  margin: 18px;
+}
+
+.arrow-down {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid $color_lochmara_approx;
+}
+
+.swiper-container {
+  height: 100%;
+  width: 100%;
+  padding: 0 !important;
+}
+
+.swiper-pagination-bullet {
+  color: $color_gallery_approx;
+  opacity: 1;
+  background: $white_50;
+}
+
+.swiper-pagination-bullet-active {
+  color: $white;
+  background: $white;
+}
+
+.parallax-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+}
+
+.color-blue {
+  color: $color_lochmara_approx;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+.color-grey {
+  color: $color_gunsmoke_approx;
+}
+
+.color-darkgrey {
+  color: $color_mid_gray_approx;
+}
+
+.color-white {
+  color: $white;
+}
+
+.newsbox {
+  background-color: $white;
+  color: $color_lochmara_approx;
+  padding: 18px;
+  .morelink {
+    border-color: $color_lochmara_approx;
+    color: $color_lochmara_approx;
+    &:hover {
+      background-color: $color_lochmara_approx;
+      color: $white;
+    }
+  }
+}
+
+.newstop {
+  font-family: $font_3;
+  display: block;
+  position: relative;
+  font-size: 0.8em;
+}
+
+.newstitle {
+  font-family: $font_3;
+  display: block;
+  position: relative;
+  font-size: 1.1em;
+  margin: 25px 0 70px;
+}
+
+.tags {
+  font-family: $font_2;
+  font-size: 0.9em;
+  .bold {
+    font-family: $font_3;
+  }
+}
+
+.emp-details {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  color: $white;
+  padding: 18px;
+  display: none;
+  cursor: hand;
+  .name {
+    font-family: $font_3;
+    display: block;
+    font-size: 1.6em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .subline {
+    font-family: $font_2;
+    display: block;
+    font-size: 1em;
+  }
+  .spacer {
+    display: block;
+    margin-top: 10px;
+    color: $color_lochmara_approx;
+  }
+  .bottom {
+    font-family: $font_0;
+    font-size: 1.1em;
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    line-height: 1.35;
+    a {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}
+
+.clearfix {
+  *zoom: 1;
+  &:before {
+    content: "";
+    display: table;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+footer {
+  clear: both;
+  font-family: $font_0;
+  font-size: 0.9em;
+  color: $color_gunsmoke_approx;
+  line-height: 1.35em;
+  padding-top: 30px;
+  padding-left: 18px;
+  padding-bottom: 50px;
+  letter-spacing: 0.05em;
+  a {
+    display: inline-block;
+    text-align: left;
+    height: 50px;
+    margin-right: 20px;
+    color: $color_gray_approx;
+    text-decoration: none;
+    font-weight: bolder;
+    &:hover {
+      color: $color_lochmara_approx;
+    }
+  }
+  a[href^=tel] {
+    height: auto;
+  }
+  img {
+    vertical-align: middle;
+  }
+  .mail {
+    height: 22px;
+  }
+  .map {
+    height: 30px;
+  }
+  span {
+    display: block;
+  }
+  .sep {
+    display: none;
+  }
+}
+
+@media only screen and(min-width: 480px) {
+  .styled-select {
+    width: 220px;
+  }
+  .huge {
+    font-size: 2.8em;
+  }
+  .huge-big {
+    font-size: 4.0em;
+  }
+  .col-1 {
+    width: 50%;
+  }
+  .col-2 {
+    width: 100%;
+  }
+  .col-startbox {
+    width: 50%;
+  }
+  .col-3 {
+    width: 100%;
+  }
+  .col-4 {
+    width: 100%;
+  }
+  .video-player {
+    padding: 15px;
+  }
+  .box-2:before {
+    padding-top: 45%;
+  }
+  .box-flow-content img {
+    margin: 5px;
+  }
+}
+
+@media only screen and(min-width: 750px) {
+  .video-player {
+    padding: 20px;
+  }
+  .box-content .headline {
+    font-size: 1.6em;
+  }
+}
+
+@media only screen and(min-width: 1024px) {
+  table {
+    font-size: 1.0em;
+    width: 75%;
+  }
+  p {
+    font-size: 1.0em;
+  }
+  figcaption {
+    margin-left: 10px;
+  }
+  #navbar-logo {
+    left: 30px;
+  }
+  #navbar-menu {
+    top: 19px;
+    right: 30px;
+    width: 80px;
+    background-position: right center;
+    background-repeat: no-repeat;
+    span {
+      display: block;
+      float: left;
+      font-family: $font_3;
+      text-transform: uppercase;
+      color: $color_gunsmoke_approx;
+      line-height: 1.3em;
+      font-size: 1.1em;
+    }
+    img {
+      float: right;
+      margin-top: 4px;
+    }
+  }
+  .styled-select {
+    width: 270px;
+  }
+  #main-content {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  #navinpage-mobile {
+    display: none;
+  }
+  #navinpage {
+    display: block;
+  }
+  .col-1 {
+    width: 25%;
+  }
+  .col-2 {
+    width: 50%;
+  }
+  .col-startbox {
+    width: 50%;
+    .icon-container {
+      left: 20px;
+      bottom: 20px;
+      width: 75px;
+      height: 75px;
+      span {
+        font-size: 1.8em;
+      }
+    }
+  }
+  .col-3 {
+    width: 75%;
+  }
+  .col-4 {
+    width: 100%;
+  }
+  .icon-container {
+    left: 30px;
+    bottom: 30px;
+    width: 90px;
+    height: 90px;
+    span {
+      font-size: 2em;
+      bottom: 10px;
+      left: 10px;
+    }
+  }
+  .box-content {
+    padding: 20px;
+    .headline {
+      font-size: 1.1em;
+      left: 20px;
+      right: 20px;
+      top: 45px;
+    }
+  }
+  .inpage-header {
+    padding: 20px;
+  }
+  .title {
+    font-size: 1.15em;
+    left: 20px;
+    top: 20px;
+  }
+  .title-only {
+    font-size: 1.5em;
+  }
+  .body {
+    top: 45px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    .contact {
+      bottom: -10px;
+    }
+  }
+  .morelink {
+    left: 20px;
+    bottom: 20px;
+  }
+  .box-flow-content {
+    padding: 45px 30px;
+    p {
+      padding-right: 30%;
+    }
+    img {
+      //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+      border-radius: 10px;
+      margin: 5px 10px;
+    }
+    .close {
+      top: 30px;
+      right: 30px;
+    }
+  }
+  .newsbox {
+    padding: 30px;
+  }
+  .content-top {
+    margin: 45px 30px;
+  }
+  .content-bottom {
+    margin: 30px;
+  }
+  .content {
+    margin: 30px;
+    p {
+      padding-right: 25%;
+    }
+    table {
+      padding-right: 25%;
+    }
+  }
+  .emp-details {
+    padding: 30px;
+  }
+  footer {
+    padding-top: 40px;
+    padding-bottom: 10px;
+    padding-left: 0;
+    margin-bottom: 10px;
+    span {
+      display: inline;
+    }
+    .map {
+      margin-left: 0;
+    }
+    .sep {
+      display: inline;
+      position: relative;
+      top: -2px;
+      font-family: $font_3;
+      color: $color_lochmara_approx;
+      font-weight: bolder;
+      font-size: 0.9em;
+      padding: 0 5px;
+    }
+  }
+  .video-player {
+    padding: 80px;
+  }
+  .contact .big {
+    font-size: 3em;
+    font-size: 2.5em;
+  }
+  .navinpage ul li {
+    margin: 30px 10px;
+  }
+  a.youtube {
+    left: 20px;
+    bottom: 20px;
+  }
+}
+
+@media only screen and(min-width: 1350px) {
+  .box-content {
+    padding: 30px;
+    .headline {
+      font-size: 1.6em;
+      font-size: 1.4em;
+      left: 30px;
+      right: 30px;
+      top: 55px;
+    }
+  }
+  .inpage-header {
+    padding: 30px;
+  }
+  .title {
+    top: 30px;
+    left: 30px;
+  }
+  .morelink {
+    bottom: 30px;
+    left: 30px;
+  }
+  .body {
+    top: 55px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    .contact {
+      bottom: -10px;
+    }
+  }
+  .contact {
+    left: 30px;
+    bottom: 30px;
+    .big {
+      font-size: 3em;
+    }
+  }
+  .video-player {
+    padding: 20px 120px;
+  }
+  .box-flow-content img {
+    margin: 5px 10px;
+  }
+  a.youtube {
+    bottom: 30px;
+    left: 30px;
+  }
+  .col-startbox .icon-container {
+    left: 30px;
+    bottom: 30px;
+    width: 90px;
+    height: 90px;
+    span {
+      font-size: 2em;
+    }
+  }
+}
+
+ui-state-error {
+  color: $red;
+}
+
+select option {
+  background-color: $color_gallery_approx;
+}
+
+span.ui-state-error {
+  color: $red;
+}
+
+.color-box1 .morelink {
+  color: $white;
+  border: 1px solid $white;
+  &:hover {
+    background-color: $white;
+    color: $color_gravel_approx;
+  }
+}
+
+.color-box3 .morelink {
+  color: $white;
+  border: 1px solid $white;
+  &:hover {
+    background-color: $white;
+    color: $color_gunsmoke_approx;
+  }
+}
+
+.color-box2 .morelink {
+  color: $color_gunsmoke_approx;
+  border: 1px solid $color_gunsmoke_approx;
+  &:hover {
+    background-color: $color_gunsmoke_approx;
+    color: $color_mercury_approx;
+  }
+}
+
+.color-box4 .morelink {
+  color: $color_gunsmoke_approx;
+  border: 1px solid $color_gunsmoke_approx;
+  &:hover {
+    background-color: $color_gunsmoke_approx;
+    color: $white;
+  }
+}
+
+.color-box5 .morelink:hover {
+  background-color: $white;
+  color: $color_lochmara_approx;
+}
+
+a.youtube {
+  background-image: $url_23;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  width: 112px;
+  height: 112px;
+  display: block;
+  z-index: 101;
+}
+
+.fotos div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+#map-container {
+  alignment: center;
+  margin: 0;
+  height: 600px;
+  width: 100%;
+  font-family: sans-serif;
+  background-color: #04041b;
+  margin-top: 50px;
+  #legend {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    background-color: #e6e6e7;
+    border-radius: 2px;
+    border: 1px darkgray solid;
+    padding: 10px;
+    font-size: 1em;
+    font-family: AvenirLTStd-Book;
+    letter-spacing: 1px;
+  }
+  .tooltip {
+    position: relative;
+    padding: 3px 8px 3px 8px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    opacity: 0.8;
+    white-space: nowrap;
+    font: 10pt sans-serif;
+  }
+}
+
+#modules-container {
+  background-color: #828185;
+  color: #fff;
+  overflow: hidden;
+  .cantonItem {
+    .canton {
+      margin: 30px;
+      h3 {
+        //font-family: AvenirLTStd-Black;
+        font-size: 1.5em;
+        letter-spacing: 2px;
+      }
+      .logoContact {
+        float: left;
+        margin-right: 4vw;
+        margin-bottom: 30px;
+        h4 {
+          margin: 10px 0;
+          font-size: 1.2em;
+          font-family: AvenirLTStd-Book;
+          letter-spacing: 1.5px;
+        }
+        .name, .phone, .email {
+          font-size: 1em;
+          font-family: AvenirLTStd-Book;
+        }
+        .email .emo_email {
+          color: white;
+          text-decoration: none;
+        }
+      }
+      .modules {
+        float: left;
+        margin-bottom: 30px;
+        h4 {
+          margin: 10px 0;
+          font-size: 1.2em;
+          font-family: AvenirLTStd-Book;
+          letter-spacing: 1.5px;
+        }
+        .module {
+          font-size: 1em;
+          font-family: AvenirLTStd-Book;
+        }
+      }
+    }
+  }
+}

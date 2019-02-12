@@ -1,0 +1,12 @@
+title: Module
+templateScript: /geologix/templates/components/modules.ftl
+renderType: freemarker
+areas:
+  modulesArea:
+    renderType: freemarker
+    type: list
+    availableComponents:
+      moduleItem:
+        id: geologix:components/moduleItem
+      moreInfo:
+        id: geologix:components/moreInfo

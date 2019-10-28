@@ -75,4 +75,11 @@
             <supertype>mgnl:content</supertype>
         </supertypes>
     </nodeType>
+
+    <!-- Haltestellen  -->
+    <nodeType name="haltestelle" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
 </nodeTypes>

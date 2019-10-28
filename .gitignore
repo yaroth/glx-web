@@ -5,6 +5,9 @@
 # magnolia target
 target/
 
+# other magnolia stuff
+overlays
+
 # specific stuff
 package-lock.json
 

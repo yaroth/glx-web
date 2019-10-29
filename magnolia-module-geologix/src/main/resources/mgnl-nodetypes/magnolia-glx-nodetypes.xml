@@ -76,8 +76,36 @@
         </supertypes>
     </nodeType>
 
-    <!-- Haltestellen  -->
+    <!-- Haltestelle  -->
     <nodeType name="haltestelle" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
+
+    <!-- Wagentyp  -->
+    <nodeType name="wagentyp" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
+
+    <!-- Sitzplan (Wagen mit Sitzanordnung)  -->
+    <nodeType name="sitzplan" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
+
+    <!-- Wagen  -->
+    <nodeType name="wagen" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
+
+    <!-- Strecke -->
+    <nodeType name="strecke" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
         <supertypes>
             <supertype>mgnl:content</supertype>
         </supertypes>

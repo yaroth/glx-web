@@ -1,19 +1,19 @@
-label: Strecken
-icon: icon-import-export-app
+label: Züge
+icon: icon-rssfeed
 appClass: info.magnolia.ui.contentapp.ContentApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
-    label: Strecken
+    label: Zugkompositionen
     actions:
-      addStrecke:
+      addZugkomposition:
         subAppId: detail
-        label: Add Strecke
+        label: Add Zugkomposition
         icon: icon-add-item
-        nodeType: strecke
-        appName: strecke
+        nodeType: zugkomposition
+        appName: zugkomposition
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -23,11 +23,11 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      editStrecke:
+      editZugkomposition:
         subAppId: detail
-        label: Edit Strecke
+        label: Edit Zugkomposition
         icon: icon-edit
-        appName: strecke
+        appName: zugkomposition
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -35,7 +35,7 @@ subApps:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
           nodeTypes:
-            strecke: strecke
+            zugkomposition: zugkomposition
       move:
         icon: icon-move
         class: info.magnolia.ui.contentapp.movedialog.action.OpenMoveDialogActionDefinition
@@ -67,10 +67,10 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      renameStrecke:
+      renameZugkomposition:
         icon: icon-edit
-        label: Rename Strecke Item
-        dialogName: strecke:renameStrecke
+        label: Rename Zugkomposition Item
+        dialogName: zugkomposition:renameZugkomposition
         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
         availability:
           writePermissionRequired: true
@@ -137,7 +137,7 @@ subApps:
           rules:
             - name: IsDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-      confirmDeleteStrecke:
+      confirmDeleteZugkomposition:
         successActionName: delete
         label: Delete
         icon: icon-delete
@@ -185,14 +185,14 @@ subApps:
               implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
 
     actionbar:
-      defaultAction: editStrecke
+      defaultAction: editZugkomposition
       sections:
         - name: root
           label: Root
           groups:
             - name: addActions
               items:
-                - name: addStrecke
+                - name: addZugkomposition
                 - name: addFolder
             - name: importExportActions
               items:
@@ -200,16 +200,16 @@ subApps:
           availability:
             nodes: false
             root: true
-        - name: deletedStrecke
+        - name: deletedZugkomposition
           groups:
             - name: addActions
               items:
-                - name: addStrecke
-                - name: confirmDeleteStrecke
+                - name: addZugkomposition
+                - name: confirmDeleteZugkomposition
             - name: editActions
               items:
-                - name: editStrecke
-                - name: renameStrecke
+                - name: editZugkomposition
+                - name: renameZugkomposition
             - name: activationActions
               items:
                 - name: activateDeleted
@@ -222,7 +222,7 @@ subApps:
                 - name: restorePreviousVersion
           availability:
             nodeTypes:
-              strecke: strecke
+              zugkomposition: zugkomposition
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
@@ -230,7 +230,7 @@ subApps:
           groups:
             - name: addActions
               items:
-                - name: addStrecke
+                - name: addZugkomposition
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -253,17 +253,17 @@ subApps:
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-        - name: strecke
-          label: Strecke
+        - name: zugkomposition
+          label: Zugkomposition
           groups:
             - name: addActions
               items:
-                - name: addStrecke
-                - name: confirmDeleteStrecke
+                - name: addZugkomposition
+                - name: confirmDeleteZugkomposition
             - name: editActions
               items:
-                - name: editStrecke
-                - name: renameStrecke
+                - name: editZugkomposition
+                - name: renameZugkomposition
                 - name: move
             - name: activationActions
               items:
@@ -278,12 +278,12 @@ subApps:
                 - name: restoreVersion
           availability:
             nodeTypes:
-              strecke: strecke
+              zugkomposition: zugkomposition
         - name: folder
           groups:
             - name: addActions
               items:
-                - name: addStrecke
+                - name: addZugkomposition
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -357,12 +357,12 @@ subApps:
      damLinkPropertyName: image
     contentConnector:
       includeProperties: false
-      workspace: strecken
+      workspace: zugkompositionen
       rootPath: /
       defaultOrder: jcrName
       nodeTypes:
-        - icon: icon-import-export-app
-          name: strecke
+        - icon: icon-rssfeed
+          name: zugkomposition
         - icon: icon-folder-l
           name: mgnl:folder
 
@@ -372,45 +372,37 @@ subApps:
     editor:
       wide: true
       nodeType:
-        icon: icon-node-content
-        name: strecke
+        icon: icon-rssfeed
+        name: zugkomposition
       actions:
         - name: commit
         - name: cancel
       form:
         tabs:
-          - name: strecke
-            label: Strecke detail
+          - name: zugkomposition
+            label: Zugkomposition detail
             fields:
               - name: jcrName
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 i18n: false
-              - name: abschnitt
-                label: Abschnitte
+              - name: name
+                label: Name Zugkomposition
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: wagen
+                label: Wägen
+                description: Reihenfolge der Wägen von oben nach unten ergibt Zugkomposition
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
-                transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
                 field:
-                  name: title
-                  fieldType: composite
-                  transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
-                  label: Event
-                  fields:
-                    - name: stop
-                      label: Haltestelle
-                      class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                      targetWorkspace: haltestelle
-                      targetTreeRootPath: /
-                      appName: haltestellen
-                      identifierToPathConverter:
-                        class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-                    - name: duration
-                      label: Reisedauer
-                      fieldType: text
-                    - name: stopduration
-                      label: Verweildauer (Bhf)
-                      fieldType: text
+                  name: wagen
+                  label: Wagen
+                  class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                  targetWorkspace: wagen
+                  targetTreeRootPath: /
+                  appName: wagen
+                  identifierToPathConverter:
+                    class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
 
     actions:
       commit:
@@ -420,11 +412,11 @@ subApps:
         class: info.magnolia.ui.form.action.CancelFormActionDefinition
 
     contentConnector:
-      workspace: strecken
+      workspace: zugkompositionen
       rootPath: /
       nodeTypes:
-        - icon: icon-import-export-app
-          name: strecke
+        - icon: icon-rssfeed
+          name: zugkomposition
           strict: true
         - icon: icon-folder-l
           name: mgnl:folder

@@ -410,6 +410,45 @@ subApps:
                   class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
                 contentPreviewDefinition:
                   contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+              - name: sitze
+                label: Sitze
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
+                field:
+                  name: seat
+                  fieldType: composite
+                  transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+                  label: Sitz
+                  fields:
+                    - name: id
+                      label: ID
+                      fieldType: text
+                    - name: class
+                      label: Klasse
+                      fieldType: text
+                    - name: options
+                      label: Platzeigenschaften
+                      fieldType: optionGroup
+                      type: String
+                      multiselect: true
+                      options:
+                        - name: 220V
+                          label: 220V Anschluss
+                          selected: true
+                        - name: table
+                          label: Tisch
+                    - name: location
+                      label: Platzeigenschaften
+                      fieldType: optionGroup
+                      type: String
+                      options:
+                        - name: fenster
+                          label: Fenster
+                        - name: gang
+                          label: Gang
+                        - name: mitte
+                          label: Mitte
+
 
     actions:
       commit:

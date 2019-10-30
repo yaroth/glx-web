@@ -110,4 +110,18 @@
             <supertype>mgnl:content</supertype>
         </supertypes>
     </nodeType>
+
+    <!-- Zugkomposition -->
+    <nodeType name="zugkomposition" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
+
+    <!-- Zugservice -->
+    <nodeType name="zugservice" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
 </nodeTypes>

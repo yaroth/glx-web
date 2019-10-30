@@ -32,6 +32,8 @@
                 <workspace>wagen</workspace>
                 <workspace>haltestelle</workspace>
                 <workspace>strecken</workspace>
+                <workspace>zugkompositionen</workspace>
+                <workspace>zugservices</workspace>
             </workspaces>
             <nodeTypeFile>/mgnl-nodetypes/magnolia-glx-nodetypes.xml</nodeTypeFile>
         </repository>

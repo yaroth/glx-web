@@ -402,7 +402,7 @@ subApps:
                 i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: image
-                label: Bild
+                label: Sitzplan
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: dam
                 appName: assets

@@ -78,6 +78,10 @@
           <type>pom</type>
         </dependency>
         -->
+        <dependency>
+            <groupId>info.magnolia.rest</groupId>
+            <artifactId>magnolia-rest-tools</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>ch.yaro</groupId>

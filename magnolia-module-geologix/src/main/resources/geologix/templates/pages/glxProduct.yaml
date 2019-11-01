@@ -1,3 +1,4 @@
+title: GLX product
 templateScript: /geologix/templates/pages/glxHome.ftl
 renderType: freemarker
 visible: true

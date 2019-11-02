@@ -124,4 +124,11 @@
             <supertype>mgnl:content</supertype>
         </supertypes>
     </nodeType>
+
+    <!-- Reservation -->
+    <nodeType name="reservation" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
 </nodeTypes>

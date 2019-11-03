@@ -386,6 +386,20 @@ subApps:
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 i18n: false
+              - name: prename
+                label: Vorname
+                required: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                i18n: false
+              - name: lastname
+                label: Nachname
+                required: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                i18n: false
+              - name: birthdate
+                label: Geburtsdatum
+                fieldType: date
+                time: false
               - name: zugservice
                 label: Zugservice
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition

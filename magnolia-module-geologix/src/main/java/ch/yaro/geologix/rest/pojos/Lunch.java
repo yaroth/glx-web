@@ -35,4 +35,9 @@ public class Lunch extends BasicStorable {
     public void setBeverage(String beverage) {
         this.beverage = beverage;
     }
+
+    @Override
+    public String toString(){
+        return "Food: " + food +", " + "beverage: " + beverage + "\n";
+    }
 }

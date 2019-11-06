@@ -72,6 +72,7 @@ public class DemoEndpoint<D extends EndpointDefinition> extends AbstractEndpoint
     public Response storeLunch(Lunch lunch){
         if(lunch != null){
             try {
+                log.info("Lunch received: " + lunch);
                 return Response.ok(lunch).build();
             } catch (Exception e) {
                 log.error("Failed to store the lunch");

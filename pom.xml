@@ -56,6 +56,11 @@
                 <artifactId>magnolia-rest-tools</artifactId>
                 <version>2.1.1</version>
             </dependency>
+            <dependency>
+                <groupId>info.magnolia.rest</groupId>
+                <artifactId>magnolia-rest-integration</artifactId>
+                <version>2.1.1</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

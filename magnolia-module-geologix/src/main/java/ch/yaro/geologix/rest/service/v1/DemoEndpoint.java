@@ -2,6 +2,7 @@ package ch.yaro.geologix.rest.service.v1;
 
 import ch.yaro.geologix.rest.datastore.Store;
 import ch.yaro.geologix.rest.pojos.Lunch;
+import info.magnolia.context.MgnlContext;
 import info.magnolia.rest.AbstractEndpoint;
 import info.magnolia.rest.EndpointDefinition;
 import io.swagger.annotations.Api;
@@ -11,6 +12,12 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.Session;
+import javax.jcr.query.Query;
+import javax.jcr.query.QueryManager;
+import javax.jcr.query.QueryResult;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -18,6 +25,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 @Api(value = "/demo/v1", description = "The demo endpoint")
 @Path("/demo/v1")
@@ -73,7 +82,19 @@ public class DemoEndpoint<D extends EndpointDefinition> extends AbstractEndpoint
         if(lunch != null){
             try {
                 log.info("Lunch received: " + lunch);
-                return Response.ok(lunch).build();
+                Session session = MgnlContext.getJCRSession("wagen");
+//                QueryManager queryManager = session.getWorkspace().getQueryManager();
+//                Query query = queryManager.createQuery("select * from [wagen]", "JCR-SQL2");
+//                QueryResult queryResult = query.execute();
+//                NodeIterator nodeIterator = queryResult.getNodes();
+//                ArrayList<Node> foundNodes = new ArrayList<>();
+//                while (nodeIterator.hasNext()) {
+//                    foundNodes.add(nodeIterator.nextNode());
+//                }
+
+
+                Node foundNode = session.getNodeByIdentifier("2791ed86-4dea-4464-9995-a6f2a6b4b206");
+                return Response.ok(foundNode).build();
             } catch (Exception e) {
                 log.error("Failed to store the lunch");
                 return Response.status(Response.Status.NOT_ACCEPTABLE).build();

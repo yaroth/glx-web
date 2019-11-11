@@ -29,8 +29,8 @@ import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 
 @Api(value = "/demo/v1", description = "The demo endpoint")
 @Path("/demo/v1")
-//public class DemoEndpoint<D extends EndpointDefinition> extends AbstractEndpoint<D> {
-public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends AbstractEndpoint<D> {
+public class DemoEndpoint<D extends EndpointDefinition> extends AbstractEndpoint<D> {
+//public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends AbstractEndpoint<D> {
 
     private static final String STATUS_MESSAGE_OK = "OK";
     private static final String STATUS_MESSAGE_UNAUTHORIZED = "Unauthorized";

@@ -1,10 +1,7 @@
 package ch.yaro.geologix.rest.pojos;
 
-import javax.print.DocFlavor;
-import java.sql.Time;
-import java.time.LocalTime;
 
-public class TrainServiceRequest extends NodeItem {
+public class TrainServiceRequest {
 
     private String time;
     private String from;

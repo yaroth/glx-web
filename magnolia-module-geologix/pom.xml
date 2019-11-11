@@ -58,6 +58,14 @@
             <groupId>info.magnolia.rest</groupId>
             <artifactId>magnolia-rest-services</artifactId>
         </dependency>
+        <dependency>
+            <groupId>info.magnolia.categorization</groupId>
+            <artifactId>magnolia-categorization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.magnolia.dam</groupId>
+            <artifactId>magnolia-dam-templating</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

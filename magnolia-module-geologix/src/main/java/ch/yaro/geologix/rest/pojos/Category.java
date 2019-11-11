@@ -24,19 +24,26 @@
  * THE SOFTWARE.
  *
  */
-package ch.yaro.geologix.rest;
+package ch.yaro.geologix.rest.pojos;
+
 
 /**
- * This class is optional and represents the configuration for the camera-collection module.
- * By exposing simple getter/setter/adder methods, this bean can be configured via content2bean
- * using the properties and node from <tt>config:/modules/camera-collection</tt>.
- * If you don't need this, simply remove the reference to this class in the module descriptor xml.
+ * This class is a simple POJO representation for a "category" item stored in the "categories" app.<br/>
+ * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
-public class WagenCollection {
-    /* you can optionally implement info.magnolia.module.ModuleLifecycle */
+public class Category extends NodeItem {
 
-    public static final String WORKSPACE = "wagen";
-    public static final String WAGEN_NODETYPE = "wagen";
-    public static final String WAGEN_BASEPATH = "/";
+    private String name;
 
+
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

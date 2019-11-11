@@ -27,26 +27,32 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.util.List;
+
 /**
- * This class is a simple POJO representation for a "wagen" item stored in the "wagen"app.<br/>
+ * This class is a simple POJO representation for a "wagen" item stored in the "wagen" app.<br/>
  * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
-
 public class Wagen extends NodeItem {
+
+    public static final String WORKSPACE = "wagen";
+    public static final String NODETYPE = "wagen";
+    public static final String BASEPATH = "/";
+    public static final String NUMBER = "number";
+    public static final String SITZPLAN = "sitzplan";
+    public static final String WAGENTYP = "wagentyp";
 
     private String number;
     private String sitzplan;
-    private String wagenPath;
+    private List<String> wagentyp;
 
-
-    public String getWagenPath() {
-        return wagenPath;
+    public List<String> getWagentyp() {
+        return wagentyp;
     }
 
-    public void setWagenPath(String wagenPath) {
-        this.wagenPath = wagenPath;
+    public void setWagentyp(List<String> wagentyp) {
+        this.wagentyp = wagentyp;
     }
-
 
     public String getNumber() {
         return number;

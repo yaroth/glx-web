@@ -423,11 +423,19 @@ subApps:
                     - name: id
                       label: ID
                       fieldType: text
+                      maxLength: 10
                     - name: class
                       label: Klasse
-                      fieldType: text
+                      fieldType: optionGroup
+                      type: String
+                      options:
+                        - name: 1
+                          label: 1.
+                        - name: 2
+                          label: 2.
+                          selected: true
                     - name: options
-                      label: Platzeigenschaften
+                      label: Eigenschaften
                       fieldType: optionGroup
                       type: String
                       multiselect: true
@@ -438,7 +446,7 @@ subApps:
                         - name: table
                           label: Tisch
                     - name: location
-                      label: Platzeigenschaften
+                      label: Position
                       fieldType: optionGroup
                       type: String
                       options:

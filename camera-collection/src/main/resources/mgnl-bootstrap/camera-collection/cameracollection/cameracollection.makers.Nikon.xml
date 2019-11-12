@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="Nikon" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:maker</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>893a6375-41d9-4405-ab74-ee3b91f97839</sv:value>
+  </sv:property>
+  <sv:property sv:name="history" sv:type="String">
+    <sv:value>&lt;p&gt;Nikon Corporation (株式会社ニコン Kabushiki-gaisha Nikon) (UK /ˈnɪkɒn/ or US /ˈnaɪkɒn/; About this sound listen (help&amp;middot;info)[nikoɴ]), also known just as Nikon, is a Japanese multinational corporation headquartered in Tokyo, Japan, specializing in optics and imaging products.&lt;/p&gt;
+
+&lt;p&gt;(Source: Wikipedia)&lt;/p&gt;
+</sv:value>
+  </sv:property>
+  <sv:property sv:name="history_de" sv:type="String">
+    <sv:value>&lt;p&gt;Das Unternehmen Nikon Corporation (jap. 株式会社ニコン, Kabushiki kaisha Nikon), gelistet im Nikkei 225, ist ein japanischer Hersteller von Fotoapparaten, Objektiven und anderen optischen Pr&amp;auml;zisionsger&amp;auml;ten wie Mikroskopen, Ferngl&amp;auml;sern und Steppern. Seit 1925 baut Nikon Objektive und im September 2009 feierte Nikon 50 Millionen gebaute Objektive; seit 1917 werden optische Gl&amp;auml;ser hergestellt. Ferner bietet Nikon ein gro&amp;szlig;es Zubeh&amp;ouml;rsortiment f&amp;uuml;r seine Film- sowie Digital-Systemkameras an wie zum Beispiel die Speedlight-Blitzlichtger&amp;auml;te. Hauptsitz ist im japanischen Tokio.&lt;/p&gt;
+
+&lt;p&gt;(Quelle: Wikipedia)&lt;/p&gt;
+</sv:value>
+  </sv:property>
+  <sv:property sv:name="image" sv:type="String">
+    <sv:value>jcr:12e21c54-12fe-4cce-8e6a-021b598b187d</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
+  </sv:property>
+  <sv:property sv:name="longName" sv:type="String">
+    <sv:value>Nikon Corporation</sv:value>
+  </sv:property>
+  <sv:property sv:name="longName_de" sv:type="String">
+    <sv:value>Nikon Corporation</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2016-02-29T00:43:39.391+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2016-03-08T23:49:54.235+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="name" sv:type="String">
+    <sv:value>Nikon</sv:value>
+  </sv:property>
+  <sv:property sv:name="name_de" sv:type="String">
+    <sv:value>Nikon</sv:value>
+  </sv:property>
+</sv:node>

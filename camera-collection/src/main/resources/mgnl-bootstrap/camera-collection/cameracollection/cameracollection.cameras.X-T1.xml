@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="X-T1" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:camera</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>7e0940e1-9ac0-47e9-af45-52cbd2559a1a</sv:value>
+  </sv:property>
+  <sv:property sv:name="categories" sv:type="String" sv:multiple="true">
+    <sv:value>636e9e44-ee95-44d2-b325-df7eb3a4fefc</sv:value>
+    <sv:value>df2eb333-c91c-4de2-aabb-ceb7016b2327</sv:value>
+  </sv:property>
+  <sv:property sv:name="description" sv:type="String">
+    <sv:value>&lt;p&gt;The Fujifilm X-T1 is a DSLR-style weather-resistant mirrorless camera announced by Fujifilm on January 28, 2014. It uses the Fujifilm X-mount.&lt;/p&gt;
+
+&lt;p&gt;(Source: Wikipedia)&lt;/p&gt;
+</sv:value>
+  </sv:property>
+  <sv:property sv:name="description_de" sv:type="String">
+    <sv:value>&lt;p&gt;Mit der X-T1 stellte Fujifilm im Januar 2014 die sechste Systemkamera der X-Serie vor. Das Konzept der klassischen Bedienung wurde mit einem Einstellrad f&amp;uuml;r die Empfindlichkeit weiter ausgebaut. Erstmals in der Serie orientierte sich das Design nicht an einer Messsucherkamera sondern an einer Spiegelreflex.&lt;/p&gt;
+
+&lt;p&gt;(Quelle: Wikipedia)&lt;/p&gt;
+</sv:value>
+  </sv:property>
+  <sv:property sv:name="images" sv:type="String" sv:multiple="true">
+    <sv:value>jcr:a6807170-4793-4568-9b00-5a534b3be452</sv:value>
+    <sv:value>jcr:0ae005e7-997f-4f12-9d89-e87d53c60522</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
+  </sv:property>
+  <sv:property sv:name="maker" sv:type="String">
+    <sv:value>d639131d-9d77-4e4c-bac9-862de6f3c56c</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2016-02-29T02:31:27.215+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2016-03-08T23:54:27.327+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="name" sv:type="String">
+    <sv:value>X-T1</sv:value>
+  </sv:property>
+</sv:node>

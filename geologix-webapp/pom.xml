@@ -87,6 +87,10 @@
             <groupId>ch.yaro</groupId>
             <artifactId>magnolia-module-geologix</artifactId>
         </dependency>
+        <dependency>
+            <groupId>info.magnolia.documentation</groupId>
+            <artifactId>camera-collection</artifactId>
+        </dependency>
 
 
     </dependencies>

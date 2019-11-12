@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="cameras" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:content</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>ec378094-7cc0-48fc-8c64-cf6bf3b17cdf</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2016-02-28T19:05:24.534+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2016-02-29T09:57:53.264+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+</sv:node>

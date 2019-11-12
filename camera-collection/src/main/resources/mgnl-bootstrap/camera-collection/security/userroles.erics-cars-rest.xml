@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="erics-cars-rest" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:role</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
+    <sv:value>mix:lockable</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>58531eec-6e90-44c3-a8cb-2fc8c344ac60</sv:value>
+  </sv:property>
+  <sv:property sv:name="description" sv:type="String">
+    <sv:value>Provides GET to workspace cameracollection with custom endpoints and standard nodes and properties endpoints.</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+    <sv:value>false</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2016-04-18T00:52:44.311+02:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+    <sv:value>2016-04-18T00:52:44.326+02:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2016-04-18T00:54:06.126+02:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="name" sv:type="String">
+    <sv:value>erics-cars-rest</sv:value>
+  </sv:property>
+  <sv:property sv:name="title" sv:type="String">
+    <sv:value>cameracollection GET access</sv:value>
+  </sv:property>
+  <sv:node sv:name="acl_userroles">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>d294479b-dcfd-4fc0-9ae6-b3278be8d67f</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+      <sv:value>false</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2016-04-18T00:52:44.311+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+      <sv:value>2016-04-18T00:52:44.327+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2016-04-18T00:54:06.229+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:node sv:name="0">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>4b9c281c-b043-49e5-9c56-d380e2109d90</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-04-18T00:54:06.229+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-04-18T00:54:06.229+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="path" sv:type="String">
+        <sv:value>/erics-cars-rest</sv:value>
+      </sv:property>
+      <sv:property sv:name="permissions" sv:type="Long">
+        <sv:value>8</sv:value>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="acl_uri">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:mixinTypes" sv:type="Name" sv:multiple="true">
+      <sv:value>mix:lockable</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>19313973-ece8-4f05-84c9-22be5402e429</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+      <sv:value>false</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2016-04-18T00:52:44.311+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+      <sv:value>2016-04-18T00:52:44.334+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2016-04-18T00:54:06.143+02:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:node sv:name="0">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>d1facc49-1454-47f4-8874-90ca795897f4</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-04-18T00:52:44.311+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-04-18T00:52:44.334+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-04-18T00:54:06.136+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="path" sv:type="String">
+        <sv:value>/.rest*</sv:value>
+      </sv:property>
+      <sv:property sv:name="permissions" sv:type="Long">
+        <sv:value>0</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="2">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>e7fb157a-59fa-4b70-979b-f47fadbd8887</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-04-18T00:52:44.311+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-04-18T00:52:44.335+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-04-18T00:54:06.136+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="path" sv:type="String">
+        <sv:value>/.rest/properties/v1/products*</sv:value>
+      </sv:property>
+      <sv:property sv:name="permissions" sv:type="Long">
+        <sv:value>8</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="3">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>7f470529-5285-4aa4-a905-6a9efb510578</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-04-18T00:52:44.311+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-04-18T00:52:44.337+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-04-18T00:54:06.136+02:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="path" sv:type="String">
+        <sv:value>/.rest/nodes/v1/products*</sv:value>
+      </sv:property>
+      <sv:property sv:name="permissions" sv:type="Long">
+        <sv:value>8</sv:value>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+</sv:node>

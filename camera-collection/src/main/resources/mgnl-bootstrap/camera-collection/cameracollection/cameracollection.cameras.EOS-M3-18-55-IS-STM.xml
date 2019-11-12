@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="EOS-M3-18-55-IS-STM" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:camera</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>eb660737-abf5-4fab-9354-66fd437042f4</sv:value>
+  </sv:property>
+  <sv:property sv:name="categories" sv:type="String" sv:multiple="true">
+    <sv:value>636e9e44-ee95-44d2-b325-df7eb3a4fefc</sv:value>
+    <sv:value>df2eb333-c91c-4de2-aabb-ceb7016b2327</sv:value>
+  </sv:property>
+  <sv:property sv:name="description" sv:type="String">
+    <sv:value>&lt;p&gt;Canon EOS M3 comes with a wide range of improvements and redesigns. Aimed to suit for all professional and small masterpieces, the camera features both high-end MILC specs and basic entry-levels specs. It also receives more improved DIGIC image 5 sensor and 18 megapixel APS-C CMOS sensor.&amp;nbsp;&lt;/p&gt;
+</sv:value>
+  </sv:property>
+  <sv:property sv:name="images" sv:type="String" sv:multiple="true">
+    <sv:value>jcr:22ec96ab-5873-412c-9d3a-a017541f423e</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
+  </sv:property>
+  <sv:property sv:name="maker" sv:type="String">
+    <sv:value>996b99a6-3410-49ee-b7c2-8860284675d1</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2016-03-11T11:46:47.543+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2016-03-11T15:02:44.836+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="name" sv:type="String">
+    <sv:value>EOS M3/18-55 IS STM</sv:value>
+  </sv:property>
+</sv:node>

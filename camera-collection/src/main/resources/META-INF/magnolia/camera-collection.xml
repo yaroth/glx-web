@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd" >
+<module>
+  <name>camera-collection</name>
+  <displayName>${project.name}</displayName>
+  <description>${project.description}</description>
+  <class>info.magnolia.documentation.apps.cameracollection.CameraCollectionModule</class>
+  <versionHandler>info.magnolia.documentation.apps.cameracollection.setup.CameraCollectionModuleVersionHandler</versionHandler>
+  <version>${project.version}</version>
+
+  <components>
+    <id>main</id>
+    <component>
+      <type>info.magnolia.documentation.apps.cameracollection.pojos.CameraCollectionPojoService</type>
+      <implementation>info.magnolia.documentation.apps.cameracollection.pojos.CameraCollectionPojoService</implementation>
+      <scope>singleton</scope>
+    </component>
+    <type-mapping>
+      <type>info.magnolia.documentation.apps.cameracollection.imageprovider.DamLinkFromListImageProviderDefinition</type>
+      <implementation>info.magnolia.documentation.apps.cameracollection.imageprovider.ConfiguredDamLinkFromListImageProviderDefinition</implementation>
+    </type-mapping>
+  </components>
+
+
+  <dependencies>
+    <dependency>
+      <name>core</name>
+      <version>${magnoliaVersion}/*</version>
+    </dependency>
+    <dependency>
+      <name>rendering</name>
+      <version>${magnoliaVersion}/*</version>
+    </dependency>
+    <dependency>
+      <name>ui-admincentral</name>
+      <version>${magnoliaUiVersion$}/*</version>
+    </dependency>
+    <dependency>
+      <name>dam-app</name>
+      <version>${damVersion}/*</version>
+    </dependency>
+    <dependency>
+      <name>categorization</name>
+      <version>${categorizationVersion}/*</version>
+    </dependency>
+    <dependency>
+      <name>site</name>
+      <version>${siteVersion}/*</version>
+    </dependency>
+    <dependency>
+      <name>travel-demo</name>
+      <version>${travel-demo-version}/*</version>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <name>magnolia</name>
+      <workspaces>
+        <workspace>cameracollection</workspace>
+      </workspaces>
+      <nodeTypeFile>/mgnl-nodetypes/camera-collection-nodetypes.xml</nodeTypeFile>
+    </repository>
+  </repositories>
+
+
+</module>

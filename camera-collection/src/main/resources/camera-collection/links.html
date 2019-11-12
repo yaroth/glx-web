@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Links</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="stylesheet" type="text/css" href="/magnoliaAuthor/.resources/mtk/css/normalize-3.0.3.css">
+    <link rel="stylesheet" type="text/css" href="/magnoliaAuthor/.resources/mtk/css/html5boilerplate-main-5.3.0.css">
+    <script src="/magnoliaAuthor/.resources/mtk/js/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+<h1>Links</h1>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+
+<h2>Request json from freemarker template</h2>
+<p>We assume there is a page node <code>/json</code> available which was made with the template <code>simple-json-provider</code>.</p>
+
+<div style="padding: 20px">
+
+    <!---->
+
+    <a href="http://localhost:8080/magnoliaAuthor/.resources/camera-collection-clients/angular/camera-collection.html?u=0">Angular example</a><br/>
+    <a href="http://localhost:8080/magnoliaAuthor/.resources/content-app-clients/angular/erics-cars.html?u=0">Erics cars</a><br/>
+    <br/><br/>
+
+
+
+    <h4>links to template based json provider</h4>
+    <table border="1">
+        <tr>
+            <td>base</td>
+            <td>    <a href="http://localhost:8080/magnoliaAuthor/json.html">/json.html</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json.json">/json.json</a><br/>
+            </td>
+        </tr>
+        <tr>
+            <td>service=default=<code>cameras</code>, uuid</td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/json?uuid=haz-no-such-uuid">/json?uuid=haz-no-such-uuid</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json?uuid=7e0940e1-9ac0-47e9-af45-52cbd2559a1a">/json?uuid=7e0940e1-9ac0-47e9-af45-52cbd2559a1a</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json/cameraById/7e0940e1-9ac0-47e9-af45-52cbd2559a1a">/json/cameraById/7e0940e1-9ac0-47e9-af45-52cbd2559a1a</a><br/>
+            </td>
+        </tr>
+        <tr>
+            <td>service=default=<code>cameras</code>, path</td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/json?path=haz-no-such-path">/json?path=haz-no-such-path</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json?path=/F3">/json?path=/F3</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json/cameras/F3">/json/cameras/F3</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json/cameras/Rolleiflex">/json/cameras/Rolleiflex</a><br/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>service=<code>allCameras</code></td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/json?service=allCameras">/json?service=allCameras</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json/allCameras">/json/allCameras</a>
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td>service=<code>makers</code>, uuid</td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/json?service=makers&uuid=haz-no-such-uuid">/json?service=makers&uuid=haz-no-such-uuid</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json?service=makers&uuid=723040c9-2f1b-4d88-8569-bbd9a57277cc">json?service=makers&uuid=723040c9-2f1b-4d88-8569-bbd9a57277cc</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json/makerById/723040c9-2f1b-4d88-8569-bbd9a57277cc">/json/makerById/723040c9-2f1b-4d88-8569-bbd9a57277cc</a><br/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>service=<code>makers</code>, path</td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/json?service=makers&path=/no-such-path">/json?service=makers&path=/no-such-path</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json?service=makers&path=/Polaroid">json?service=makers&path=/Polaroid</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json/makers/Polaroid">/json/makers/Polaroid</a><br/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>service=<code>allMakers</code></td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/json?service=allMakers">/json?service=allMakers</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/json/allMakers">/json/allMakers</a>
+            </td>
+        </tr>
+    </table>
+
+
+    <h4>links to the custom endpoint</h4>
+    <table border="1">
+        <tr>
+            <td>base</td>
+            <td>    <a href="http://localhost:8080/magnoliaAuthor/.rest/cameracollection/v1/.html">/.rest/cameracollection/v1/.html</a><br/>
+                <a href="http://localhost:8080/magnoliaAuthor/.rest/cameracollection/v1/.json">/.rest/cameracollection/v1/.json</a><br/>
+            </td>
+        </tr>
+        <tr>
+            <td>service=default=<code>cameras</code>, uuid</td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/.rest/cameracollection/v1/cameraById/7e0940e1-9ac0-47e9-af45-52cbd2559a1a">/.rest/cameracollection/v1/cameraById/7e0940e1-9ac0-47e9-af45-52cbd2559a1a</a><br/>
+            </td>
+        </tr>
+        <tr>
+            <td>service=default=<code>cameras</code>, path</td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/.rest/cameracollection/v1/cameras/F3">/.rest/cameracollection/v1/cameras/F3</a><br/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>service=<code>allCameras</code></td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/.rest/cameracollection/v1/allCameras">/.rest/cameracollection/v1/allCameras</a>
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td>service=<code>makers</code>, uuid</td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/.rest/cameracollection/v1/makerById/723040c9-2f1b-4d88-8569-bbd9a57277cc">/.rest/cameracollection/v1/makerById/723040c9-2f1b-4d88-8569-bbd9a57277cc</a><br/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>service=<code>makers</code>, path</td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/.rest/cameracollection/v1/makers/Polaroid">/.rest/cameracollection/v1/makers/Polaroid</a><br/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>service=<code>allMakers</code></td>
+            <td>
+                <a href="http://localhost:8080/magnoliaAuthor/.rest/cameracollection/v1/allMakers">/.rest/cameracollection/v1/allMakers</a><br/>
+            </td>
+        </tr>
+    </table>
+
+
+
+</div>
+
+
+
+<h4>Sources</h4>
+<div>
+    json validator: <a href="http://jsonlint.com/">jsonlint.com</a>
+</div>
+
+
+
+</body>
+</html>

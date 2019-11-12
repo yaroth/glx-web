@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="X100t" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:camera</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>dc1d1da8-429b-4f57-be52-493d41df18a6</sv:value>
+  </sv:property>
+  <sv:property sv:name="categories" sv:type="String" sv:multiple="true">
+    <sv:value>636e9e44-ee95-44d2-b325-df7eb3a4fefc</sv:value>
+    <sv:value>df2eb333-c91c-4de2-aabb-ceb7016b2327</sv:value>
+  </sv:property>
+  <sv:property sv:name="description" sv:type="String">
+    <sv:value>&lt;p&gt;&amp;quot;The World&amp;#39;s Best Digital Camera.&amp;nbsp;&lt;br /&gt;
+The World&amp;#39;s Quietest Camera&lt;br /&gt;
+World&amp;#39;s Fastest Adjustable Shutter&lt;br /&gt;
+The Pro&amp;#39;s Fun Camera&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;(Ken Rockwell)&lt;/p&gt;
+</sv:value>
+  </sv:property>
+  <sv:property sv:name="images" sv:type="String" sv:multiple="true">
+    <sv:value>jcr:a08d8a99-62dd-4470-a14d-14b9b5dc50b9</sv:value>
+    <sv:value>jcr:32f393e1-7996-4065-b169-c060cddd2923</sv:value>
+    <sv:value>jcr:bd66bb5a-f8e4-4298-b825-01068c764f4f</sv:value>
+    <sv:value>jcr:e2ac1560-abbd-48d4-bbb5-f4b44e25c26a</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
+  </sv:property>
+  <sv:property sv:name="maker" sv:type="String">
+    <sv:value>d639131d-9d77-4e4c-bac9-862de6f3c56c</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2016-02-29T00:44:10.546+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2016-03-11T15:01:29.649+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="name" sv:type="String">
+    <sv:value>X100t</sv:value>
+  </sv:property>
+  <sv:property sv:name="name_de" sv:type="String">
+    <sv:value>X100t</sv:value>
+  </sv:property>
+</sv:node>

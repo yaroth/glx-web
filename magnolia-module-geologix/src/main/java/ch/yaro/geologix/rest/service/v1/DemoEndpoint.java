@@ -8,29 +8,36 @@ import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.rest.AbstractEndpoint;
 import info.magnolia.rest.EndpointDefinition;
 import info.magnolia.rest.registry.ConfiguredEndpointDefinition;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.jcr.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 import info.magnolia.module.categorization.CategorizationModule;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 
-
+/**
+ * A REST endpoint producing json for content app items.<br/>
+ * For the moment only providing GET methods.
+ *
+ * @param <D> the ConfiguredEndpointDefinition.
+ */
 @Api(value = "/demo/v1", description = "The demo endpoint")
 @Path("/demo/v1")
-public class DemoEndpoint<D extends EndpointDefinition> extends AbstractEndpoint<D> {
-//public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends AbstractEndpoint<D> {
+//public class DemoEndpoint<D extends EndpointDefinition> extends AbstractEndpoint<D> {
+public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends AbstractEndpoint<D> {
 
     private static final String STATUS_MESSAGE_OK = "OK";
     private static final String STATUS_MESSAGE_UNAUTHORIZED = "Unauthorized";
@@ -40,18 +47,18 @@ public class DemoEndpoint<D extends EndpointDefinition> extends AbstractEndpoint
     private static final String STATUS_MESSAGE_BAD_REQUEST = "Bad request";
 
     private static final Logger log = LoggerFactory.getLogger(EndpointDefinition.class);
-//    private final BlsPojoService blsPojoService;
+    private final BlsPojoService blsPojoService;
 
-    public DemoEndpoint(D endpointDefinition) {
-        super(endpointDefinition);
-//        this.blsPojoService = new BlsPojoService();
-    }
-
-//    @Inject
-//    public DemoEndpoint(BlsPojoService blsPojoService, final D endpointDefinition) {
+//    public DemoEndpoint(D endpointDefinition) {
 //        super(endpointDefinition);
-//        this.blsPojoService = blsPojoService;
+////        this.blsPojoService = new BlsPojoService();
 //    }
+
+    @Inject
+    public DemoEndpoint(BlsPojoService blsPojoService, final D endpointDefinition) {
+        super(endpointDefinition);
+        this.blsPojoService = blsPojoService;
+    }
 
     @Path("/zugservices")
     @Consumes({MediaType.APPLICATION_JSON})

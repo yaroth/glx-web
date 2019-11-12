@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="EOS-5D-Mark-III" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:camera</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>245b0f78-39db-43f9-a433-884ce0d7c2a4</sv:value>
+  </sv:property>
+  <sv:property sv:name="categories" sv:type="String" sv:multiple="true">
+    <sv:value>636e9e44-ee95-44d2-b325-df7eb3a4fefc</sv:value>
+    <sv:value>13e84bb3-6335-4710-92a6-a7f3b27a2e08</sv:value>
+  </sv:property>
+  <sv:property sv:name="images" sv:type="String" sv:multiple="true">
+    <sv:value>jcr:e9cc03ee-d87a-429f-ba64-0baa408359d3</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
+  </sv:property>
+  <sv:property sv:name="maker" sv:type="String">
+    <sv:value>996b99a6-3410-49ee-b7c2-8860284675d1</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2016-03-11T11:26:05.589+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2016-04-10T03:33:24.051+02:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="name" sv:type="String">
+    <sv:value>EOS 5D Mark III</sv:value>
+  </sv:property>
+</sv:node>

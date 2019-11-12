@@ -52,6 +52,13 @@
             </dependency>
 
             <dependency>
+                <groupId>info.magnolia.documentation</groupId>
+                <artifactId>camera-collection</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>info.magnolia.rest</groupId>
                 <artifactId>magnolia-rest-tools</artifactId>
                 <version>2.1.1</version>
@@ -132,5 +139,6 @@
     <modules>
         <module>geologix-webapp</module>
         <module>magnolia-module-geologix</module>
+        <module>camera-collection</module>
     </modules>
 </project>

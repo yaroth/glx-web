@@ -90,8 +90,8 @@
         </supertypes>
     </nodeType>
 
-    <!-- Sitzplan (Wagen mit Sitzanordnung)  -->
-    <nodeType name="sitzplan" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
+    <!-- Wagenplan (Wagen mit Sitzanordnung)  -->
+    <nodeType name="wagenplan" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
         <supertypes>
             <supertype>mgnl:content</supertype>
         </supertypes>

@@ -8,11 +8,11 @@ subApps:
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
     label: Wagenpläne
     actions:
-      addSitzplan:
+      addWagenplan:
         subAppId: detail
-        label: Add Sitzplan
+        label: Add Wagenplan
         icon: icon-add-item
-        nodeType: sitzplan
+        nodeType: wagenplan
         appName: wagenplaene
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
@@ -23,9 +23,9 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      editSitzplan:
+      editWagenplan:
         subAppId: detail
-        label: Edit Sitzplan
+        label: Edit Wagenplan
         icon: icon-edit
         appName: wagenplaene
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
@@ -35,7 +35,7 @@ subApps:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
           nodeTypes:
-            sitzplan: sitzplan
+            wagenplan: wagenplan
       move:
         icon: icon-move
         class: info.magnolia.ui.contentapp.movedialog.action.OpenMoveDialogActionDefinition
@@ -67,10 +67,10 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      renameSitzplan:
+      renameWagenplan:
         icon: icon-edit
-        label: Rename Sitzplan Item
-        dialogName: sitzplan:renameSitzplan
+        label: Rename Wagenplan Item
+        dialogName: wagenplan:renameWagenplan
         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
         availability:
           writePermissionRequired: true
@@ -185,14 +185,14 @@ subApps:
               implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
 
     actionbar:
-      defaultAction: editSitzplan
+      defaultAction: editWagenplan
       sections:
         - name: root
           label: Root
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
+                - name: addWagenplan
                 - name: addFolder
             - name: importExportActions
               items:
@@ -200,16 +200,16 @@ subApps:
           availability:
             nodes: false
             root: true
-        - name: deletedSitzplan
+        - name: deletedWagenplan
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
+                - name: addWagenplan
                 - name: confirmDeleteNews
             - name: editActions
               items:
-                - name: editSitzplan
-                - name: renameSitzplan
+                - name: editWagenplan
+                - name: renameWagenplan
             - name: activationActions
               items:
                 - name: activateDeleted
@@ -222,7 +222,7 @@ subApps:
                 - name: restorePreviousVersion
           availability:
             nodeTypes:
-              sitzplan: sitzplan
+              wagenplan: wagenplan
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
@@ -230,7 +230,7 @@ subApps:
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
+                - name: addWagenplan
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -253,17 +253,17 @@ subApps:
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-        - name: sitzplan
-          label: Sitzplan
+        - name: wagenplan
+          label: Wagenplan
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
+                - name: addWagenplan
                 - name: confirmDeleteNews
             - name: editActions
               items:
-                - name: editSitzplan
-                - name: renameSitzplan
+                - name: editWagenplan
+                - name: renameWagenplan
                 - name: move
             - name: activationActions
               items:
@@ -278,12 +278,12 @@ subApps:
                 - name: restoreVersion
           availability:
             nodeTypes:
-              sitzplan: sitzplan
+              wagenplan: wagenplan
         - name: folder
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
+                - name: addWagenplan
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -369,7 +369,7 @@ subApps:
       defaultOrder: jcrName
       nodeTypes:
         - icon: icon-categories
-          name: sitzplan
+          name: wagenplan
         - icon: icon-folder-l
           name: mgnl:folder
 
@@ -379,7 +379,7 @@ subApps:
     editor:
       nodeType:
         icon: icon-node-content
-        name: sitzplan
+        name: wagenplan
       actions:
         - name: commit
         - name: cancel
@@ -470,7 +470,7 @@ subApps:
       rootPath: /wagenplaene
       nodeTypes:
         - icon: icon-categories
-          name: sitzplan
+          name: wagenplan
           strict: true
         - icon: icon-folder-l
           name: mgnl:folder

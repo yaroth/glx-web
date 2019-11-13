@@ -1,4 +1,4 @@
-label: Wägen
+label: Reservationen
 icon: icon-contents
 appClass: info.magnolia.ui.contentapp.ContentApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
@@ -6,14 +6,14 @@ subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
-    label: Wägen
+    label: Reservation
     actions:
-      addWagen:
+      addReservation:
         subAppId: detail
-        label: Add Wagen
+        label: Add Reservation
         icon: icon-add-item
-        nodeType: wagen
-        appName: wagen
+        nodeType: reservation
+        appName: reservationen
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -23,11 +23,11 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      editWagen:
+      editReservation:
         subAppId: detail
-        label: Edit Wagen
+        label: Edit Reservation
         icon: icon-edit
-        appName: wagen
+        appName: reservationen
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -35,7 +35,7 @@ subApps:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
           nodeTypes:
-            wagen: wagen
+            reservation: reservation
       move:
         icon: icon-move
         class: info.magnolia.ui.contentapp.movedialog.action.OpenMoveDialogActionDefinition
@@ -67,10 +67,10 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      renameWagen:
+      renameReservation:
         icon: icon-edit
-        label: Rename Wagen Item
-        dialogName: wagen:renameWagen
+        label: Rename Reservation Item
+        dialogName: reservation:renameReservation
         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
         availability:
           writePermissionRequired: true
@@ -137,7 +137,7 @@ subApps:
           rules:
             - name: IsDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-      confirmDeleteWagen:
+      confirmDeleteReservation:
         successActionName: delete
         label: Delete
         icon: icon-delete
@@ -185,14 +185,14 @@ subApps:
               implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
 
     actionbar:
-      defaultAction: editWagen
+      defaultAction: editReservation
       sections:
         - name: root
           label: Root
           groups:
             - name: addActions
               items:
-                - name: addWagen
+                - name: addReservation
                 - name: addFolder
             - name: importExportActions
               items:
@@ -200,16 +200,16 @@ subApps:
           availability:
             nodes: false
             root: true
-        - name: deletedWagen
+        - name: deletedReservation
           groups:
             - name: addActions
               items:
-                - name: addWagen
-                - name: confirmDeleteWagen
+                - name: addReservation
+                - name: confirmDeleteReservation
             - name: editActions
               items:
-                - name: editWagen
-                - name: renameWagen
+                - name: editReservation
+                - name: renameReservation
             - name: activationActions
               items:
                 - name: activateDeleted
@@ -222,7 +222,7 @@ subApps:
                 - name: restorePreviousVersion
           availability:
             nodeTypes:
-              wagen: wagen
+              reservation: reservation
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
@@ -230,7 +230,7 @@ subApps:
           groups:
             - name: addActions
               items:
-                - name: addWagen
+                - name: addReservation
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -253,17 +253,17 @@ subApps:
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-        - name: wagen
-          label: Wagen
+        - name: reservation
+          label: Reservation
           groups:
             - name: addActions
               items:
-                - name: addWagen
-                - name: confirmDeleteWagen
+                - name: addReservation
+                - name: confirmDeleteReservation
             - name: editActions
               items:
-                - name: editWagen
-                - name: renameWagen
+                - name: editReservation
+                - name: renameReservation
                 - name: move
             - name: activationActions
               items:
@@ -278,12 +278,12 @@ subApps:
                 - name: restoreVersion
           availability:
             nodeTypes:
-              wagen: wagen
+              reservation: reservation
         - name: folder
           groups:
             - name: addActions
               items:
-                - name: addWagen
+                - name: addReservation
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -353,16 +353,16 @@ subApps:
           class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
           columns: *myColumns
     imageProvider:
-     class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
-     damLinkPropertyName: image
+      class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
+      damLinkPropertyName: image
     contentConnector:
       includeProperties: false
-      workspace: wagen
+      workspace: reservation
       rootPath: /
       defaultOrder: jcrName
       nodeTypes:
         - icon: icon-contents
-          name: wagen
+          name: reservation
         - icon: icon-folder-l
           name: mgnl:folder
 
@@ -372,43 +372,66 @@ subApps:
     editor:
       nodeType:
         icon: icon-node-content
-        name: wagen
+        name: reservation
       actions:
         - name: commit
         - name: cancel
       form:
         tabs:
-          - name: wagen
-            label: Wagen detail
+          - name: reservation
+            label: Reservation detail
             fields:
               - name: jcrName
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 i18n: false
-              - name: number
-                label: Nummer
-                i18n: true
+              - name: firstname
+                label: Vorname
+                required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: sitzplan
-                label: Sitzplan
+                i18n: false
+              - name: lastname
+                label: Nachname
+                required: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                i18n: false
+              - name: birthdate
+                label: Geburtsdatum
+                fieldType: date
+                time: false
+              - name: zugservice
+                label: Zugservice
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: category
-                targetTreeRootPath: /sitzplan
-                appName: sitzplan
+                targetWorkspace: zugservices
+                targetTreeRootPath: /
+                appName: zugservices
                 identifierToPathConverter:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              - name: wagentyp
-                label: Wagentyp
-                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
-                field:
-                  name: linkField
-                  class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                  targetWorkspace: category
-                  targetTreeRootPath: /wagentyp
-                  appName: wagentyp
-                  identifierToPathConverter:
-                    class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+              - name: wagen
+                label: Wagen
+                i18n: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: Sitz
+                label: Sitz
+                i18n: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: start
+                label: Von
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: haltestelle
+                targetTreeRootPath: /
+                appName: haltestellen
+                identifierToPathConverter:
+                  class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+              - name: stop
+                label: Bis
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: haltestelle
+                targetTreeRootPath: /
+                appName: haltestellen
+                identifierToPathConverter:
+                  class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
 
 
     actions:
@@ -419,11 +442,11 @@ subApps:
         class: info.magnolia.ui.form.action.CancelFormActionDefinition
 
     contentConnector:
-      workspace: wagen
+      workspace: reservation
       rootPath: /
       nodeTypes:
         - icon: icon-contents
-          name: wagen
+          name: reservation
           strict: true
         - icon: icon-folder-l
           name: mgnl:folder

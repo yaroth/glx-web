@@ -28,6 +28,7 @@ package ch.yaro.geologix.rest.pojos;
 
 import info.magnolia.context.MgnlContext;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
+import info.magnolia.jcr.predicate.AbstractPredicate;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.jcr.wrapper.I18nNodeWrapper;
@@ -59,6 +60,72 @@ public class BlsPojoService {
         this.cmsfn = cmsfn;
     }
 
+    /**
+     * Returns a list of all {@link Wagen} POJOs.
+     */
+    public List<Wagen> getAllWagen() throws RepositoryException {
+        Session session = MgnlContext.getJCRSession(Wagen.WORKSPACE);
+        Node wagenRootNode = session.getNode(Wagen.BASEPATH);
+        List<Wagen> wagenList = new ArrayList<>();
+        Iterable<Node> nodes = NodeUtil.collectAllChildren(wagenRootNode, WAGEN_FILTER);
+        if (nodes != null) {
+            for (Node node : nodes) {
+                Wagen wagen = getWagenByNode(node);
+                if (wagen != null) {
+                    wagenList.add(wagen);
+                }
+            }
+        }
+        return wagenList;
+    }
+
+
+    /**
+     * Returns a {@link Wagen} POJO by a given {@link Node}.
+     */
+    public Wagen getWagenByNode(Node node) throws RepositoryException {
+        if (node == null || !Wagen.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Wagen wagen = createBasicNodeItem(node, Wagen.class);
+
+        String wagenNumber = PropertyUtil.getString(node, Wagen.NUMBER, "");
+        wagen.setNumber(wagenNumber);
+
+        // TODO: return URL of image in dam -> to be used by VueJS
+        wagen.setSitzplan(PropertyUtil.getString(node, Wagen.SITZPLAN, ""));
+
+        // TODO: return Names of Wagentyp, NOT UUIDs!
+        List<String> wagentypList = getPropertyValuesList(node, Wagen.WAGENTYP);
+        wagen.setWagentyp(wagentypList);
+
+        return wagen;
+    }
+
+    /**
+     * Returns a {@link Wagen} POJO by a given {@link Node}.
+     * TODO: make this return a list of train services!
+     */
+    public Wagen getTrainServices(TrainServiceRequest trainServiceRequest) throws RepositoryException {
+        Session session = MgnlContext.getJCRSession(Wagen.WORKSPACE);
+        Node node = session.getNodeByIdentifier("8989382e-4016-4d9d-9ff7-1b5cd71ca42c");
+        if (node == null || !Wagen.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Wagen wagen = createBasicNodeItem(node, Wagen.class);
+
+        String wagenNumber = PropertyUtil.getString(node, Wagen.NUMBER, "");
+        wagen.setNumber(wagenNumber);
+
+        // TODO: return URL of image in dam -> to be used by VueJS
+        wagen.setSitzplan(PropertyUtil.getString(node, Wagen.SITZPLAN, ""));
+
+        // TODO: return Names of Wagentyp, NOT UUIDs!
+        List<String> wagentypList = getPropertyValuesList(node, Wagen.WAGENTYP);
+        wagen.setWagentyp(wagentypList);
+
+        return wagen;
+    }
 
 
     /**
@@ -157,6 +224,18 @@ public class BlsPojoService {
         return result;
     }
 
-
+    /** Prädikat, das true zurückgibt, wenn der NodeType dem WagenNodeType entspricht. */
+    private static AbstractPredicate<Node> WAGEN_FILTER = new AbstractPredicate<Node>() {
+        @Override
+        public boolean evaluateTyped(Node node) {
+            try {
+                String nodeTypeName = node.getPrimaryNodeType().getName();
+                return nodeTypeName.equals(Wagen.NODETYPE);
+            } catch (RepositoryException e) {
+                log.error("Unable to read nodeType for node {}", NodeUtil.getNodePathIfPossible(node));
+            }
+            return false;
+        }
+    };
 
 }

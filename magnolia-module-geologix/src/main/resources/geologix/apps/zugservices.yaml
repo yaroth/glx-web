@@ -1,19 +1,19 @@
-label: Reservation
-icon: icon-contents
+label: Zugservices
+icon: icon-jcr-app
 appClass: info.magnolia.ui.contentapp.ContentApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
-    label: Reservation
+    label: Zugservices
     actions:
-      addReservation:
+      addZugservice:
         subAppId: detail
-        label: Add Reservation
+        label: Add Zugservice
         icon: icon-add-item
-        nodeType: reservation
-        appName: reservation
+        nodeType: zugservice
+        appName: zugservices
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -23,11 +23,11 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      editReservation:
+      editZugservice:
         subAppId: detail
-        label: Edit Reservation
+        label: Edit Zugservice
         icon: icon-edit
-        appName: reservation
+        appName: zugservices
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -35,7 +35,7 @@ subApps:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
           nodeTypes:
-            reservation: reservation
+            zugservice: zugservice
       move:
         icon: icon-move
         class: info.magnolia.ui.contentapp.movedialog.action.OpenMoveDialogActionDefinition
@@ -67,10 +67,10 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      renameReservation:
+      renameZugservice:
         icon: icon-edit
-        label: Rename Reservation Item
-        dialogName: reservation:renameReservation
+        label: Rename Zugservice Item
+        dialogName: zugservice:renameZugservice
         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
         availability:
           writePermissionRequired: true
@@ -137,7 +137,7 @@ subApps:
           rules:
             - name: IsDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-      confirmDeleteReservation:
+      confirmDeleteZugservice:
         successActionName: delete
         label: Delete
         icon: icon-delete
@@ -185,14 +185,14 @@ subApps:
               implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
 
     actionbar:
-      defaultAction: editReservation
+      defaultAction: editZugservice
       sections:
         - name: root
           label: Root
           groups:
             - name: addActions
               items:
-                - name: addReservation
+                - name: addZugservice
                 - name: addFolder
             - name: importExportActions
               items:
@@ -200,16 +200,16 @@ subApps:
           availability:
             nodes: false
             root: true
-        - name: deletedReservation
+        - name: deletedZugservice
           groups:
             - name: addActions
               items:
-                - name: addReservation
-                - name: confirmDeleteReservation
+                - name: addZugservice
+                - name: confirmDeleteZugservice
             - name: editActions
               items:
-                - name: editReservation
-                - name: renameReservation
+                - name: editZugservice
+                - name: renameZugservice
             - name: activationActions
               items:
                 - name: activateDeleted
@@ -222,7 +222,7 @@ subApps:
                 - name: restorePreviousVersion
           availability:
             nodeTypes:
-              reservation: reservation
+              zugservice: zugservice
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
@@ -230,7 +230,7 @@ subApps:
           groups:
             - name: addActions
               items:
-                - name: addReservation
+                - name: addZugservice
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -253,17 +253,17 @@ subApps:
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-        - name: reservation
-          label: Reservation
+        - name: zugservice
+          label: Zugservice
           groups:
             - name: addActions
               items:
-                - name: addReservation
-                - name: confirmDeleteReservation
+                - name: addZugservice
+                - name: confirmDeleteZugservice
             - name: editActions
               items:
-                - name: editReservation
-                - name: renameReservation
+                - name: editZugservice
+                - name: renameZugservice
                 - name: move
             - name: activationActions
               items:
@@ -278,12 +278,12 @@ subApps:
                 - name: restoreVersion
           availability:
             nodeTypes:
-              reservation: reservation
+              zugservice: zugservice
         - name: folder
           groups:
             - name: addActions
               items:
-                - name: addReservation
+                - name: addZugservice
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -325,11 +325,25 @@ subApps:
               propertyName: jcrName
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: number
-              label: Nummer
+            - name: name
+              label: Name
               editable: true
               sortable: true
-              propertyName: number
+              propertyName: name
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: strecke
+              label: Strecke
+              editable: true
+              sortable: true
+              propertyName: strecke
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: zugkomposition
+              label: Zugkomposition
+              editable: true
+              sortable: true
+              propertyName: zugkomposition
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
@@ -353,16 +367,16 @@ subApps:
           class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
           columns: *myColumns
     imageProvider:
-      class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
-      damLinkPropertyName: image
+     class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
+     damLinkPropertyName: image
     contentConnector:
       includeProperties: false
-      workspace: reservation
+      workspace: zugservices
       rootPath: /
       defaultOrder: jcrName
       nodeTypes:
-        - icon: icon-contents
-          name: reservation
+        - icon: icon-jcr-app
+          name: zugservice
         - icon: icon-folder-l
           name: mgnl:folder
 
@@ -370,69 +384,48 @@ subApps:
     subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
     class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
     editor:
+      wide: true
       nodeType:
-        icon: icon-node-content
-        name: reservation
+        icon: icon-jcr-app
+        name: zugservice
       actions:
         - name: commit
         - name: cancel
       form:
         tabs:
-          - name: reservation
-            label: Reservation detail
+          - name: zugservice
+            label: Zugservice detail
             fields:
               - name: jcrName
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 i18n: false
-              - name: prename
-                label: Vorname
-                required: true
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
-              - name: lastname
-                label: Nachname
-                required: true
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
-              - name: birthdate
-                label: Geburtsdatum
-                fieldType: date
-                time: false
-              - name: zugservice
-                label: Zugservice
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: zugservices
-                targetTreeRootPath: /
-                appName: zugservice
-                identifierToPathConverter:
-                  class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              - name: wagen
-                label: Wagen
-                i18n: true
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: Sitz
-                label: Sitz
-                i18n: true
+              - name: name
+                label: Name
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: start
-                label: Von
+                label: Abfahrtszeit
+                fieldType: date
+                time: true
+              - name: strecke
+                label: Strecke
+                description: Strecke wählen
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: haltestelle
+                targetWorkspace: strecken
                 targetTreeRootPath: /
-                appName: haltestellen
+                appName: strecken
                 identifierToPathConverter:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              - name: stop
-                label: Bis
+              - name: zugkomposition
+                label: Zugkomposition
+                description: Zugkomposition wählen
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: haltestelle
+                targetWorkspace: zugkompositionen
                 targetTreeRootPath: /
-                appName: haltestellen
+                appName: zugkompositionen
                 identifierToPathConverter:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-
 
     actions:
       commit:
@@ -442,11 +435,11 @@ subApps:
         class: info.magnolia.ui.form.action.CancelFormActionDefinition
 
     contentConnector:
-      workspace: reservation
+      workspace: zugservices
       rootPath: /
       nodeTypes:
-        - icon: icon-contents
-          name: reservation
+        - icon: icon-jcr-app
+          name: zugservice
           strict: true
         - icon: icon-folder-l
           name: mgnl:folder

@@ -6,14 +6,14 @@ subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
-    label: Wagentyp
+    label: Wagentypen
     actions:
       addWagentyp:
         subAppId: detail
         label: Add Wagentyp
         icon: icon-add-item
         nodeType: wagentyp
-        appName: wagentyp
+        appName: wagentypen
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -27,7 +27,7 @@ subApps:
         subAppId: detail
         label: Edit Wagentyp
         icon: icon-edit
-        appName: wagentyp
+        appName: wagentypen
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -358,7 +358,7 @@ subApps:
     contentConnector:
       includeProperties: false
       workspace: category
-      rootPath: /wagentyp
+      rootPath: /wagentypen
       defaultOrder: jcrName
       nodeTypes:
         - icon: icon-categories
@@ -400,7 +400,7 @@ subApps:
 
     contentConnector:
       workspace: category
-      rootPath: /wagentyp
+      rootPath: /wagentypen
       nodeTypes:
         - icon: icon-categories
           name: wagentyp

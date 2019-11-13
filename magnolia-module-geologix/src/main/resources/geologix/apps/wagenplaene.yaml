@@ -1,19 +1,19 @@
-label: Zugservices
-icon: icon-jcr-app
+label: Wagenpläne
+icon: icon-checkbox_on
 appClass: info.magnolia.ui.contentapp.ContentApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
-    label: Zugservices
+    label: Wagenpläne
     actions:
-      addZugservice:
+      addSitzplan:
         subAppId: detail
-        label: Add Zugservice
+        label: Add Sitzplan
         icon: icon-add-item
-        nodeType: zugservice
-        appName: zugservice
+        nodeType: sitzplan
+        appName: wagenplaene
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -23,11 +23,11 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      editZugservice:
+      editSitzplan:
         subAppId: detail
-        label: Edit Zugservice
+        label: Edit Sitzplan
         icon: icon-edit
-        appName: zugservice
+        appName: wagenplaene
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -35,7 +35,7 @@ subApps:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
           nodeTypes:
-            zugservice: zugservice
+            sitzplan: sitzplan
       move:
         icon: icon-move
         class: info.magnolia.ui.contentapp.movedialog.action.OpenMoveDialogActionDefinition
@@ -67,10 +67,10 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      renameZugservice:
+      renameSitzplan:
         icon: icon-edit
-        label: Rename Zugservice Item
-        dialogName: zugservice:renameZugservice
+        label: Rename Sitzplan Item
+        dialogName: sitzplan:renameSitzplan
         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
         availability:
           writePermissionRequired: true
@@ -137,7 +137,7 @@ subApps:
           rules:
             - name: IsDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-      confirmDeleteZugservice:
+      confirmDeleteNews:
         successActionName: delete
         label: Delete
         icon: icon-delete
@@ -185,14 +185,14 @@ subApps:
               implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
 
     actionbar:
-      defaultAction: editZugservice
+      defaultAction: editSitzplan
       sections:
         - name: root
           label: Root
           groups:
             - name: addActions
               items:
-                - name: addZugservice
+                - name: addSitzplan
                 - name: addFolder
             - name: importExportActions
               items:
@@ -200,16 +200,16 @@ subApps:
           availability:
             nodes: false
             root: true
-        - name: deletedZugservice
+        - name: deletedSitzplan
           groups:
             - name: addActions
               items:
-                - name: addZugservice
-                - name: confirmDeleteZugservice
+                - name: addSitzplan
+                - name: confirmDeleteNews
             - name: editActions
               items:
-                - name: editZugservice
-                - name: renameZugservice
+                - name: editSitzplan
+                - name: renameSitzplan
             - name: activationActions
               items:
                 - name: activateDeleted
@@ -222,7 +222,7 @@ subApps:
                 - name: restorePreviousVersion
           availability:
             nodeTypes:
-              zugservice: zugservice
+              sitzplan: sitzplan
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
@@ -230,7 +230,7 @@ subApps:
           groups:
             - name: addActions
               items:
-                - name: addZugservice
+                - name: addSitzplan
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -253,17 +253,17 @@ subApps:
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-        - name: zugservice
-          label: Zugservice
+        - name: sitzplan
+          label: Sitzplan
           groups:
             - name: addActions
               items:
-                - name: addZugservice
-                - name: confirmDeleteZugservice
+                - name: addSitzplan
+                - name: confirmDeleteNews
             - name: editActions
               items:
-                - name: editZugservice
-                - name: renameZugservice
+                - name: editSitzplan
+                - name: renameSitzplan
                 - name: move
             - name: activationActions
               items:
@@ -278,12 +278,12 @@ subApps:
                 - name: restoreVersion
           availability:
             nodeTypes:
-              zugservice: zugservice
+              sitzplan: sitzplan
         - name: folder
           groups:
             - name: addActions
               items:
-                - name: addZugservice
+                - name: addSitzplan
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -325,25 +325,18 @@ subApps:
               propertyName: jcrName
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: name
-              label: Name
+            - name: code
+              label: Code
               editable: true
               sortable: true
-              propertyName: name
+              propertyName: code
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: strecke
-              label: Strecke
+            - name: description
+              label: Description
               editable: true
               sortable: true
-              propertyName: strecke
-              expandRatio: 1.0
-              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: zugkomposition
-              label: Zugkomposition
-              editable: true
-              sortable: true
-              propertyName: zugkomposition
+              propertyName: description
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
@@ -371,12 +364,12 @@ subApps:
      damLinkPropertyName: image
     contentConnector:
       includeProperties: false
-      workspace: zugservices
-      rootPath: /
+      workspace: category
+      rootPath: /wagenplaene
       defaultOrder: jcrName
       nodeTypes:
-        - icon: icon-jcr-app
-          name: zugservice
+        - icon: icon-categories
+          name: sitzplan
         - icon: icon-folder-l
           name: mgnl:folder
 
@@ -384,48 +377,86 @@ subApps:
     subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
     class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
     editor:
-      wide: true
       nodeType:
-        icon: icon-jcr-app
-        name: zugservice
+        icon: icon-node-content
+        name: sitzplan
       actions:
         - name: commit
         - name: cancel
       form:
         tabs:
-          - name: zugservice
-            label: Zugservice detail
+          - name: Wagenplan
+            label: Wagenplan detail
             fields:
               - name: jcrName
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 i18n: false
-              - name: name
-                label: Name
+              - name: code
+                label: Code
+                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: start
-                label: Abfahrtszeit
-                fieldType: date
-                time: true
-              - name: strecke
-                label: Strecke
-                description: Strecke wählen
+              - name: description
+                label: Description
+                i18n: true
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: image
+                label: Wagenplan
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: strecken
-                targetTreeRootPath: /
-                appName: strecke
+                targetWorkspace: dam
+                appName: assets
                 identifierToPathConverter:
-                  class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              - name: zugkomposition
-                label: Zugkomposition
-                description: Zugkomposition wählen
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: zugkompositionen
-                targetTreeRootPath: /
-                appName: zugkomposition
-                identifierToPathConverter:
-                  class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+              - name: sitze
+                label: Sitze
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
+                field:
+                  name: seat
+                  fieldType: composite
+                  transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+                  label: Sitz
+                  fields:
+                    - name: id
+                      label: ID
+                      fieldType: text
+                      maxLength: 10
+                    - name: class
+                      label: Klasse
+                      fieldType: optionGroup
+                      type: String
+                      options:
+                        - name: 1
+                          label: 1.
+                        - name: 2
+                          label: 2.
+                          selected: true
+                    - name: options
+                      label: Eigenschaften
+                      fieldType: optionGroup
+                      type: String
+                      multiselect: true
+                      options:
+                        - name: 220V
+                          label: 220V Anschluss
+                          selected: true
+                        - name: table
+                          label: Tisch
+                    - name: location
+                      label: Position
+                      fieldType: optionGroup
+                      type: String
+                      options:
+                        - name: fenster
+                          label: Fenster
+                        - name: gang
+                          label: Gang
+                        - name: mitte
+                          label: Mitte
+
 
     actions:
       commit:
@@ -435,11 +466,11 @@ subApps:
         class: info.magnolia.ui.form.action.CancelFormActionDefinition
 
     contentConnector:
-      workspace: zugservices
-      rootPath: /
+      workspace: category
+      rootPath: /wagenplaene
       nodeTypes:
-        - icon: icon-jcr-app
-          name: zugservice
+        - icon: icon-categories
+          name: sitzplan
           strict: true
         - icon: icon-folder-l
           name: mgnl:folder

@@ -1,19 +1,19 @@
-label: Sitzpläne
-icon: icon-checkbox_on
+label: Wägen
+icon: icon-contents
 appClass: info.magnolia.ui.contentapp.ContentApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
-    label: Sitzplan
+    label: Wägen
     actions:
-      addSitzplan:
+      addWagen:
         subAppId: detail
-        label: Add Sitzplan
+        label: Add Wagen
         icon: icon-add-item
-        nodeType: sitzplan
-        appName: sitzplan
+        nodeType: wagen
+        appName: waegen
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -23,11 +23,11 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      editSitzplan:
+      editWagen:
         subAppId: detail
-        label: Edit Sitzplan
+        label: Edit Wagen
         icon: icon-edit
-        appName: sitzplan
+        appName: waegen
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
         availability:
           writePermissionRequired: true
@@ -35,7 +35,7 @@ subApps:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
           nodeTypes:
-            news: sitzplan
+            wagen: wagen
       move:
         icon: icon-move
         class: info.magnolia.ui.contentapp.movedialog.action.OpenMoveDialogActionDefinition
@@ -67,10 +67,10 @@ subApps:
           rules:
             - name: IsNotDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
-      renameSitzplan:
+      renameWagen:
         icon: icon-edit
-        label: Rename Sitzplan Item
-        dialogName: sitzplan:renameSitzplan
+        label: Rename Wagen Item
+        dialogName: wagen:renameWagen
         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
         availability:
           writePermissionRequired: true
@@ -137,7 +137,7 @@ subApps:
           rules:
             - name: IsDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-      confirmDeleteNews:
+      confirmDeleteWagen:
         successActionName: delete
         label: Delete
         icon: icon-delete
@@ -185,14 +185,14 @@ subApps:
               implementationClass: info.magnolia.ui.framework.availability.HasVersionsRule
 
     actionbar:
-      defaultAction: editSitzplan
+      defaultAction: editWagen
       sections:
         - name: root
           label: Root
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
+                - name: addWagen
                 - name: addFolder
             - name: importExportActions
               items:
@@ -200,16 +200,16 @@ subApps:
           availability:
             nodes: false
             root: true
-        - name: deletedSitzplan
+        - name: deletedWagen
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
-                - name: confirmDeleteNews
+                - name: addWagen
+                - name: confirmDeleteWagen
             - name: editActions
               items:
-                - name: editSitzplan
-                - name: renameSitzplan
+                - name: editWagen
+                - name: renameWagen
             - name: activationActions
               items:
                 - name: activateDeleted
@@ -222,7 +222,7 @@ subApps:
                 - name: restorePreviousVersion
           availability:
             nodeTypes:
-              sitzplan: sitzplan
+              wagen: wagen
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
@@ -230,7 +230,7 @@ subApps:
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
+                - name: addWagen
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -253,17 +253,17 @@ subApps:
             rules:
               - name: IsDeletedRule
                 implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-        - name: sitzplan
-          label: Sitzplan
+        - name: wagen
+          label: Wagen
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
-                - name: confirmDeleteNews
+                - name: addWagen
+                - name: confirmDeleteWagen
             - name: editActions
               items:
-                - name: editSitzplan
-                - name: renameSitzplan
+                - name: editWagen
+                - name: renameWagen
                 - name: move
             - name: activationActions
               items:
@@ -278,12 +278,12 @@ subApps:
                 - name: restoreVersion
           availability:
             nodeTypes:
-              sitzplan: sitzplan
+              wagen: wagen
         - name: folder
           groups:
             - name: addActions
               items:
-                - name: addSitzplan
+                - name: addWagen
                 - name: addFolder
                 - name: confirmDeleteFolder
             - name: editActions
@@ -325,18 +325,11 @@ subApps:
               propertyName: jcrName
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: code
-              label: Code
+            - name: number
+              label: Nummer
               editable: true
               sortable: true
-              propertyName: code
-              expandRatio: 1.0
-              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: description
-              label: Description
-              editable: true
-              sortable: true
-              propertyName: description
+              propertyName: number
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
@@ -364,12 +357,12 @@ subApps:
      damLinkPropertyName: image
     contentConnector:
       includeProperties: false
-      workspace: category
-      rootPath: /sitzplan
+      workspace: wagen
+      rootPath: /
       defaultOrder: jcrName
       nodeTypes:
-        - icon: icon-categories
-          name: sitzplan
+        - icon: icon-contents
+          name: wagen
         - icon: icon-folder-l
           name: mgnl:folder
 
@@ -379,83 +372,43 @@ subApps:
     editor:
       nodeType:
         icon: icon-node-content
-        name: sitzplan
+        name: wagen
       actions:
         - name: commit
         - name: cancel
       form:
         tabs:
-          - name: Sitzplan
-            label: Sitzplan detail
+          - name: wagen
+            label: Wagen detail
             fields:
               - name: jcrName
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 i18n: false
-              - name: code
-                label: Code
+              - name: number
+                label: Nummer
                 i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: description
-                label: Description
-                i18n: true
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: image
-                label: Sitzplan
+              - name: wagenplan
+                label: Wagenplan
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: dam
-                appName: assets
+                targetWorkspace: category
+                targetTreeRootPath: /wagenplaene
+                appName: wagenplaene
                 identifierToPathConverter:
-                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-                contentPreviewDefinition:
-                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
-              - name: sitze
-                label: Sitze
+                  class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+              - name: wagentyp
+                label: Wagentyp
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
-                transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
                 field:
-                  name: seat
-                  fieldType: composite
-                  transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
-                  label: Sitz
-                  fields:
-                    - name: id
-                      label: ID
-                      fieldType: text
-                      maxLength: 10
-                    - name: class
-                      label: Klasse
-                      fieldType: optionGroup
-                      type: String
-                      options:
-                        - name: 1
-                          label: 1.
-                        - name: 2
-                          label: 2.
-                          selected: true
-                    - name: options
-                      label: Eigenschaften
-                      fieldType: optionGroup
-                      type: String
-                      multiselect: true
-                      options:
-                        - name: 220V
-                          label: 220V Anschluss
-                          selected: true
-                        - name: table
-                          label: Tisch
-                    - name: location
-                      label: Position
-                      fieldType: optionGroup
-                      type: String
-                      options:
-                        - name: fenster
-                          label: Fenster
-                        - name: gang
-                          label: Gang
-                        - name: mitte
-                          label: Mitte
+                  name: linkField
+                  class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                  targetWorkspace: category
+                  targetTreeRootPath: /wagentypen
+                  appName: wagentypen
+                  identifierToPathConverter:
+                    class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
 
 
     actions:
@@ -466,11 +419,11 @@ subApps:
         class: info.magnolia.ui.form.action.CancelFormActionDefinition
 
     contentConnector:
-      workspace: category
-      rootPath: /sitzplan
+      workspace: wagen
+      rootPath: /
       nodeTypes:
-        - icon: icon-categories
-          name: sitzplan
+        - icon: icon-contents
+          name: wagen
           strict: true
         - icon: icon-folder-l
           name: mgnl:folder

@@ -34,13 +34,10 @@ import java.util.UUID;
 public class NodeItem {
 
     private String uuid;
-    private String path;
-    private String nodeName;
-    private String workspace;
 
-    public NodeItem() {
-        uuid = UUID.randomUUID().toString();
-    }
+//    public NodeItem() {
+//        uuid = UUID.randomUUID().toString();
+//    }
 
 
     public String getUuid() {
@@ -51,27 +48,4 @@ public class NodeItem {
         this.uuid = uuid;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getNodeName() {
-        return nodeName;
-    }
-
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName;
-    }
-
-    public String getWorkspace() {
-        return workspace;
-    }
-
-    public void setWorkspace(String workspace) {
-        this.workspace = workspace;
-    }
 }

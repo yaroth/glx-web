@@ -62,7 +62,7 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
 
     @Path("/zugservices")
     @Consumes({MediaType.APPLICATION_JSON})
-    @PUT
+    @POST
     @Produces({MediaType.APPLICATION_JSON})
     @ApiOperation(value = "Get Zugservices providing departure time, departure and destination.")
     @ApiResponses(value = {
@@ -86,23 +86,49 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
         }
     }
 
-    @Path("/allwagen")
+    @Path("/reservation")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @ApiOperation(value = "Request reservation. Provide user, trainservice, waggon, seat number, from and to.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = STATUS_MESSAGE_OK),
+            @ApiResponse(code = 406, message = STATUS_MESSAGE_NOT_ACCEPTABLE),
+            @ApiResponse(code = 400, message = STATUS_MESSAGE_BAD_REQUEST)
+    })
+    public Response reservation(Reservation reservation) {
+        if (reservation != null) {
+            try {
+                log.info("Reservation request received: " + reservation);
+                ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
+                return Response.ok(reservationConfirmation).build();
+            } catch (Exception e) {
+                log.error("Failed !");
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            }
+        } else {
+            log.error("Failed! No Reservation provided");
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @Path("/getalltest")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Get all wagen.", notes = "Returns the list of all wagen objects.")
+    @ApiOperation(value = "Test endpoint.", notes = "No comment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = STATUS_MESSAGE_OK, response = List.class),
             @ApiResponse(code = 401, message = STATUS_MESSAGE_UNAUTHORIZED),
             @ApiResponse(code = 404, message = STATUS_MESSAGE_NODE_NOT_FOUND),
             @ApiResponse(code = 500, message = STATUS_MESSAGE_ERROR_OCCURRED)
     })
-    public Response getAllWagen() {
-        List<Wagen> result = null;
+    public Response getAllTest() {
+        List<Zugkomposition> result = null;
         try {
-            result = blsPojoService.getAllWagen();
+            result = blsPojoService.getAllZugkompositionen();
             return Response.ok(result).build();
         } catch (RepositoryException e) {
-            log.warn("Could not compute the list of all wagen.");
+            log.warn("Could not compute the request.");
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }

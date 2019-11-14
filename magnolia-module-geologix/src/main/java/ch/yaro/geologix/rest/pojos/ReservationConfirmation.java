@@ -27,21 +27,14 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.util.List;
+
 /**
- * This class is a simple POJO representation for a "category" item stored in the "categories" app.<br/>
+ * This class is a simple POJO representation for a "wagen" item stored in the "wagen" app.<br/>
  * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
-public class Category extends NodeItem {
+public class ReservationConfirmation extends Reservation {
 
-    private String name;
+    private String number;
 
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

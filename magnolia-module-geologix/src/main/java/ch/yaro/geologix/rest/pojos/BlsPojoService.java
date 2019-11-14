@@ -1,20 +1,20 @@
 /**
  * This file Copyright (c) 2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
- *
- *
+ * <p>
+ * <p>
  * This file is licensed under the MIT License (MIT)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,7 +22,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
 package ch.yaro.geologix.rest.pojos;
 
@@ -31,10 +30,10 @@ import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.predicate.AbstractPredicate;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.jcr.wrapper.I18nNodeWrapper;
 import info.magnolia.module.categorization.CategorizationModule;
 import info.magnolia.templating.functions.TemplatingFunctions;
 import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.util.StringList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +41,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -79,11 +80,120 @@ public class BlsPojoService {
         return wagenList;
     }
 
+    /**
+     * Returns a list of all {@link Zugkomposition} POJOs.
+     */
+    public List<Zugkomposition> getAllZugkompositionen() throws RepositoryException {
+        Session session = MgnlContext.getJCRSession(Zugkomposition.WORKSPACE);
+        Node wagenRootNode = session.getNode(Zugkomposition.BASEPATH);
+        List<Zugkomposition> zugkompositionList = new ArrayList<>();
+        Iterable<Node> nodes = NodeUtil.collectAllChildren(wagenRootNode, ZUGKOMPOSITION_FILTER);
+        if (nodes != null) {
+            for (Node node : nodes) {
+                Zugkomposition zugkomposition = getZugkompositionByNode(node);
+                if (zugkomposition != null) {
+                    zugkompositionList.add(zugkomposition);
+                }
+            }
+        }
+        return zugkompositionList;
+    }
+
+    /**
+     * Returns a single {@link Wagen} POJOs.
+     */
+    public Wagen getWagenById(String id) throws RepositoryException {
+        Wagen wagen = new Wagen();
+        Session session = MgnlContext.getJCRSession(Wagen.WORKSPACE);
+        Node wagenNode = session.getNodeByIdentifier(id);
+        if (wagenNode != null) {
+            wagen = getWagenByNode(wagenNode);
+        }
+        return wagen;
+    }
+
+    /**
+     * Returns a single {@link Wagentyp} POJOs.
+     */
+    public Wagentyp getWagentypById(String id) throws RepositoryException {
+        Wagentyp wagentyp = new Wagentyp();
+        Session session = MgnlContext.getJCRSession(Wagentyp.WORKSPACE);
+        Node wagentypNode = session.getNodeByIdentifier(id);
+        if (wagentypNode != null) {
+            wagentyp = getWagentypByNode(wagentypNode);
+        }
+        return wagentyp;
+    }
+
+    /**
+     * Returns a list of all {@link Haltestelle} POJOs.
+     */
+    public List<Haltestelle> getAllHaltestellen() throws RepositoryException {
+        Session session = MgnlContext.getJCRSession(Haltestelle.WORKSPACE);
+        Node haltestelleRootNode = session.getNode(Haltestelle.BASEPATH);
+        List<Haltestelle> haltestelleList = new ArrayList<>();
+        Iterable<Node> nodes = NodeUtil.collectAllChildren(haltestelleRootNode, HALTESTELLE_FILTER);
+        if (nodes != null) {
+            for (Node node : nodes) {
+                Haltestelle haltestelle = getHaltestelleByNode(node);
+                if (haltestelle != null) {
+                    haltestelleList.add(haltestelle);
+                }
+            }
+        }
+        return haltestelleList;
+    }
+
+    /**
+     * Returns a list of all {@link Strecke} POJOs.
+     */
+    public List<Strecke> getAllStrecken() throws RepositoryException {
+        Session session = MgnlContext.getJCRSession(Strecke.WORKSPACE);
+        Node streckeRootNode = session.getNode(Strecke.BASEPATH);
+        List<Strecke> streckeList = new ArrayList<>();
+        Iterable<Node> strecken = NodeUtil.collectAllChildren(streckeRootNode, STRECKE_FILTER);
+        if (strecken != null) {
+            for (Node streckeNode : strecken) {
+                Strecke strecke = getStreckeByNode(streckeNode);
+                if (strecke != null) {
+                    streckeList.add(strecke);
+                }
+            }
+        }
+        return streckeList;
+    }
+
+    /**
+     * Returns a single {@link Strecke} POJOs.
+     */
+    public Strecke getStreckeById(String id) throws RepositoryException {
+        Strecke strecke = new Strecke();
+        Session session = MgnlContext.getJCRSession(Strecke.WORKSPACE);
+        Node node = session.getNodeByIdentifier(id);
+        if (node != null) {
+            strecke = getStreckeByNode(node);
+        }
+        return strecke;
+    }
+
+    /**
+     * Returns a single {@link Zugkomposition} POJOs.
+     */
+    public Zugkomposition getZugkompositionById(String id) throws RepositoryException {
+        Zugkomposition zugkomposition = new Zugkomposition();
+        Session session = MgnlContext.getJCRSession(Zugkomposition.WORKSPACE);
+        Node node = session.getNodeByIdentifier(id);
+        if (node != null) {
+            zugkomposition = getZugkompositionByNode(node);
+        }
+        return zugkomposition;
+    }
+
 
     /**
      * Returns a {@link Wagen} POJO by a given {@link Node}.
      */
-    public Wagen getWagenByNode(Node node) throws RepositoryException {
+    private Wagen getWagenByNode(Node node) throws RepositoryException {
         if (node == null || !Wagen.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
             return null;
         }
@@ -92,15 +202,127 @@ public class BlsPojoService {
         String wagenNumber = PropertyUtil.getString(node, Wagen.NUMBER, "");
         wagen.setNumber(wagenNumber);
 
-        // TODO: return URL of image in dam -> to be used by VueJS
-        wagen.setSitzplan(PropertyUtil.getString(node, Wagen.SITZPLAN, ""));
+        wagen.setWagenplanID(PropertyUtil.getString(node, Wagen.WAGENPLAN, ""));
 
-        // TODO: return Names of Wagentyp, NOT UUIDs!
         List<String> wagentypList = getPropertyValuesList(node, Wagen.WAGENTYP);
-        wagen.setWagentyp(wagentypList);
+        wagen.setWagentypIDs(wagentypList);
 
         return wagen;
     }
+
+    /**
+     * Returns a {@link Haltestelle} POJO by a given {@link Node}.
+     */
+    private Haltestelle getHaltestelleByNode(Node node) throws RepositoryException {
+        if (node == null || !Haltestelle.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Haltestelle haltestelle = createBasicNodeItem(node, Haltestelle.class);
+        String name = PropertyUtil.getString(node, Haltestelle.NAME, "");
+        haltestelle.setName(name);
+
+        return haltestelle;
+    }
+
+    /**
+     * Returns a {@link Haltestelle} POJO by a given {@link Node}.
+     */
+    private Zugkomposition getZugkompositionByNode(Node node) throws RepositoryException {
+        if (node == null || !Zugkomposition.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Zugkomposition zugkomposition = new Zugkomposition();
+        String name = PropertyUtil.getString(node, Zugkomposition.NAME, "");
+        zugkomposition.setName(name);
+
+        List<Wagen> wagenKomposition = new LinkedList<>();
+
+
+        List<String> wagenIDs = getPropertyValuesList(node, Zugkomposition.WAEGEN);
+        if (wagenIDs != null) {
+            for (String id : wagenIDs) {
+                Wagen wagen = getWagenById(id);
+                wagenKomposition.add(wagen);
+            }
+        }
+        zugkomposition.setWagenList(wagenKomposition);
+        return zugkomposition;
+    }
+
+    /**
+     * Returns a {@link Strecke} POJO by a given {@link Node}
+     * contains a Linkedlist of {@Link Abschnitte} for the Fahrstrecke.
+     */
+    private Strecke getStreckeByNode(Node node) throws RepositoryException {
+        if (node == null || !Strecke.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Strecke strecke = new Strecke();
+        String name = node.getName();
+        strecke.setName(name);
+
+        List<Abschnitt> fahrStrecke = new LinkedList<>();
+
+        Iterable<Node> abschnitte = NodeUtil.collectAllChildren(node);
+        if (abschnitte != null) {
+            for (Node abschnittNode : abschnitte) {
+                Abschnitt abschnitt = getAbschnittByNode(abschnittNode);
+                if (abschnitt != null) {
+                    fahrStrecke.add(abschnitt);
+                }
+            }
+        }
+
+        strecke.setFahrstrecke(fahrStrecke);
+        return strecke;
+    }
+
+    /**
+     * Returns a {@link Abschnitt} POJO by a given {@link Node}.
+     */
+    private Abschnitt getAbschnittByNode(Node node) throws RepositoryException {
+        if (node == null || !Abschnitt.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Abschnitt abschnitt = new Abschnitt();
+
+        String stopID = PropertyUtil.getString(node, Abschnitt.STOP_ID, "");
+        String haltestelleNamen = getPropertyNameById(Haltestelle.WORKSPACE, stopID, Haltestelle.NAME);
+        abschnitt.setStopName(haltestelleNamen);
+
+        String stopduration = PropertyUtil.getString(node, Abschnitt.STOP_DURATION, "");
+        if (!stopduration.isEmpty()) {
+            abschnitt.setStopDuration(Integer.parseInt(stopduration));
+        } else {
+            abschnitt.setStopDuration(0);
+        }
+
+        String tripDuration = PropertyUtil.getString(node, Abschnitt.TRIP_DURATION, "");
+        if (!tripDuration.isEmpty()) {
+            abschnitt.setTripDuration(Integer.parseInt(tripDuration));
+        } else {
+            abschnitt.setTripDuration(0);
+        }
+
+        return abschnitt;
+    }
+
+    /**
+     * Returns a {@link Wagentyp} POJO by a given {@link Node}.
+     */
+    private Wagentyp getWagentypByNode(Node node) throws RepositoryException {
+        if (node == null || !Wagentyp.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Wagentyp wagentyp = new Wagentyp();
+
+        String wagentypName = PropertyUtil.getString(node, Wagentyp.NAME);
+        wagentyp.setName(wagentypName);
+
+
+        return wagentyp;
+    }
+
 
     /**
      * Returns a {@link Wagen} POJO by a given {@link Node}.
@@ -118,11 +340,11 @@ public class BlsPojoService {
         wagen.setNumber(wagenNumber);
 
         // TODO: return URL of image in dam -> to be used by VueJS
-        wagen.setSitzplan(PropertyUtil.getString(node, Wagen.SITZPLAN, ""));
+        wagen.setWagenplanID(PropertyUtil.getString(node, Wagen.WAGENPLAN, ""));
 
         // TODO: return Names of Wagentyp, NOT UUIDs!
         List<String> wagentypList = getPropertyValuesList(node, Wagen.WAGENTYP);
-        wagen.setWagentyp(wagentypList);
+        wagen.setWagentypIDs(wagentypList);
 
         return wagen;
     }
@@ -166,10 +388,7 @@ public class BlsPojoService {
         try {
             Class classDefinition = Class.forName(clazz.getName());
             nodeItem = (T) classDefinition.newInstance();
-            nodeItem.setNodeName(node.getName());
             nodeItem.setUuid(node.getIdentifier());
-            nodeItem.setPath(node.getPath());
-            nodeItem.setWorkspace(node.getSession().getWorkspace().getName());
 
         } catch (InstantiationException e) {
             log.error("NodeItem instantiation failed due to InstantiationException.", e);
@@ -224,7 +443,9 @@ public class BlsPojoService {
         return result;
     }
 
-    /** Prädikat, das true zurückgibt, wenn der NodeType dem WagenNodeType entspricht. */
+    /**
+     * Prädikat, das true zurückgibt, wenn der NodeType dem WagenNodeType entspricht.
+     */
     private static AbstractPredicate<Node> WAGEN_FILTER = new AbstractPredicate<Node>() {
         @Override
         public boolean evaluateTyped(Node node) {
@@ -238,4 +459,71 @@ public class BlsPojoService {
         }
     };
 
+    /**
+     * Prädikat, das true zurückgibt, wenn der NodeType dem HaltestelleNodeType entspricht.
+     */
+    private static AbstractPredicate<Node> HALTESTELLE_FILTER = new AbstractPredicate<Node>() {
+        @Override
+        public boolean evaluateTyped(Node node) {
+            try {
+                String nodeTypeName = node.getPrimaryNodeType().getName();
+                return nodeTypeName.equals(Haltestelle.NODETYPE);
+            } catch (RepositoryException e) {
+                log.error("Unable to read nodeType for node {}", NodeUtil.getNodePathIfPossible(node));
+            }
+            return false;
+        }
+    };
+
+    /**
+     * Prädikat, das true zurückgibt, wenn der NodeType dem StreckeNodeType entspricht.
+     */
+    private static AbstractPredicate<Node> STRECKE_FILTER = new AbstractPredicate<Node>() {
+        @Override
+        public boolean evaluateTyped(Node node) {
+            try {
+                String nodeTypeName = node.getPrimaryNodeType().getName();
+                return nodeTypeName.equals(Strecke.NODETYPE);
+            } catch (RepositoryException e) {
+                log.error("Unable to read nodeType for node {}", NodeUtil.getNodePathIfPossible(node));
+            }
+            return false;
+        }
+    };
+    /**
+     * Prädikat, das true zurückgibt, wenn der NodeType dem ZugkompositionNodeType entspricht.
+     */
+    private static AbstractPredicate<Node> ZUGKOMPOSITION_FILTER = new AbstractPredicate<Node>() {
+        @Override
+        public boolean evaluateTyped(Node node) {
+            try {
+                String nodeTypeName = node.getPrimaryNodeType().getName();
+                return nodeTypeName.equals(Zugkomposition.NODETYPE);
+            } catch (RepositoryException e) {
+                log.error("Unable to read nodeType for node {}", NodeUtil.getNodePathIfPossible(node));
+            }
+            return false;
+        }
+    };
+
+    /**
+     * Returns the property name of a node in a workspace with a given uuid
+     *
+     * @param id
+     * @param property
+     * @param workspace
+     */
+    private String getPropertyNameById(String workspace, String id, String property) throws RepositoryException {
+        Session session = MgnlContext.getJCRSession(workspace);
+        Node node = session.getNodeByIdentifier(id);
+        String str = PropertyUtil.getString(node, property, "");
+        // TODO: when do we logout of a session?
+//        session.logout();
+        return str;
+    }
+
+    public ReservationConfirmation makeReservation(Reservation reservation) {
+        ReservationConfirmation reservationConfirmation = new ReservationConfirmation();
+        return reservationConfirmation;
+    }
 }

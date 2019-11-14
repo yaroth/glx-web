@@ -329,7 +329,7 @@ subApps:
               label: Wagentyp
               editable: true
               sortable: true
-              propertyName: wagentyp
+              propertyName: name
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
@@ -382,11 +382,11 @@ subApps:
             label: Wagentyp detail
             fields:
               - name: jcrName
-                label: Name
+                label: JCRName
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 i18n: false
-              - name: wagentyp
+              - name: name
                 label: Wagentyp
                 i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition

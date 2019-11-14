@@ -390,7 +390,7 @@ subApps:
               - name: name
                 label: Name Zugkomposition
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: wagen
+              - name: waegen
                 label: Wägen
                 description: Reihenfolge der Wägen von oben nach unten ergibt Zugkomposition
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition

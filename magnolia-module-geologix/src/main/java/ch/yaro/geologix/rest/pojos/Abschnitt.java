@@ -28,20 +28,46 @@ package ch.yaro.geologix.rest.pojos;
 
 
 /**
- * This class is a simple POJO representation for a "category" item stored in the "categories" app.<br/>
+ * This class is a simple POJO representation for a "Abschnitt" item stored in the "strecken" app in the 'strecke' repository.<br/>
  * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
-public class Category extends NodeItem {
+public class Abschnitt {
 
-    private String name;
+    public static final String WORKSPACE = "strecken";
+    public static final String NODETYPE = "mgnl:contentNode";
+    public static final String BASEPATH = "/";
 
+    public static final String STOP_NAME = "name";
+    public static final String STOP_ID = "stopID";
+    public static final String STOP_DURATION = "stopduration";
+    public static final String TRIP_DURATION = "tripduration";
 
+    private String stopName;
+    private int stopDuration;
+    private int tripDuration;
 
-    public String getName() {
-        return name;
+    public String getStopName() {
+        return stopName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStopName(String stopName) {
+        this.stopName = stopName;
+    }
+
+
+    public int getStopDuration() {
+        return stopDuration;
+    }
+
+    public void setStopDuration(int stopDuration) {
+        this.stopDuration = stopDuration;
+    }
+
+    public int getTripDuration() {
+        return tripDuration;
+    }
+
+    public void setTripDuration(int tripDuration) {
+        this.tripDuration = tripDuration;
     }
 }

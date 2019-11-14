@@ -392,12 +392,12 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
                 field:
-                  name: title
+#                  name: title
                   fieldType: composite
                   transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
-                  label: Event
+#                  label: Event
                   fields:
-                    - name: stop
+                    - name: stopID
                       label: Haltestelle
                       class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                       targetWorkspace: haltestelle
@@ -405,7 +405,7 @@ subApps:
                       appName: haltestellen
                       identifierToPathConverter:
                         class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-                    - name: duration
+                    - name: tripduration
                       label: Reisedauer
                       fieldType: text
                     - name: stopduration

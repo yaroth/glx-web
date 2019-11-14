@@ -325,12 +325,12 @@ subApps:
               propertyName: jcrName
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: haltestelle
-              label: Haltestelle
+            - name: name
+              label: Name
               editable: true
               sortable: true
-              propertyName: haltestelle
-              width: 160
+              propertyName: name
+              expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
               width: 45
@@ -382,13 +382,10 @@ subApps:
             label: Haltestelle detail
             fields:
               - name: jcrName
-                label: Name
+                label: JCRName
                 required: true
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
-              - name: haltestelle
+              - name: name
                 label: Haltestelle
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
 
     actions:

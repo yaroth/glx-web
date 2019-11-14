@@ -38,20 +38,21 @@ public class Wagen extends NodeItem {
     public static final String WORKSPACE = "wagen";
     public static final String NODETYPE = "wagen";
     public static final String BASEPATH = "/";
+
     public static final String NUMBER = "number";
-    public static final String SITZPLAN = "sitzplan";
+    public static final String WAGENPLAN = "wagenplan";
     public static final String WAGENTYP = "wagentyp";
 
     private String number;
-    private String sitzplan;
-    private List<String> wagentyp;
+    private String wagenplanID;
+    private List<String> wagentypIDs;
 
-    public List<String> getWagentyp() {
-        return wagentyp;
+    public List<String> getWagentypIDs() {
+        return wagentypIDs;
     }
 
-    public void setWagentyp(List<String> wagentyp) {
-        this.wagentyp = wagentyp;
+    public void setWagentypIDs(List<String> wagentypIDs) {
+        this.wagentypIDs = wagentypIDs;
     }
 
     public String getNumber() {
@@ -62,11 +63,12 @@ public class Wagen extends NodeItem {
         this.number = number;
     }
 
-    public String getSitzplan() {
-        return sitzplan;
+
+    public void setWagenplanID(String wagenplanID) {
+        this.wagenplanID = wagenplanID;
     }
 
-    public void setSitzplan(String sitzplan) {
-        this.sitzplan = sitzplan;
+    public String getWagenplanID() {
+        return wagenplanID;
     }
 }

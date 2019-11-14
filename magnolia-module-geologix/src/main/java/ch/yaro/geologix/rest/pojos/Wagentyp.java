@@ -27,15 +27,21 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.util.List;
+
 /**
- * This class is a simple POJO representation for a "category" item stored in the "categories" app.<br/>
+ * This class is a simple POJO representation for a "Strecke" item stored in the "strecken" app in the 'strecke' repository.<br/>
  * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
-public class Category extends NodeItem {
+public class Wagentyp extends NodeItem {
+
+    public static final String WORKSPACE = "category";
+    public static final String NODETYPE = "wagentyp";
+    public static final String BASEPATH = "/wagentypen";
+
+    public static final String NAME = "name";
 
     private String name;
-
-
 
     public String getName() {
         return name;
@@ -44,4 +50,6 @@ public class Category extends NodeItem {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

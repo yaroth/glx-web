@@ -382,13 +382,11 @@ subApps:
             label: Wagen detail
             fields:
               - name: jcrName
-                label: Name
+                label: JCRName
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: number
                 label: Nummer
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: wagenplan
                 label: Wagenplan

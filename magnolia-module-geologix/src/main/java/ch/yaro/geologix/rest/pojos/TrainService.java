@@ -16,8 +16,9 @@ public class TrainService extends NodeItem {
 
 
     private String name;
-    private LocalTime departure;
+    private String departure;
     private String streckeID;
+    private Timetable timetable;
     private String zugkompositionID;
 
 
@@ -29,11 +30,11 @@ public class TrainService extends NodeItem {
         this.name = name;
     }
 
-    public LocalTime getDeparture() {
+    public String getDeparture() {
         return departure;
     }
 
-    public void setDeparture(LocalTime departure) {
+    public void setDeparture(String departure) {
         this.departure = departure;
     }
 
@@ -51,5 +52,13 @@ public class TrainService extends NodeItem {
 
     public void setZugkompositionID(String zugkompositionID) {
         this.zugkompositionID = zugkompositionID;
+    }
+
+    public Timetable getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(Timetable timetable) {
+        this.timetable = timetable;
     }
 }

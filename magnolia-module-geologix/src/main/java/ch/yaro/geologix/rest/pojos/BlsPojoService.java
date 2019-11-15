@@ -43,6 +43,7 @@ import javax.jcr.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -226,17 +227,19 @@ public class BlsPojoService {
         String trainserviceName = PropertyUtil.getString(node, TrainService.NAME, "");
         trainService.setName(trainserviceName);
 
-        // Get from database
-//        LocalTime time = LocalTime.ofSecondOfDay(secondOfDay);
-//        int secondOfDay = time.toSecondOfDay();
-        // LocalTime.MIN.plus(Duration.ofMinutes(LocalTime.now().toSecondOfDay()/60)).toString()
-// Save to database
-        LocalTime time = LocalTime.now();
-        int secondsFromMidnight = time.toSecondOfDay();
-        String timeStamp = LocalTime.MIN.plus(Duration.ofMinutes(time.toSecondOfDay()/60)).toString();
+        String departureTime = PropertyUtil.getString(node, TrainService.DEPARTURE, "");
+        trainService.setDeparture(departureTime);
+
+        LocalTime depTime = LocalTime.parse(departureTime, DateTimeFormatter.ofPattern("HH:mm"));
+        String timeStamp = LocalTime.MIN.plus(Duration.ofMinutes(depTime.toSecondOfDay() / 60)).toString();
         log.debug("Local time stamp: " + timeStamp);
-        trainService.setDeparture(time);
-        trainService.setStreckeID(PropertyUtil.getString(node, TrainService.STRECKE, ""));
+
+        String streckeID = PropertyUtil.getString(node, TrainService.STRECKE, "");
+        trainService.setStreckeID(streckeID);
+        Strecke strecke = getStreckeById(streckeID);
+        Timetable timetable = new Timetable(strecke, depTime);
+        trainService.setTimetable(timetable);
+
         trainService.setZugkompositionID(PropertyUtil.getString(node, TrainService.ZUGKOMPOSITION, ""));
 
         return trainService;
@@ -293,7 +296,7 @@ public class BlsPojoService {
         String name = node.getName();
         strecke.setName(name);
 
-        List<Abschnitt> fahrStrecke = new LinkedList<>();
+        LinkedList<Abschnitt> fahrStrecke = new LinkedList<>();
 
         Iterable<Node> abschnitte = NodeUtil.collectAllChildren(node);
         if (abschnitte != null) {

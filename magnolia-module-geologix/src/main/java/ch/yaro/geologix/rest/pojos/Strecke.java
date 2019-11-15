@@ -27,6 +27,7 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class Strecke {
     public static final String ABSCHNITT = "abschnitt";
 
     private String name;
-    private List<Abschnitt> fahrstrecke;
+    private LinkedList<Abschnitt> fahrstrecke;
 
     public String getName() {
         return name;
@@ -53,11 +54,12 @@ public class Strecke {
         this.name = name;
     }
 
-    public List<Abschnitt> getFahrstrecke() {
+    // MUST be a LinkedList
+    public LinkedList<Abschnitt> getFahrstrecke() {
         return fahrstrecke;
     }
 
-    public void setFahrstrecke(List<Abschnitt> fahrstrecke) {
+    public void setFahrstrecke(LinkedList<Abschnitt> fahrstrecke) {
         this.fahrstrecke = fahrstrecke;
     }
 }

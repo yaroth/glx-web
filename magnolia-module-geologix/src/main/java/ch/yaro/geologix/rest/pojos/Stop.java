@@ -38,6 +38,12 @@ public class Stop {
     private LocalTime timeIN;
     private LocalTime timeOut;
 
+    public Stop(String stopName, LocalTime timeIN, LocalTime timeOUT) {
+        this.stopName = stopName;
+        this.timeIN = timeIN;
+        this.timeOut = timeOUT;
+    }
+
     public String getStopName() {
         return stopName;
     }

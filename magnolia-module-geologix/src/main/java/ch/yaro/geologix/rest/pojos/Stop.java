@@ -27,47 +27,38 @@
 package ch.yaro.geologix.rest.pojos;
 
 
-import java.util.List;
+import java.time.LocalTime;
 
 /**
- * This class is a simple POJO representation for a "wagen" item stored in the "wagen" app.<br/>
- * Objects of this type are handy to create json on REST endpoints or within template model classes.
+ * This class is a simple Stop item to be used for the {@link Timetable}
  */
-public class Wagenplan {
+public class Stop {
 
-    public static final String WORKSPACE = "category";
-    public static final String NODETYPE = "wagenplan";
-    public static final String BASEPATH = "/wagenplaene";
-    public static final String NUMBER = "number";
-    public static final String WAGENPLAN = "wagenplan";
-    public static final String WAGENTYP = "wagentyp";
+    private String stopName;
+    private LocalTime timeIN;
+    private LocalTime timeOut;
 
-    private String number;
-    private String wagenplanID; // TODO: is that the image?
-    private List<String> wagentypIDs;
-
-    public List<String> getWagentypIDs() {
-        return wagentypIDs;
+    public String getStopName() {
+        return stopName;
     }
 
-    public void setWagentypIDs(List<String> wagentypIDs) {
-        this.wagentypIDs = wagentypIDs;
+    public void setStopName(String stopName) {
+        this.stopName = stopName;
     }
 
-    public String getNumber() {
-        return number;
+    public LocalTime getTimeIN() {
+        return timeIN;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setTimeIN(LocalTime timeIN) {
+        this.timeIN = timeIN;
     }
 
-
-    public void setWagenplanID(String wagenplanID) {
-        this.wagenplanID = wagenplanID;
+    public LocalTime getTimeOut() {
+        return timeOut;
     }
 
-    public String getWagenplanID() {
-        return wagenplanID;
+    public void setTimeOut(LocalTime timeOut) {
+        this.timeOut = timeOut;
     }
 }

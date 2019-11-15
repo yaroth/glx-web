@@ -404,7 +404,7 @@ subApps:
               - name: name
                 label: Name
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: start
+              - name: departure
                 label: Abfahrtszeit
                 fieldType: date
                 time: true

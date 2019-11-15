@@ -40,6 +40,10 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -211,6 +215,34 @@ public class BlsPojoService {
     }
 
     /**
+     * Returns a {@link Wagen} POJO by a given {@link Node}.
+     */
+    private TrainService getTrainserviceByNode(Node node) throws RepositoryException {
+        if (node == null || !TrainService.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        TrainService trainService = createBasicNodeItem(node, TrainService.class);
+
+        String trainserviceName = PropertyUtil.getString(node, TrainService.NAME, "");
+        trainService.setName(trainserviceName);
+
+        // Get from database
+//        LocalTime time = LocalTime.ofSecondOfDay(secondOfDay);
+//        int secondOfDay = time.toSecondOfDay();
+        // LocalTime.MIN.plus(Duration.ofMinutes(LocalTime.now().toSecondOfDay()/60)).toString()
+// Save to database
+        LocalTime time = LocalTime.now();
+        int secondsFromMidnight = time.toSecondOfDay();
+        String timeStamp = LocalTime.MIN.plus(Duration.ofMinutes(time.toSecondOfDay()/60)).toString();
+        log.debug("Local time stamp: " + timeStamp);
+        trainService.setDeparture(time);
+        trainService.setStreckeID(PropertyUtil.getString(node, TrainService.STRECKE, ""));
+        trainService.setZugkompositionID(PropertyUtil.getString(node, TrainService.ZUGKOMPOSITION, ""));
+
+        return trainService;
+    }
+
+    /**
      * Returns a {@link Haltestelle} POJO by a given {@link Node}.
      */
     private Haltestelle getHaltestelleByNode(Node node) throws RepositoryException {
@@ -325,28 +357,22 @@ public class BlsPojoService {
 
 
     /**
-     * Returns a {@link Wagen} POJO by a given {@link Node}.
-     * TODO: make this return a list of train services!
+     * Returns a list of all {@link TrainService} POJO .
      */
-    public Wagen getTrainServices(TrainServiceRequest trainServiceRequest) throws RepositoryException {
-        Session session = MgnlContext.getJCRSession(Wagen.WORKSPACE);
-        Node node = session.getNodeByIdentifier("8989382e-4016-4d9d-9ff7-1b5cd71ca42c");
-        if (node == null || !Wagen.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
-            return null;
+    public List<TrainService> getAllTrainServices() throws RepositoryException {
+        Session session = MgnlContext.getJCRSession(TrainService.WORKSPACE);
+        Node trainserviceRootNode = session.getNode(TrainService.BASEPATH);
+        List<TrainService> trainServiceList = new ArrayList<>();
+        Iterable<Node> nodes = NodeUtil.collectAllChildren(trainserviceRootNode, TRAINSERVICE_FILTER);
+        if (nodes != null) {
+            for (Node node : nodes) {
+                TrainService trainService = getTrainserviceByNode(node);
+                if (trainService != null) {
+                    trainServiceList.add(trainService);
+                }
+            }
         }
-        Wagen wagen = createBasicNodeItem(node, Wagen.class);
-
-        String wagenNumber = PropertyUtil.getString(node, Wagen.NUMBER, "");
-        wagen.setNumber(wagenNumber);
-
-        // TODO: return URL of image in dam -> to be used by VueJS
-        wagen.setWagenplanID(PropertyUtil.getString(node, Wagen.WAGENPLAN, ""));
-
-        // TODO: return Names of Wagentyp, NOT UUIDs!
-        List<String> wagentypList = getPropertyValuesList(node, Wagen.WAGENTYP);
-        wagen.setWagentypIDs(wagentypList);
-
-        return wagen;
+        return trainServiceList;
     }
 
 
@@ -490,6 +516,7 @@ public class BlsPojoService {
             return false;
         }
     };
+
     /**
      * Prädikat, das true zurückgibt, wenn der NodeType dem ZugkompositionNodeType entspricht.
      */
@@ -499,6 +526,22 @@ public class BlsPojoService {
             try {
                 String nodeTypeName = node.getPrimaryNodeType().getName();
                 return nodeTypeName.equals(Zugkomposition.NODETYPE);
+            } catch (RepositoryException e) {
+                log.error("Unable to read nodeType for node {}", NodeUtil.getNodePathIfPossible(node));
+            }
+            return false;
+        }
+    };
+
+    /**
+     * Prädikat, das true zurückgibt, wenn der NodeType dem TrainServiceNodeType entspricht.
+     */
+    private static AbstractPredicate<Node> TRAINSERVICE_FILTER = new AbstractPredicate<Node>() {
+        @Override
+        public boolean evaluateTyped(Node node) {
+            try {
+                String nodeTypeName = node.getPrimaryNodeType().getName();
+                return nodeTypeName.equals(TrainService.NODETYPE);
             } catch (RepositoryException e) {
                 log.error("Unable to read nodeType for node {}", NodeUtil.getNodePathIfPossible(node));
             }

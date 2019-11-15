@@ -74,7 +74,7 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
         if (trainServiceRequest != null) {
             try {
                 log.info("Trainservice request received: " + trainServiceRequest);
-                Wagen wagen = blsPojoService.getTrainServices(trainServiceRequest);
+                List<TrainService> wagen = blsPojoService.getAllTrainServices();
                 return Response.ok(wagen).build();
             } catch (Exception e) {
                 log.error("Failed to get the Wagen using uuid: 8989382e-4016-4d9d-9ff7-1b5cd71ca42c");
@@ -123,9 +123,9 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
             @ApiResponse(code = 500, message = STATUS_MESSAGE_ERROR_OCCURRED)
     })
     public Response getAllTest() {
-        List<Zugkomposition> result = null;
+        List<TrainService> result = null;
         try {
-            result = blsPojoService.getAllZugkompositionen();
+            result = blsPojoService.getAllTrainServices();
             return Response.ok(result).build();
         } catch (RepositoryException e) {
             log.warn("Could not compute the request.");

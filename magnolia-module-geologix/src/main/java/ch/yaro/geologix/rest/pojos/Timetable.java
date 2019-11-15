@@ -30,44 +30,19 @@ package ch.yaro.geologix.rest.pojos;
 import java.util.List;
 
 /**
- * This class is a simple POJO representation for a "wagen" item stored in the "wagen" app.<br/>
+ * This class is a simple POJO representation for a "Strecke" item stored in the "strecken" app in the 'strecke' repository.<br/>
  * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
-public class Wagenplan {
+public class Timetable {
 
-    public static final String WORKSPACE = "category";
-    public static final String NODETYPE = "wagenplan";
-    public static final String BASEPATH = "/wagenplaene";
-    public static final String NUMBER = "number";
-    public static final String WAGENPLAN = "wagenplan";
-    public static final String WAGENTYP = "wagentyp";
+    // Must be implemented as a LinkedList
+    private List<Stop> timetable;
 
-    private String number;
-    private String wagenplanID; // TODO: is that the image?
-    private List<String> wagentypIDs;
-
-    public List<String> getWagentypIDs() {
-        return wagentypIDs;
+    public List<Stop> getTimetable() {
+        return timetable;
     }
 
-    public void setWagentypIDs(List<String> wagentypIDs) {
-        this.wagentypIDs = wagentypIDs;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-
-    public void setWagenplanID(String wagenplanID) {
-        this.wagenplanID = wagenplanID;
-    }
-
-    public String getWagenplanID() {
-        return wagenplanID;
+    public void setTimetable(List<Stop> timetable) {
+        this.timetable = timetable;
     }
 }

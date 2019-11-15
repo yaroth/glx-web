@@ -1,10 +1,22 @@
 package ch.yaro.geologix.rest.pojos;
 
 
-public class TrainService {
+import java.time.LocalTime;
+
+public class TrainService extends NodeItem {
+
+    public static final String WORKSPACE = "zugservices";
+    public static final String NODETYPE = "zugservice";
+    public static final String BASEPATH = "/";
+
+    public static final String NAME = "name";
+    public static final String DEPARTURE = "departure";
+    public static final String STRECKE = "strecke";
+    public static final String ZUGKOMPOSITION = "zugkomposition";
+
 
     private String name;
-    private String departure;
+    private LocalTime departure;
     private String streckeID;
     private String zugkompositionID;
 
@@ -17,11 +29,11 @@ public class TrainService {
         this.name = name;
     }
 
-    public String getDeparture() {
+    public LocalTime getDeparture() {
         return departure;
     }
 
-    public void setDeparture(String departure) {
+    public void setDeparture(LocalTime departure) {
         this.departure = departure;
     }
 

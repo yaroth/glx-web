@@ -396,17 +396,6 @@ subApps:
                 appName: wagenplaene
                 identifierToPathConverter:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              - name: wagentyp
-                label: Wagentyp
-                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
-                field:
-                  name: linkField
-                  class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                  targetWorkspace: category
-                  targetTreeRootPath: /wagentypen
-                  appName: wagentypen
-                  identifierToPathConverter:
-                    class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
 
 
     actions:

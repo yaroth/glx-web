@@ -391,6 +391,23 @@ public class BlsPojoService {
         return trainServiceList;
     }
 
+    /**
+     * Returns a list of all {@link TrainService} POJO .
+     */
+    public List<TrainService> getTrainServicesForRequest(TrainServiceRequest request) throws RepositoryException {
+        List<TrainService> allTrainServices = getAllTrainServices();
+        List<TrainService> trainServicesForRequest = new ArrayList<>();
+        // TODO: define a maximal time after requestTime for which future train services should be considered
+
+        for (TrainService trainService : allTrainServices) {
+            if (trainService.fitsRequest(request)) trainServicesForRequest.add(trainService);
+        }
+        // TODO: adapt timetable to start and stop of request, NOT start and stop of timetable / Strecke!
+        return trainServicesForRequest;
+    }
+
+
+
 
     /**
      * Returns an {@link Image} POJO by a given assetKey (as String).

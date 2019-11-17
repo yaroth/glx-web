@@ -70,18 +70,13 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
             @ApiResponse(code = 406, message = STATUS_MESSAGE_NOT_ACCEPTABLE),
             @ApiResponse(code = 400, message = STATUS_MESSAGE_BAD_REQUEST)
     })
-    public Response getTrainServices(TrainServiceRequest trainServiceRequest) {
-        if (trainServiceRequest != null) {
-            try {
-                log.info("Trainservice request received: " + trainServiceRequest);
-                List<TrainService> wagen = blsPojoService.getAllTrainServices();
-                return Response.ok(wagen).build();
-            } catch (Exception e) {
-                log.error("Failed to get the Wagen using uuid: 8989382e-4016-4d9d-9ff7-1b5cd71ca42c");
-                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
-            }
-        } else {
-            log.error("UUID not valid: 8989382e-4016-4d9d-9ff7-1b5cd71ca42c");
+    public Response getTrainServices(TrainServiceRequest request) {
+        List<TrainService> result = null;
+        try {
+            result = blsPojoService.getTrainServicesForRequest(request);
+            return Response.ok(result).build();
+        } catch (RepositoryException e) {
+            log.warn("Could not compute the request.");
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
@@ -122,10 +117,10 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
             @ApiResponse(code = 404, message = STATUS_MESSAGE_NODE_NOT_FOUND),
             @ApiResponse(code = 500, message = STATUS_MESSAGE_ERROR_OCCURRED)
     })
-    public Response getAllTest() {
+    public Response getAllTest(TrainServiceRequest request) {
         List<TrainService> result = null;
         try {
-            result = blsPojoService.getAllTrainServices();
+            result = blsPojoService.getTrainServicesForRequest(request);
             return Response.ok(result).build();
         } catch (RepositoryException e) {
             log.warn("Could not compute the request.");

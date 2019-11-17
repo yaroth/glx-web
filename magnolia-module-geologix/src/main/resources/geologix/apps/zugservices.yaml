@@ -36,6 +36,14 @@ subApps:
               implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
           nodeTypes:
             zugservice: zugservice
+      duplicateZugservice:
+        label: Duplicate Zugservice
+        class: info.magnolia.ui.framework.action.DuplicateNodeActionDefinition
+        icon: icon-duplicate
+        availability:
+          rules:
+            IsNotDeletedRule:
+              implementationClass: info.magnolia.ui.framework.availability.IsNotDeletedRule
       move:
         icon: icon-move
         class: info.magnolia.ui.contentapp.movedialog.action.OpenMoveDialogActionDefinition
@@ -263,6 +271,7 @@ subApps:
             - name: editActions
               items:
                 - name: editZugservice
+                - name: duplicateZugservice
                 - name: renameZugservice
                 - name: move
             - name: activationActions

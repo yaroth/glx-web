@@ -1,7 +1,10 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import javax.inject.Inject;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class TrainService extends NodeItem {
@@ -61,5 +64,20 @@ public class TrainService extends NodeItem {
 
     public void setTimetable(LinkedList<Stop> timetable) {
         this.timetable = timetable;
+    }
+
+    public boolean fitsRequest(TrainServiceRequest request) {
+        LocalTime earliestDeparture = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
+        String startStop = request.getFrom();
+        String endStop = request.getTo();
+        boolean startStopFitsDeparture = false;
+        for (Iterator stopIterator = timetable.iterator(); stopIterator.hasNext(); ) {
+            Stop stop = (Stop) stopIterator.next();
+            if (!startStopFitsDeparture && stop.getStopName().equals(startStop) && stop.getTimeOut().isAfter(earliestDeparture)) {
+                startStopFitsDeparture = true;
+            }
+            if (startStopFitsDeparture && stop.getStopName().equals(endStop)) return true;
+        }
+        return false;
     }
 }

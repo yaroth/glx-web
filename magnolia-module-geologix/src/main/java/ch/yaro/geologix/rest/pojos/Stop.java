@@ -30,7 +30,7 @@ package ch.yaro.geologix.rest.pojos;
 import java.time.LocalTime;
 
 /**
- * This class is a simple Stop item to be used for the {@link Timetable}
+ * This class is a simple Stop item to help setup a timetable
  */
 public class Stop {
 

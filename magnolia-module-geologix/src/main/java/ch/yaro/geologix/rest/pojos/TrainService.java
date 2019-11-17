@@ -2,6 +2,7 @@ package ch.yaro.geologix.rest.pojos;
 
 
 import java.time.LocalTime;
+import java.util.LinkedList;
 
 public class TrainService extends NodeItem {
 
@@ -18,7 +19,7 @@ public class TrainService extends NodeItem {
     private String name;
     private String departure;
     private String streckeID;
-    private Timetable timetable;
+    private LinkedList<Stop> timetable;
     private String zugkompositionID;
 
 
@@ -54,11 +55,11 @@ public class TrainService extends NodeItem {
         this.zugkompositionID = zugkompositionID;
     }
 
-    public Timetable getTimetable() {
+    public LinkedList<Stop> getTimetable() {
         return timetable;
     }
 
-    public void setTimetable(Timetable timetable) {
+    public void setTimetable(LinkedList<Stop> timetable) {
         this.timetable = timetable;
     }
 }

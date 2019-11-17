@@ -45,10 +45,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 @Singleton
@@ -106,6 +103,7 @@ public class BlsPojoService {
 
     /**
      * Returns a single {@link Wagen} POJOs.
+     * @param id
      */
     public Wagen getWagenById(String id) throws RepositoryException {
         Wagen wagen = new Wagen();
@@ -119,6 +117,7 @@ public class BlsPojoService {
 
     /**
      * Returns a single {@link Wagentyp} POJOs.
+     * @param id
      */
     public Wagentyp getWagentypById(String id) throws RepositoryException {
         Wagentyp wagentyp = new Wagentyp();
@@ -216,7 +215,7 @@ public class BlsPojoService {
     }
 
     /**
-     * Returns a {@link Wagen} POJO by a given {@link Node}.
+     * Returns a {@link TrainService} POJO by a given {@link Node}.
      */
     private TrainService getTrainserviceByNode(Node node) throws RepositoryException {
         if (node == null || !TrainService.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
@@ -230,19 +229,33 @@ public class BlsPojoService {
         String departureTime = PropertyUtil.getString(node, TrainService.DEPARTURE, "");
         trainService.setDeparture(departureTime);
 
-        LocalTime depTime = LocalTime.parse(departureTime, DateTimeFormatter.ofPattern("HH:mm"));
-        String timeStamp = LocalTime.MIN.plus(Duration.ofMinutes(depTime.toSecondOfDay() / 60)).toString();
-        log.debug("Local time stamp: " + timeStamp);
+        LocalTime departureAsLocalTime = LocalTime.parse(departureTime, DateTimeFormatter.ofPattern("HH:mm"));
 
         String streckeID = PropertyUtil.getString(node, TrainService.STRECKE, "");
         trainService.setStreckeID(streckeID);
         Strecke strecke = getStreckeById(streckeID);
-        Timetable timetable = new Timetable(strecke, depTime);
+        LinkedList<Stop> timetable = getTimetable(strecke, departureAsLocalTime);
         trainService.setTimetable(timetable);
 
         trainService.setZugkompositionID(PropertyUtil.getString(node, TrainService.ZUGKOMPOSITION, ""));
 
         return trainService;
+    }
+
+    private LinkedList<Stop> getTimetable(Strecke strecke, LocalTime departureTime) {
+        LinkedList<Stop> timetable = new LinkedList<>();
+        if (strecke != null) {
+            LocalTime tempTime = departureTime;
+            for (Iterator abschnittIterator = strecke.getFahrstrecke().iterator(); abschnittIterator.hasNext(); ) {
+                Abschnitt abschnitt = (Abschnitt) abschnittIterator.next();
+                Stop stop = new Stop(abschnitt.getStopName(), tempTime, tempTime.plusMinutes(abschnitt.getStopDuration()));
+                tempTime = tempTime.plusMinutes(abschnitt.getTripDuration());
+                timetable.add(stop);
+            }
+            timetable.getFirst().setTimeIN(null);
+            timetable.getLast().setTimeOut(null);
+        }
+        return timetable;
     }
 
     /**
@@ -260,7 +273,7 @@ public class BlsPojoService {
     }
 
     /**
-     * Returns a {@link Haltestelle} POJO by a given {@link Node}.
+     * Returns a {@link Zugkomposition} POJO by a given {@link Node}.
      */
     private Zugkomposition getZugkompositionByNode(Node node) throws RepositoryException {
         if (node == null || !Zugkomposition.NODETYPE.equals(node.getPrimaryNodeType().getName())) {

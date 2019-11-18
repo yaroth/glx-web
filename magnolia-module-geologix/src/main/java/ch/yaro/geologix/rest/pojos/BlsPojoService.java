@@ -103,6 +103,7 @@ public class BlsPojoService {
 
     /**
      * Returns a single {@link Wagen} POJOs.
+     *
      * @param id
      */
     public Wagen getWagenById(String id) throws RepositoryException {
@@ -117,6 +118,7 @@ public class BlsPojoService {
 
     /**
      * Returns a single {@link Wagentyp} POJOs.
+     *
      * @param id
      */
     public Wagentyp getWagentypById(String id) throws RepositoryException {
@@ -392,7 +394,8 @@ public class BlsPojoService {
     }
 
     /**
-     * Returns a list of all {@link TrainService} POJO .
+     * Returns a list of all {@link TrainService} POJOs for a give {@link TrainServiceRequest}.
+     * Updates the timetable of corresponding trainservices according to request.
      */
     public List<TrainService> getTrainServicesForRequest(TrainServiceRequest request) throws RepositoryException {
         List<TrainService> allTrainServices = getAllTrainServices();
@@ -400,13 +403,13 @@ public class BlsPojoService {
         // TODO: define a maximal time after requestTime for which future train services should be considered
 
         for (TrainService trainService : allTrainServices) {
-            if (trainService.fitsRequest(request)) trainServicesForRequest.add(trainService);
+            if (trainService.fitsRequest(request)) {
+                trainService.adaptTimetableToRequest(request);
+                trainServicesForRequest.add(trainService);
+            }
         }
-        // TODO: adapt timetable to start and stop of request, NOT start and stop of timetable / Strecke!
         return trainServicesForRequest;
     }
-
-
 
 
     /**

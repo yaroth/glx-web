@@ -76,8 +76,30 @@ public class TrainService extends NodeItem {
             if (!startStopFitsDeparture && stop.getStopName().equals(startStop) && stop.getTimeOut().isAfter(earliestDeparture)) {
                 startStopFitsDeparture = true;
             }
-            if (startStopFitsDeparture && stop.getStopName().equals(endStop)) return true;
+            if (startStopFitsDeparture && stop.getStopName().equals(endStop)) {
+                return true;
+            }
         }
         return false;
+    }
+
+    public void adaptTimetableToRequest(TrainServiceRequest request) {
+        String startStop = request.getFrom();
+        String endStop = request.getTo();
+        LinkedList<Stop> updatedTimetable = new LinkedList<>();
+        boolean startAddingStops = false;
+        for (Iterator stopIterator = timetable.iterator(); stopIterator.hasNext(); ) {
+            Stop stop = (Stop) stopIterator.next();
+            if (!startAddingStops && stop.getStopName().equals(startStop)) {
+                startAddingStops = true;
+            }
+            if (startAddingStops){
+                updatedTimetable.add(stop);
+            }
+            if (stop.getStopName().equals(endStop)) {
+                break;
+            }
+        }
+        timetable = updatedTimetable;
     }
 }

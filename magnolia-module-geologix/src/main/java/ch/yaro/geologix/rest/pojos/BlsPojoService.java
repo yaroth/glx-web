@@ -32,7 +32,11 @@ import info.magnolia.jcr.predicate.AbstractPredicate;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.categorization.CategorizationModule;
+import info.magnolia.rest.service.node.definition.ConfiguredNodeEndpointDefinition;
+import info.magnolia.rest.service.node.v1.NodeEndpoint;
 import info.magnolia.rest.service.node.v1.RepositoryMarshaller;
+import info.magnolia.rest.service.node.v1.RepositoryNode;
+import info.magnolia.rest.service.node.v1.RepositoryProperty;
 import info.magnolia.templating.functions.TemplatingFunctions;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -56,13 +60,15 @@ public class BlsPojoService {
 
     private final DamTemplatingFunctions damfn;
     private final TemplatingFunctions cmsfn;
+    private final NodeEndpoint<ConfiguredNodeEndpointDefinition> nodeEndpoint;
 
     private RepositoryMarshaller marshaller = new RepositoryMarshaller();
 
     @Inject
-    public BlsPojoService(final DamTemplatingFunctions damfn, final TemplatingFunctions cmsfn) {
+    public BlsPojoService(final DamTemplatingFunctions damfn, final TemplatingFunctions cmsfn, final NodeEndpoint<ConfiguredNodeEndpointDefinition> nodeEndpoint) {
         this.damfn = damfn;
         this.cmsfn = cmsfn;
+        this.nodeEndpoint = nodeEndpoint;
     }
 
     /**
@@ -607,30 +613,24 @@ public class BlsPojoService {
         ReservationConfirmation reservationConfirmation = new ReservationConfirmation();
         log.info("Reservation: " + reservation);
 
+        RepositoryNode repositoryNode = new RepositoryNode();
+        repositoryNode.setName("test2");
+        repositoryNode.setPath(Reservation.BASEPATH + repositoryNode.getName());
+        repositoryNode.setType(Reservation.NODETYPE);
 
-        final Session session = MgnlContext.getJCRSession(Reservation.WORKSPACE);
+        RepositoryProperty firstNameProperty = new RepositoryProperty();
+        firstNameProperty.setMultiple(false);
+        firstNameProperty.setName("firstName");
+        firstNameProperty.setType("String");
+        ArrayList<String> fn = new ArrayList<>();
+        fn.add("Yann");
+        firstNameProperty.setValues(fn);
+        ArrayList<RepositoryProperty> properties = new ArrayList<>();
+        properties.add(firstNameProperty);
+        repositoryNode.setProperties(properties);
 
-//        if (!session.nodeExists(Reservation.BASEPATH)) {
-//            return Response.status(Response.Status.NOT_FOUND).build();
-//        }
-
-        final Node parentNode = session.getNode(Reservation.BASEPATH);
-
-//        if (parentNode.hasNode(repositoryNode.getName())) {
-//            return Response.status(Response.Status.BAD_REQUEST).build();
-//        }
-
-        final Node node = parentNode.addNode(Reservation.BASEPATH + "yann", Reservation.NODETYPE);
-
-//        if (repositoryNode.getProperties() != null) {
-//            marshaller.unmarshallProperties(node, repositoryNode.getProperties());
-//        }
-
-        synchronized (ExclusiveWrite.getInstance()) {
-            session.save();
-        }
-
-        log.debug("Created a new node [{}]", node.getPath());
+        nodeEndpoint.createNode(Reservation.WORKSPACE, Reservation.BASEPATH, repositoryNode);
+        reservationConfirmation.setFirstname(reservation.getFirstname());
         return reservationConfirmation;
     }
 

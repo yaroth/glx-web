@@ -325,11 +325,60 @@ subApps:
               propertyName: jcrName
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: number
-              label: Nummer
+            - name: firstname
+              label: Vorname
               editable: true
               sortable: true
-              propertyName: number
+              propertyName: firstname
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: lastname
+              label: Nachname
+              editable: true
+              sortable: true
+              propertyName: lastname
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: dateOfBirth
+              label: Geburtsdatum
+              editable: true
+              sortable: true
+              propertyName: dateOfBirth
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: zugserviceID
+              label: Zugservice
+              editable: true
+              sortable: true
+              propertyName: zugserviceID
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: wagen
+              label: Wagen
+              editable: true
+              sortable: true
+              propertyName: wagen
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: seat
+              label: Sitz
+              editable: true
+              sortable: true
+              propertyName: seat
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: fromID
+              label: Von
+              editable: true
+              sortable: true
+              propertyName: fromID
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: toID
+              label: Nach
+              editable: true
+              sortable: true
+              propertyName: toID
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
@@ -396,11 +445,11 @@ subApps:
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 i18n: false
-              - name: birthdate
+              - name: dateOfBirth
                 label: Geburtsdatum
                 fieldType: date
                 time: false
-              - name: zugservice
+              - name: zugserviceID
                 label: Zugservice
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: zugservices
@@ -412,11 +461,11 @@ subApps:
                 label: Wagen
                 i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: Sitz
+              - name: seat
                 label: Sitz
                 i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: start
+              - name: fromID
                 label: Von
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: haltestelle
@@ -424,7 +473,7 @@ subApps:
                 appName: haltestellen
                 identifierToPathConverter:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              - name: stop
+              - name: toID
                 label: Bis
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: haltestelle

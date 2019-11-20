@@ -45,6 +45,7 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
     private static final String STATUS_MESSAGE_NODE_NOT_FOUND = "Node not found";
     private static final String STATUS_MESSAGE_ERROR_OCCURRED = "Error occurred";
     private static final String STATUS_MESSAGE_BAD_REQUEST = "Bad request";
+    private static final String STATUS_MESSAGE_SEAT_NO_LONGER_AVAILABLE = "Seat no longer available. Please choose another seat.";
 
     private static final Logger log = LoggerFactory.getLogger(EndpointDefinition.class);
     private final BlsPojoService blsPojoService;
@@ -95,8 +96,20 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
         if (reservation != null) {
             try {
                 log.info("Reservation request received: " + reservation);
-                ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
-                return Response.ok(reservationConfirmation).build();
+                boolean isReservationValid = blsPojoService.validateReservation(reservation);
+                if (isReservationValid) {
+                    boolean reservationCheck = blsPojoService.checkReservation(reservation);
+                    if (reservationCheck) {
+                        ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
+                        return Response.ok(reservationConfirmation).build();
+                    } else {
+                        // TODO: proper response status 'seat no longer available'
+                        return Response.status(Response.Status.CONFLICT).build();
+                    }
+                } else {
+                    // TODO: proper response 'reservation is not valid: wrong trainservice, waggon, seat number....
+                    return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+                }
             } catch (Exception e) {
                 log.error("Failed !");
                 return Response.status(Response.Status.NOT_ACCEPTABLE).build();

@@ -25,27 +25,28 @@
  */
 package ch.yaro.geologix.rest.pojos;
 
+import info.magnolia.cms.util.ExclusiveWrite;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.predicate.AbstractPredicate;
 import info.magnolia.jcr.util.NodeUtil;
 import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.categorization.CategorizationModule;
+import info.magnolia.rest.service.node.v1.RepositoryMarshaller;
 import info.magnolia.templating.functions.TemplatingFunctions;
 import org.apache.commons.lang3.StringUtils;
-import org.bouncycastle.util.StringList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.*;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Singleton
@@ -56,6 +57,7 @@ public class BlsPojoService {
     private final DamTemplatingFunctions damfn;
     private final TemplatingFunctions cmsfn;
 
+    private RepositoryMarshaller marshaller = new RepositoryMarshaller();
 
     @Inject
     public BlsPojoService(final DamTemplatingFunctions damfn, final TemplatingFunctions cmsfn) {
@@ -586,7 +588,7 @@ public class BlsPojoService {
     };
 
     /**
-     * Returns the property name of a node in a workspace with a given uuid
+     * Returns the property value of a node in a workspace with a given uuid
      *
      * @param id
      * @param property
@@ -601,8 +603,51 @@ public class BlsPojoService {
         return str;
     }
 
-    public ReservationConfirmation makeReservation(Reservation reservation) {
+    public ReservationConfirmation makeReservation(Reservation reservation) throws RepositoryException {
         ReservationConfirmation reservationConfirmation = new ReservationConfirmation();
+        log.info("Reservation: " + reservation);
+
+
+        final Session session = MgnlContext.getJCRSession(Reservation.WORKSPACE);
+
+//        if (!session.nodeExists(Reservation.BASEPATH)) {
+//            return Response.status(Response.Status.NOT_FOUND).build();
+//        }
+
+        final Node parentNode = session.getNode(Reservation.BASEPATH);
+
+//        if (parentNode.hasNode(repositoryNode.getName())) {
+//            return Response.status(Response.Status.BAD_REQUEST).build();
+//        }
+
+        final Node node = parentNode.addNode(Reservation.BASEPATH + "yann", Reservation.NODETYPE);
+
+//        if (repositoryNode.getProperties() != null) {
+//            marshaller.unmarshallProperties(node, repositoryNode.getProperties());
+//        }
+
+        synchronized (ExclusiveWrite.getInstance()) {
+            session.save();
+        }
+
+        log.debug("Created a new node [{}]", node.getPath());
         return reservationConfirmation;
+    }
+
+    /** Precondition: reservation is valid.
+     * checkReservation will try to make a reservation.
+     * Returns true is reservation was made.
+     * Returns false is for example seat is already reserved. */
+    public boolean checkReservation(Reservation reservation) {
+        /** TODO: implement logic of checking whether requested seat is available for that strecke in that zugservice
+         * get all reservations for that seat (ex.: waggon 10, seat 31) and check overlaps in 'Strecken'
+         */
+        return true;
+    }
+
+    /** Checks whether reservation is correct: trainservice has that waggon with that seat and from-to is a valid Strecke. */
+    public boolean validateReservation(Reservation reservation) {
+
+        return true;
     }
 }

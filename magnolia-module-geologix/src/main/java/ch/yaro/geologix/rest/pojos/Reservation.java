@@ -43,12 +43,12 @@ public class Reservation extends NodeItem {
 
     private String firstname;
     private String lastname;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
     private String zugserviceID;
     private String wagenNumber;
     private String sitzNumber;
-    private String from;
-    private String to;
+    private String fromID;
+    private String toID;
 
 
 
@@ -68,11 +68,11 @@ public class Reservation extends NodeItem {
         this.lastname = lastname;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -100,21 +100,24 @@ public class Reservation extends NodeItem {
         this.sitzNumber = sitzNumber;
     }
 
-    public String getFrom() {
-        return from;
+    public String getFromID() {
+        return fromID;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setFromID(String fromID) {
+        this.fromID = fromID;
     }
 
-    public String getTo() {
-        return to;
+    public String getToID() {
+        return toID;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setToID(String toID) {
+        this.toID = toID;
     }
 
-
+    @Override
+    public String toString(){
+        return "First: " + firstname + ", last: " + lastname + ", trainservice: " + zugserviceID + ", wagen nb: " + wagenNumber + ", seat nb: " + sitzNumber + ", from: " + fromID + ", to: " + toID;
+    }
 }

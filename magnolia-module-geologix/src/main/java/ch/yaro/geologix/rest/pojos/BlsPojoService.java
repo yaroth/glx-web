@@ -614,10 +614,12 @@ public class BlsPojoService {
         log.info("Reservation: " + reservation);
 
         RepositoryNode repositoryNode = new RepositoryNode();
+        // TODO: how to name the reservation node???
         repositoryNode.setName("test2");
         repositoryNode.setPath(Reservation.BASEPATH + repositoryNode.getName());
         repositoryNode.setType(Reservation.NODETYPE);
 
+        // TODO: method to setup all node properties of the reservation
         RepositoryProperty firstNameProperty = new RepositoryProperty();
         firstNameProperty.setMultiple(false);
         firstNameProperty.setName("firstName");
@@ -629,15 +631,19 @@ public class BlsPojoService {
         properties.add(firstNameProperty);
         repositoryNode.setProperties(properties);
 
+        // TODO: how should reservations be hierarchized in the workspace? by trainservice? or just flat on root level?
         nodeEndpoint.createNode(Reservation.WORKSPACE, Reservation.BASEPATH, repositoryNode);
         reservationConfirmation.setFirstname(reservation.getFirstname());
+        // TODO: set reservation confirmation
         return reservationConfirmation;
     }
 
-    /** Precondition: reservation is valid.
+    /**
+     * Precondition: reservation is valid.
      * checkReservation will try to make a reservation.
-     * Returns true is reservation was made.
-     * Returns false is for example seat is already reserved. */
+     * Returns true if reservation was successful.
+     * Returns false if reservation was not successful.
+     */
     public boolean checkReservation(Reservation reservation) {
         /** TODO: implement logic of checking whether requested seat is available for that strecke in that zugservice
          * get all reservations for that seat (ex.: waggon 10, seat 31) and check overlaps in 'Strecken'
@@ -645,9 +651,16 @@ public class BlsPojoService {
         return true;
     }
 
-    /** Checks whether reservation is correct: trainservice has that waggon with that seat and from-to is a valid Strecke. */
+    /**
+     * Checks whether reservation is valid, i.e. are all reservation properties
+     * valid trainservice properties?
+     * Check if that
+     * - waggon with that
+     * - seat and
+     * - from-to strecke of the trainservice is valid.
+     */
     public boolean validateReservation(Reservation reservation) {
-
+// TODO: implement logic
         return true;
     }
 }

@@ -95,11 +95,10 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
     public Response reservation(Reservation reservation) {
         if (reservation != null) {
             try {
-                log.info("Reservation request received: " + reservation);
                 boolean isReservationValid = blsPojoService.validateReservation(reservation);
                 if (isReservationValid) {
-                    boolean reservationCheck = blsPojoService.checkReservation(reservation);
-                    if (reservationCheck) {
+                    boolean isReservationAllowed = blsPojoService.checkReservation(reservation);
+                    if (isReservationAllowed) {
                         ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
                         return Response.ok(reservationConfirmation).build();
                     } else {

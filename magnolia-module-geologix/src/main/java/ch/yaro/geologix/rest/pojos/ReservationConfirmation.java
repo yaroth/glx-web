@@ -35,6 +35,39 @@ import java.util.List;
  */
 public class ReservationConfirmation extends Reservation {
 
-    private String number;
+    private String message;
+    private String qrCode;
 
+
+    public ReservationConfirmation(Reservation reservation) {
+        super.setFirstname(reservation.getFirstname());
+        super.setLastname(reservation.getLastname());
+        super.setDateOfBirth(reservation.getDateOfBirth());
+        super.setZugserviceID(reservation.getZugserviceID());
+        super.setWagenNumber(reservation.getWagenNumber());
+        super.setSitzNumber(reservation.getSitzNumber());
+        super.setFromID(reservation.getFromID());
+        super.setToID(reservation.getToID());
+        this.message = "";
+        this.qrCode = "";
+    }
+
+    public ReservationConfirmation(){};
+
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
 }

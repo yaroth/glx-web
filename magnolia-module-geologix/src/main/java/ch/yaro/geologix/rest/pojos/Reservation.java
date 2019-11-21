@@ -40,6 +40,14 @@ public class Reservation extends NodeItem {
     public static final String NODETYPE = "reservation";
     public static final String BASEPATH = "/";
 
+    public static final String FIRSTNAME = "firstname";
+    public static final String LASTNAME = "lastname";
+    public static final String DATEOFBIRTH = "dateOfBirth";
+    public static final String ZUGSERVICEID = "zugserviceID";
+    public static final String WAGENNUMBER = "wagenNumber";
+    public static final String SITZNUMBER = "sitzNumber";
+    public static final String FROMID = "fromID";
+    public static final String TOID = "toID";
 
     private String firstname;
     private String lastname;

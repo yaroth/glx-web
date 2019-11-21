@@ -45,12 +45,12 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.*;
+import javax.ws.rs.core.Response;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 @Singleton
@@ -610,32 +610,109 @@ public class BlsPojoService {
     }
 
     public ReservationConfirmation makeReservation(Reservation reservation) throws RepositoryException {
-        ReservationConfirmation reservationConfirmation = new ReservationConfirmation();
         log.info("Reservation: " + reservation);
 
         RepositoryNode repositoryNode = new RepositoryNode();
         // TODO: how to name the reservation node???
-        repositoryNode.setName("test2");
+        String nodeName = reservation.getFirstname() + "-" + reservation.getLastname() + "-" + reservation.getDateOfBirth() +
+                "-" + reservation.getZugserviceID() + "-" + reservation.getWagenNumber() + "-" + reservation.getSitzNumber() +
+                "-" + reservation.getFromID() + "-" + reservation.getToID();
+        repositoryNode.setName(nodeName);
         repositoryNode.setPath(Reservation.BASEPATH + repositoryNode.getName());
         repositoryNode.setType(Reservation.NODETYPE);
 
         // TODO: method to setup all node properties of the reservation
-        RepositoryProperty firstNameProperty = new RepositoryProperty();
-        firstNameProperty.setMultiple(false);
-        firstNameProperty.setName("firstName");
-        firstNameProperty.setType("String");
-        ArrayList<String> fn = new ArrayList<>();
-        fn.add("Yann");
-        firstNameProperty.setValues(fn);
-        ArrayList<RepositoryProperty> properties = new ArrayList<>();
-        properties.add(firstNameProperty);
+        ArrayList<RepositoryProperty> properties = setProperties(reservation);
         repositoryNode.setProperties(properties);
 
         // TODO: how should reservations be hierarchized in the workspace? by trainservice? or just flat on root level?
-        nodeEndpoint.createNode(Reservation.WORKSPACE, Reservation.BASEPATH, repositoryNode);
-        reservationConfirmation.setFirstname(reservation.getFirstname());
-        // TODO: set reservation confirmation
+        Response response = nodeEndpoint.createNode(Reservation.WORKSPACE, Reservation.BASEPATH, repositoryNode);
+        // TODO: check message written
+        ReservationConfirmation reservationConfirmation = new ReservationConfirmation(reservation);
+        // TODO: get reservation UUID !
+        // TODO: set QRCode!
+        //reservationConfirmation.setUuid();
+        reservationConfirmation.setMessage(response.getStatusInfo().toString());
         return reservationConfirmation;
+    }
+
+    private ArrayList<RepositoryProperty> setProperties(Reservation reservation) {
+        ArrayList<RepositoryProperty> properties = new ArrayList<>();
+
+        RepositoryProperty firstNameProperty = new RepositoryProperty();
+        firstNameProperty.setMultiple(false);
+        firstNameProperty.setName(Reservation.FIRSTNAME);
+        firstNameProperty.setType("String");
+        ArrayList<String> firstnamePropertyValues = new ArrayList<>();
+        firstnamePropertyValues.add(reservation.getFirstname());
+        firstNameProperty.setValues(firstnamePropertyValues);
+        properties.add(firstNameProperty);
+
+        RepositoryProperty lastNameProperty = new RepositoryProperty();
+        lastNameProperty.setMultiple(false);
+        lastNameProperty.setName(Reservation.LASTNAME);
+        lastNameProperty.setType("String");
+        ArrayList<String> lastnamePropertyValues = new ArrayList<>();
+        lastnamePropertyValues.add(reservation.getLastname());
+        lastNameProperty.setValues(lastnamePropertyValues);
+        properties.add(lastNameProperty);
+
+// TODO: check Date conversion
+        RepositoryProperty dateOfBirthProperty = new RepositoryProperty();
+        dateOfBirthProperty.setMultiple(false);
+        dateOfBirthProperty.setName(Reservation.DATEOFBIRTH);
+        dateOfBirthProperty.setType("Date");
+        ArrayList<String> dobPropertyValues = new ArrayList<>();
+        dobPropertyValues.add(reservation.getDateOfBirth());
+        dateOfBirthProperty.setValues(dobPropertyValues);
+        properties.add(dateOfBirthProperty);
+
+        RepositoryProperty zugserviceIDProperty = new RepositoryProperty();
+        zugserviceIDProperty.setMultiple(false);
+        zugserviceIDProperty.setName(Reservation.ZUGSERVICEID);
+        zugserviceIDProperty.setType("String");
+        ArrayList<String> zugservicePropertyValues = new ArrayList<>();
+        zugservicePropertyValues.add(reservation.getZugserviceID());
+        zugserviceIDProperty.setValues(zugservicePropertyValues);
+        properties.add(zugserviceIDProperty);
+
+        RepositoryProperty wagenNumberProperty = new RepositoryProperty();
+        wagenNumberProperty.setMultiple(false);
+        wagenNumberProperty.setName(Reservation.WAGENNUMBER);
+        wagenNumberProperty.setType("String");
+        ArrayList<String> wageNumberValues = new ArrayList<>();
+        wageNumberValues.add(reservation.getWagenNumber());
+        wagenNumberProperty.setValues(wageNumberValues);
+        properties.add(wagenNumberProperty);
+
+        RepositoryProperty sitzNumberProperty = new RepositoryProperty();
+        sitzNumberProperty.setMultiple(false);
+        sitzNumberProperty.setName(Reservation.SITZNUMBER);
+        sitzNumberProperty.setType("String");
+        ArrayList<String> sitznumberPropertyValues = new ArrayList<>();
+        sitznumberPropertyValues.add(reservation.getWagenNumber());
+        sitzNumberProperty.setValues(sitznumberPropertyValues);
+        properties.add(sitzNumberProperty);
+
+        RepositoryProperty fromIDProperty = new RepositoryProperty();
+        fromIDProperty.setMultiple(false);
+        fromIDProperty.setName(Reservation.FROMID);
+        fromIDProperty.setType("String");
+        ArrayList<String> fromIDPropertyValues = new ArrayList<>();
+        fromIDPropertyValues.add(reservation.getFromID());
+        fromIDProperty.setValues(fromIDPropertyValues);
+        properties.add(fromIDProperty);
+
+        RepositoryProperty toIDProperty = new RepositoryProperty();
+        toIDProperty.setMultiple(false);
+        toIDProperty.setName(Reservation.TOID);
+        toIDProperty.setType("String");
+        ArrayList<String> toIDPropertyValues = new ArrayList<>();
+        toIDPropertyValues.add(reservation.getToID());
+        toIDProperty.setValues(toIDPropertyValues);
+        properties.add(toIDProperty);
+
+        return properties;
     }
 
     /**

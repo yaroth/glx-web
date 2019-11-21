@@ -25,7 +25,6 @@
  */
 package ch.yaro.geologix.rest.pojos;
 
-import info.magnolia.cms.util.ExclusiveWrite;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.jcr.predicate.AbstractPredicate;
@@ -46,8 +45,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.*;
 import javax.ws.rs.core.Response;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -140,6 +137,74 @@ public class BlsPojoService {
     }
 
     /**
+     * Returns a single {@link Wagenplan} POJOs.
+     *
+     * @param id
+     */
+    private Wagenplan getWagenplanById(String id) throws RepositoryException {
+        Wagenplan wagenplan = new Wagenplan();
+        Session session = MgnlContext.getJCRSession(Wagenplan.WORKSPACE);
+        Node wagentypNode = session.getNodeByIdentifier(id);
+        if (wagentypNode != null) {
+            wagenplan = getWagenplanByNode(wagentypNode);
+        }
+        return wagenplan;
+    }
+
+    /**
+     * Returns a {@link Wagenplan} POJO by a given {@link Node}.
+     */
+    private Wagenplan getWagenplanByNode(Node node) throws RepositoryException {
+        if (node == null || !Wagenplan.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Wagenplan wagenplan = createBasicNodeItem(node, Wagenplan.class);
+
+        String wagenCode = PropertyUtil.getString(node, Wagenplan.CODE, "");
+        wagenplan.setCode(wagenCode);
+
+        wagenplan.setDescription(PropertyUtil.getString(node, Wagenplan.DESCRIPTION, ""));
+
+        // TODO: set URL of image, so that vueJS can get and render the Wagenplan background layout
+        wagenplan.setImage(PropertyUtil.getString(node, Wagenplan.IMAGE, ""));
+
+        List<String> wagentypList = getPropertyValuesList(node, Wagenplan.WAGENTYP);
+        wagenplan.setWagentypIDs(wagentypList);
+
+        // TODO: add filter for node type of seat: mgnl:contentNode
+        Iterable<Node> nodeIterable = NodeUtil.collectAllChildren(node);
+        if (nodeIterable != null) {
+            for (Node seatNode : nodeIterable) {
+                Seat seat = getSeatByNode(seatNode);
+                if (seat != null) {
+                    wagenplan.getSeats().add(seat);
+                }
+            }
+        }
+        return wagenplan;
+    }
+
+    private Seat getSeatByNode(Node node) throws RepositoryException {
+        if (node == null || !Seat.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Seat seat = new Seat();
+
+        String klasseString = PropertyUtil.getString(node, Seat.KLASSE, "");
+        seat.setKlasse(Integer.parseInt(klasseString));
+
+        String id = PropertyUtil.getString(node, Seat.ID, "");
+        seat.setId(id);
+
+        String location = PropertyUtil.getString(node, Seat.LOCATION, "");
+        seat.setLocation(location);
+
+        seat.setOptions(getPropertyValuesList(node, Seat.OPTIONS));
+
+        return seat;
+    }
+
+    /**
      * Returns a list of all {@link Haltestelle} POJOs.
      */
     public List<Haltestelle> getAllHaltestellen() throws RepositoryException {
@@ -203,6 +268,19 @@ public class BlsPojoService {
         return zugkomposition;
     }
 
+    /**
+     * Returns a single {@link TrainService} POJOs.
+     */
+    public TrainService getTrainserviceById(String id) throws RepositoryException {
+        TrainService trainService = new TrainService();
+        Session session = MgnlContext.getJCRSession(TrainService.WORKSPACE);
+        Node node = session.getNodeByIdentifier(id);
+        if (node != null) {
+            trainService = getTrainserviceByNode(node);
+        }
+        return trainService;
+    }
+
 
     /**
      * Returns a {@link Wagen} POJO by a given {@link Node}.
@@ -216,11 +294,13 @@ public class BlsPojoService {
         String wagenNumber = PropertyUtil.getString(node, Wagen.NUMBER, "");
         wagen.setNumber(wagenNumber);
 
-        wagen.setWagenplanID(PropertyUtil.getString(node, Wagen.WAGENPLAN, ""));
+        String wagenplanID = PropertyUtil.getString(node, Wagen.WAGENPLAN, "");
+        wagen.setWagenplanID(wagenplanID);
 
-        List<String> wagentypList = getPropertyValuesList(node, Wagen.WAGENTYP);
-        wagen.setWagentypIDs(wagentypList);
+        Wagenplan wagenplan = getWagenplanById(wagenplanID);
+        wagen.setWagenplan(wagenplan);
 
+        // TODO: get seat list, wagentyp list,
         return wagen;
     }
 
@@ -345,8 +425,8 @@ public class BlsPojoService {
         Abschnitt abschnitt = new Abschnitt();
 
         String stopID = PropertyUtil.getString(node, Abschnitt.STOP_ID, "");
-        String haltestelleNamen = getPropertyNameById(Haltestelle.WORKSPACE, stopID, Haltestelle.NAME);
-        abschnitt.setStopName(haltestelleNamen);
+        String stopName = getPropertyNameById(Haltestelle.WORKSPACE, stopID, Haltestelle.NAME);
+        abschnitt.setStopName(stopName);
 
         String stopduration = PropertyUtil.getString(node, Abschnitt.STOP_DURATION, "");
         if (!stopduration.isEmpty()) {
@@ -530,6 +610,22 @@ public class BlsPojoService {
     };
 
     /**
+     * Prädikat, das true zurückgibt, wenn der NodeType dem Reservation node type entspricht.
+     */
+    private static AbstractPredicate<Node> RESERVATION_FILTER = new AbstractPredicate<Node>() {
+        @Override
+        public boolean evaluateTyped(Node node) {
+            try {
+                String nodeTypeName = node.getPrimaryNodeType().getName();
+                return nodeTypeName.equals(Reservation.NODETYPE);
+            } catch (RepositoryException e) {
+                log.error("Unable to read nodeType for node {}", NodeUtil.getNodePathIfPossible(node));
+            }
+            return false;
+        }
+    };
+
+    /**
      * Prädikat, das true zurückgibt, wenn der NodeType dem HaltestelleNodeType entspricht.
      */
     private static AbstractPredicate<Node> HALTESTELLE_FILTER = new AbstractPredicate<Node>() {
@@ -594,6 +690,23 @@ public class BlsPojoService {
     };
 
     /**
+     * Prädikat, das true zurückgibt, wenn der NodeType dem {@link Seat} nodeType entspricht.
+     * I.e. nodetype = mgnl:contentNode und Nodename beinhaltet 'sitz'
+     */
+    private static AbstractPredicate<Node> SEAT_FILTER = new AbstractPredicate<Node>() {
+        @Override
+        public boolean evaluateTyped(Node node) {
+            try {
+                String nodeTypeName = node.getPrimaryNodeType().getName();
+                return nodeTypeName.equals(Seat.NODETYPE) && node.getName().contains("sitz");
+            } catch (RepositoryException e) {
+                log.error("Unable to read nodeType for node {}", NodeUtil.getNodePathIfPossible(node));
+            }
+            return false;
+        }
+    };
+
+    /**
      * Returns the property value of a node in a workspace with a given uuid
      *
      * @param id
@@ -613,21 +726,21 @@ public class BlsPojoService {
         log.info("Reservation: " + reservation);
 
         RepositoryNode repositoryNode = new RepositoryNode();
-        // TODO: how to name the reservation node???
+        // unique node name set up using all the reservation properties
+        String departureName = getPropertyNameById(Haltestelle.WORKSPACE, reservation.getFromID(), Haltestelle.NAME);
+        String destinationName = getPropertyNameById(Haltestelle.WORKSPACE, reservation.getToID(), Haltestelle.NAME);
         String nodeName = reservation.getFirstname() + "-" + reservation.getLastname() + "-" + reservation.getDateOfBirth() +
                 "-" + reservation.getZugserviceID() + "-" + reservation.getWagenNumber() + "-" + reservation.getSitzNumber() +
-                "-" + reservation.getFromID() + "-" + reservation.getToID();
+                "-" + departureName + "-" + destinationName;
         repositoryNode.setName(nodeName);
         repositoryNode.setPath(Reservation.BASEPATH + repositoryNode.getName());
         repositoryNode.setType(Reservation.NODETYPE);
 
-        // TODO: method to setup all node properties of the reservation
         ArrayList<RepositoryProperty> properties = setProperties(reservation);
         repositoryNode.setProperties(properties);
 
-        // TODO: how should reservations be hierarchized in the workspace? by trainservice? or just flat on root level?
+        // all reservations are saved at root level
         Response response = nodeEndpoint.createNode(Reservation.WORKSPACE, Reservation.BASEPATH, repositoryNode);
-        // TODO: check message written
         ReservationConfirmation reservationConfirmation = new ReservationConfirmation(reservation);
         // TODO: get reservation UUID !
         // TODO: set QRCode!
@@ -657,7 +770,6 @@ public class BlsPojoService {
         lastNameProperty.setValues(lastnamePropertyValues);
         properties.add(lastNameProperty);
 
-// TODO: check Date conversion
         RepositoryProperty dateOfBirthProperty = new RepositoryProperty();
         dateOfBirthProperty.setMultiple(false);
         dateOfBirthProperty.setName(Reservation.DATEOFBIRTH);
@@ -721,11 +833,88 @@ public class BlsPojoService {
      * Returns true if reservation was successful.
      * Returns false if reservation was not successful.
      */
-    public boolean checkReservation(Reservation reservation) {
+    public boolean checkReservation(Reservation reservation) throws RepositoryException {
         /** TODO: implement logic of checking whether requested seat is available for that strecke in that zugservice
          * get all reservations for that seat (ex.: waggon 10, seat 31) and check overlaps in 'Strecken'
          */
+        // get all reservations for that zugservice for that waggon for that seat
+//        List<Reservation> reservationsForZugservice = getReservationsForZugserviceID(reservation.getZugserviceID());
+//        List<Reservation> reservationsWithSameWaggonAndSeat = new ArrayList<>();
+//        for (Reservation res : reservationsForZugservice) {
+//            if (res.getWagenNumber().equals(reservation.getWagenNumber()) && res.getSitzNumber().equals(reservation.getSitzNumber())){
+//                reservationsWithSameWaggonAndSeat.add(res);
+//            }
+//        }
+//        String zugserviceID = reservation.getZugserviceID();
+//        TrainService trainService = getTrainserviceById(zugserviceID);
+//        Strecke strecke = getStreckeById(trainService.getStreckeID());
         return true;
+    }
+
+    private List<Reservation> getReservationsForZugserviceID(String zugserviceID) throws RepositoryException {
+        List<Reservation> allReservations = getAllReservations();
+        List<Reservation> reservationsForZugservice = new ArrayList<>();
+        for (Reservation reservation : allReservations) {
+            if (reservation.getZugserviceID().equals(zugserviceID)) {
+                reservationsForZugservice.add(reservation);
+            }
+        }
+        return reservationsForZugservice;
+    }
+
+    private List<Reservation> getAllReservations() throws RepositoryException {
+        Session session = MgnlContext.getJCRSession(Reservation.WORKSPACE);
+        Node reservationRootNode = session.getNode(Reservation.BASEPATH);
+        List<Reservation> reservationList = new ArrayList<>();
+        Iterable<Node> nodes = NodeUtil.collectAllChildren(reservationRootNode, RESERVATION_FILTER);
+        if (nodes != null) {
+            for (Node node : nodes) {
+                Reservation reservation = getReservationByNode(node);
+                if (reservation != null) {
+                    reservationList.add(reservation);
+                }
+            }
+        }
+        return reservationList;
+    }
+
+    private Reservation getReservationByNode(Node node) throws RepositoryException {
+        if (node == null || !Reservation.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
+            return null;
+        }
+        Reservation reservation = createBasicNodeItem(node, Reservation.class);
+
+        String firstname = PropertyUtil.getString(node, Reservation.FIRSTNAME, "");
+        reservation.setFirstname(firstname);
+
+        String lastname = PropertyUtil.getString(node, Reservation.LASTNAME, "");
+        reservation.setFirstname(lastname);
+
+        String dateofbirth = PropertyUtil.getString(node, Reservation.DATEOFBIRTH, "");
+        reservation.setDateOfBirth(dateofbirth);
+
+        String zugserviceID = PropertyUtil.getString(node, Reservation.ZUGSERVICEID, "");
+        reservation.setZugserviceID(zugserviceID);
+
+        String wagenNumber = PropertyUtil.getString(node, Reservation.WAGENNUMBER, "");
+        reservation.setWagenNumber(wagenNumber);
+
+        String sitzNumber = PropertyUtil.getString(node, Reservation.SITZNUMBER, "");
+        reservation.setSitzNumber(sitzNumber);
+
+        String fromID = PropertyUtil.getString(node, Reservation.FROMID, "");
+        reservation.setFromID(fromID);
+
+        String departureName = getPropertyNameById(Haltestelle.WORKSPACE, fromID, Haltestelle.NAME);
+        reservation.setDeparture(departureName);
+
+        String toID = PropertyUtil.getString(node, Reservation.TOID, "");
+        reservation.setToID(toID);
+
+        String destinationName = getPropertyNameById(Haltestelle.WORKSPACE, toID, Haltestelle.NAME);
+        reservation.setDestination(destinationName);
+
+        return reservation;
     }
 
     /**
@@ -736,8 +925,32 @@ public class BlsPojoService {
      * - seat and
      * - from-to strecke of the trainservice is valid.
      */
-    public boolean validateReservation(Reservation reservation) {
-// TODO: implement logic
-        return true;
+    public boolean validateReservation(Reservation reservation) throws RepositoryException {
+        // TODO: catch possible errors!
+        boolean reservationIsValid = false;
+        String zugserviceID = reservation.getZugserviceID();
+        TrainService trainService = getTrainserviceById(zugserviceID);
+        Zugkomposition zugkomposition = getZugkompositionById(trainService.getZugkompositionID());
+        Strecke strecke = getStreckeById(trainService.getStreckeID());
+        LinkedList<String> stopsOnlyLinkedList = new LinkedList<>();
+        for (Iterator abschnittIterator = strecke.getFahrstrecke().iterator(); abschnittIterator.hasNext(); ) {
+            Abschnitt abschnitt = (Abschnitt) abschnittIterator.next();
+            stopsOnlyLinkedList.add(abschnitt.getStopName());
+        }
+        for (Wagen wagen : zugkomposition.getWagenList()) {
+            if (wagen.getNumber().equals(reservation.getWagenNumber())) {
+                String wagenplanID = wagen.getWagenplanID();
+                Wagenplan wagenplan = getWagenplanById(wagenplanID);
+                for (Seat seat : wagenplan.getSeats()) {
+                    if (seat.getId().equals(reservation.getSitzNumber())) {
+                        // TODO: check if from-to is valid for the given strecke
+
+                        reservationIsValid = true;
+                        return reservationIsValid;
+                    }
+                }
+            }
+        }
+        return reservationIsValid;
     }
 }

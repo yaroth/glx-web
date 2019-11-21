@@ -55,6 +55,8 @@ public class Reservation extends NodeItem {
     private String zugserviceID;
     private String wagenNumber;
     private String sitzNumber;
+    private String departure;
+    private String destination;
     private String fromID;
     private String toID;
 
@@ -108,6 +110,22 @@ public class Reservation extends NodeItem {
         this.sitzNumber = sitzNumber;
     }
 
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     public String getFromID() {
         return fromID;
     }
@@ -126,6 +144,6 @@ public class Reservation extends NodeItem {
 
     @Override
     public String toString(){
-        return "First: " + firstname + ", last: " + lastname + ", trainservice: " + zugserviceID + ", wagen nb: " + wagenNumber + ", seat nb: " + sitzNumber + ", from: " + fromID + ", to: " + toID;
+        return "First: " + firstname + ", last: " + lastname + ", trainservice: " + zugserviceID + ", wagen nb: " + wagenNumber + ", seat nb: " + sitzNumber + ", from: " + departure + ", to: " + destination;
     }
 }

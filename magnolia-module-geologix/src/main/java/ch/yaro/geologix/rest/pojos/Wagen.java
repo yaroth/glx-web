@@ -41,19 +41,10 @@ public class Wagen extends NodeItem {
 
     public static final String NUMBER = "number";
     public static final String WAGENPLAN = "wagenplan";
-    public static final String WAGENTYP = "wagentyp";
 
     private String number;
     private String wagenplanID;
-    private List<String> wagentypIDs;
-
-    public List<String> getWagentypIDs() {
-        return wagentypIDs;
-    }
-
-    public void setWagentypIDs(List<String> wagentypIDs) {
-        this.wagentypIDs = wagentypIDs;
-    }
+    private Wagenplan wagenplan;
 
     public String getNumber() {
         return number;
@@ -70,5 +61,13 @@ public class Wagen extends NodeItem {
 
     public String getWagenplanID() {
         return wagenplanID;
+    }
+
+    public Wagenplan getWagenplan() {
+        return wagenplan;
+    }
+
+    public void setWagenplan(Wagenplan wagenplan) {
+        this.wagenplan = wagenplan;
     }
 }

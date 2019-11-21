@@ -27,67 +27,57 @@
 package ch.yaro.geologix.rest.pojos;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class is a simple POJO representation for a "wagen" item stored in the "wagen" app.<br/>
  * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
-public class Wagenplan extends NodeItem {
+public class Seat extends NodeItem {
 
     public static final String WORKSPACE = "category";
-    public static final String NODETYPE = "wagenplan";
-    public static final String BASEPATH = "/wagenplaene";
+    public static final String NODETYPE = "mgnl:contentNode";
+    public static final String BASEPATH = "/";
 
-    public static final String CODE = "code";
-    public static final String DESCRIPTION = "description";
-    public static final String IMAGE = "image";
-    public static final String WAGENTYP = "wagentyp";
+    public static final String KLASSE = "class";
+    public static final String ID = "id";
+    public static final String LOCATION = "location";
+    public static final String OPTIONS = "options";
 
-    private String code;
-    private String description;
-    private String image;
-    private List<String> wagentypIDs;
-    private List<Seat> seats = new ArrayList<>();
+    private int klasse;
+    private String id;
+    private String location;
+    private List<String> options;
 
-    public List<String> getWagentypIDs() {
-        return wagentypIDs;
+    public int getKlasse() {
+        return klasse;
     }
 
-    public void setWagentypIDs(List<String> wagentypIDs) {
-        this.wagentypIDs = wagentypIDs;
+    public void setKlasse(int klasse) {
+        this.klasse = klasse;
     }
 
-    public String getCode() {
-        return code;
+    public String getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLocation() {
+        return location;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getImage() {
-        return image;
+    public List<String> getOptions() {
+        return options;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public List<Seat> getSeats() {
-        return seats;
-    }
-
-    public void setSeats(List<Seat> seats) {
-        this.seats = seats;
+    public void setOptions(List<String> options) {
+        this.options = options;
     }
 }

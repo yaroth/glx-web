@@ -37,7 +37,6 @@ public class Abschnitt {
     public static final String NODETYPE = "mgnl:contentNode";
     public static final String BASEPATH = "/";
 
-    public static final String STOP_NAME = "name";
     public static final String STOP_ID = "stopID";
     public static final String STOP_DURATION = "stopduration";
     public static final String TRIP_DURATION = "tripduration";

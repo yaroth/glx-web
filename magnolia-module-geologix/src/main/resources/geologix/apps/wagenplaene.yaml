@@ -421,15 +421,15 @@ subApps:
                   appName: wagentypen
                   identifierToPathConverter:
                     class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              - name: sitze
+              - name: sitz
                 label: Sitze
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
                 field:
-                  name: seat
+#                  name: seat
                   fieldType: composite
                   transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
-                  label: Sitz
+#                  label: Sitz
                   fields:
                     - name: id
                       label: ID

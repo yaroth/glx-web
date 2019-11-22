@@ -353,18 +353,18 @@ subApps:
               propertyName: zugserviceID
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: wagen
+            - name: wagenNumber
               label: Wagen
               editable: true
               sortable: true
-              propertyName: wagen
+              propertyName: wagenNumber
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
-            - name: seat
+            - name: sitzNumber
               label: Sitz
               editable: true
               sortable: true
-              propertyName: seat
+              propertyName: sitzNumber
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: fromID
@@ -434,17 +434,14 @@ subApps:
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: firstname
                 label: Vorname
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: lastname
                 label: Nachname
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: dateOfBirth
                 label: Geburtsdatum
                 fieldType: date
@@ -457,13 +454,11 @@ subApps:
                 appName: zugservices
                 identifierToPathConverter:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              - name: wagen
+              - name: wagenNumber
                 label: Wagen
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: seat
+              - name: sitzNumber
                 label: Sitz
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: fromID
                 label: Von

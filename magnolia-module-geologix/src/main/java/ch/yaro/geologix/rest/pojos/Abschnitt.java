@@ -44,6 +44,7 @@ public class Abschnitt {
     private String stopName;
     private int stopDuration;
     private int tripDuration;
+    private boolean isReservedTillNextStop = false;
 
     public String getStopName() {
         return stopName;
@@ -68,5 +69,13 @@ public class Abschnitt {
 
     public void setTripDuration(int tripDuration) {
         this.tripDuration = tripDuration;
+    }
+
+    public boolean isReservedTillNextStop() {
+        return isReservedTillNextStop;
+    }
+
+    public void setReservedTillNextStop(boolean reservedTillNextStop) {
+        isReservedTillNextStop = reservedTillNextStop;
     }
 }

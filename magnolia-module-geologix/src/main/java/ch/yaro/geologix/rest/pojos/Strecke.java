@@ -27,6 +27,9 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,5 +64,63 @@ public class Strecke {
 
     public void setFahrstrecke(LinkedList<Abschnitt> fahrstrecke) {
         this.fahrstrecke = fahrstrecke;
+    }
+
+    public boolean validateStreckenReservation(Reservation reservation) {
+        String departure = reservation.getDeparture();
+        String destination = reservation.getDestination();
+        boolean isDepartureInStrecke = false;
+        for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
+            Abschnitt abschnitt = (Abschnitt) stopIterator.next();
+            if (!isDepartureInStrecke && abschnitt.getStopName().equals(departure)) {
+                isDepartureInStrecke = true;
+            }
+            if (isDepartureInStrecke && abschnitt.getStopName().equals(destination)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void setTakenAbschnitte(Reservation reservation) {
+        String departure = reservation.getDeparture();
+        String destination = reservation.getDestination();
+        boolean isDepartureInStrecke = false;
+        for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
+            Abschnitt abschnitt = (Abschnitt) stopIterator.next();
+            if (!isDepartureInStrecke && abschnitt.getStopName().equals(departure)) {
+                isDepartureInStrecke = true;
+            }
+            if (isDepartureInStrecke && abschnitt.getStopName().equals(destination)) {
+                isDepartureInStrecke = false;
+            }
+            if (isDepartureInStrecke){
+                abschnitt.setReservedTillNextStop(true);
+            }
+        }
+    }
+
+    public boolean checkSeatAvailability(Reservation reservation) {
+        String departure = reservation.getDeparture();
+        String destination = reservation.getDestination();
+        boolean isDepartureInStrecke = false;
+        boolean seatIsAvailable = true;
+        for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
+            Abschnitt abschnitt = (Abschnitt) stopIterator.next();
+            if (!isDepartureInStrecke && abschnitt.getStopName().equals(departure)) {
+                isDepartureInStrecke = true;
+            }
+            if (isDepartureInStrecke && abschnitt.getStopName().equals(destination)) {
+                isDepartureInStrecke = false;
+            }
+            if (isDepartureInStrecke){
+                if (abschnitt.isReservedTillNextStop()) {
+                    seatIsAvailable = false;
+                    return seatIsAvailable;
+                }
+            }
+        }
+        return seatIsAvailable;
     }
 }

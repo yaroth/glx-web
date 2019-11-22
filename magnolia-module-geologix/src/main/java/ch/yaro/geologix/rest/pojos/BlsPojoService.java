@@ -425,7 +425,7 @@ public class BlsPojoService {
         Abschnitt abschnitt = new Abschnitt();
 
         String stopID = PropertyUtil.getString(node, Abschnitt.STOP_ID, "");
-        String stopName = getPropertyNameById(Haltestelle.WORKSPACE, stopID, Haltestelle.NAME);
+        String stopName = getPropertyValueById(Haltestelle.WORKSPACE, stopID, Haltestelle.NAME);
         abschnitt.setStopName(stopName);
 
         String stopduration = PropertyUtil.getString(node, Abschnitt.STOP_DURATION, "");
@@ -710,13 +710,13 @@ public class BlsPojoService {
      * Returns the property value of a node in a workspace with a given uuid
      *
      * @param id
-     * @param property
+     * @param propertyName
      * @param workspace
      */
-    private String getPropertyNameById(String workspace, String id, String property) throws RepositoryException {
+    private String getPropertyValueById(String workspace, String id, String propertyName) throws RepositoryException {
         Session session = MgnlContext.getJCRSession(workspace);
         Node node = session.getNodeByIdentifier(id);
-        String str = PropertyUtil.getString(node, property, "");
+        String str = PropertyUtil.getString(node, propertyName, "");
         // TODO: when do we logout of a session?
 //        session.logout();
         return str;
@@ -727,10 +727,11 @@ public class BlsPojoService {
 
         RepositoryNode repositoryNode = new RepositoryNode();
         // unique node name set up using all the reservation properties
-        String departureName = getPropertyNameById(Haltestelle.WORKSPACE, reservation.getFromID(), Haltestelle.NAME);
-        String destinationName = getPropertyNameById(Haltestelle.WORKSPACE, reservation.getToID(), Haltestelle.NAME);
+        String departureName = getPropertyValueById(Haltestelle.WORKSPACE, reservation.getFromID(), Haltestelle.NAME);
+        String destinationName = getPropertyValueById(Haltestelle.WORKSPACE, reservation.getToID(), Haltestelle.NAME);
+        String zugserviceName = getPropertyValueById(TrainService.WORKSPACE, reservation.getZugserviceID(), TrainService.NAME);
         String nodeName = reservation.getFirstname() + "-" + reservation.getLastname() + "-" + reservation.getDateOfBirth() +
-                "-" + reservation.getZugserviceID() + "-" + reservation.getWagenNumber() + "-" + reservation.getSitzNumber() +
+                "-" + zugserviceName + "-" + reservation.getWagenNumber() + "-" + reservation.getSitzNumber() +
                 "-" + departureName + "-" + destinationName;
         repositoryNode.setName(nodeName);
         repositoryNode.setPath(Reservation.BASEPATH + repositoryNode.getName());
@@ -802,7 +803,7 @@ public class BlsPojoService {
         sitzNumberProperty.setName(Reservation.SITZNUMBER);
         sitzNumberProperty.setType("String");
         ArrayList<String> sitznumberPropertyValues = new ArrayList<>();
-        sitznumberPropertyValues.add(reservation.getWagenNumber());
+        sitznumberPropertyValues.add(reservation.getSitzNumber());
         sitzNumberProperty.setValues(sitznumberPropertyValues);
         properties.add(sitzNumberProperty);
 
@@ -829,26 +830,29 @@ public class BlsPojoService {
 
     /**
      * Precondition: reservation is valid.
-     * checkReservation will try to make a reservation.
-     * Returns true if reservation was successful.
-     * Returns false if reservation was not successful.
+     * checks if seat in waggon is available
+     * for the specified Strecke.
      */
     public boolean checkReservation(Reservation reservation) throws RepositoryException {
         /** TODO: implement logic of checking whether requested seat is available for that strecke in that zugservice
          * get all reservations for that seat (ex.: waggon 10, seat 31) and check overlaps in 'Strecken'
          */
         // get all reservations for that zugservice for that waggon for that seat
-//        List<Reservation> reservationsForZugservice = getReservationsForZugserviceID(reservation.getZugserviceID());
-//        List<Reservation> reservationsWithSameWaggonAndSeat = new ArrayList<>();
-//        for (Reservation res : reservationsForZugservice) {
-//            if (res.getWagenNumber().equals(reservation.getWagenNumber()) && res.getSitzNumber().equals(reservation.getSitzNumber())){
-//                reservationsWithSameWaggonAndSeat.add(res);
-//            }
-//        }
-//        String zugserviceID = reservation.getZugserviceID();
-//        TrainService trainService = getTrainserviceById(zugserviceID);
-//        Strecke strecke = getStreckeById(trainService.getStreckeID());
-        return true;
+        List<Reservation> reservationsForZugservice = getReservationsForZugserviceID(reservation.getZugserviceID());
+        List<Reservation> sameSeatReservations = new ArrayList<>();
+        for (Reservation res : reservationsForZugservice) {
+            if (res.getWagenNumber().equals(reservation.getWagenNumber()) && res.getSitzNumber().equals(reservation.getSitzNumber())) {
+                sameSeatReservations.add(res);
+            }
+        }
+        String zugserviceID = reservation.getZugserviceID();
+        TrainService trainService = getTrainserviceById(zugserviceID);
+        Strecke strecke = getStreckeById(trainService.getStreckeID());
+        for (Reservation seatReservation : sameSeatReservations) {
+            strecke.setTakenAbschnitte(seatReservation);
+        }
+        boolean seatAvailable = strecke.checkSeatAvailability(reservation);
+        return seatAvailable;
     }
 
     private List<Reservation> getReservationsForZugserviceID(String zugserviceID) throws RepositoryException {
@@ -905,13 +909,13 @@ public class BlsPojoService {
         String fromID = PropertyUtil.getString(node, Reservation.FROMID, "");
         reservation.setFromID(fromID);
 
-        String departureName = getPropertyNameById(Haltestelle.WORKSPACE, fromID, Haltestelle.NAME);
+        String departureName = getPropertyValueById(Haltestelle.WORKSPACE, fromID, Haltestelle.NAME);
         reservation.setDeparture(departureName);
 
         String toID = PropertyUtil.getString(node, Reservation.TOID, "");
         reservation.setToID(toID);
 
-        String destinationName = getPropertyNameById(Haltestelle.WORKSPACE, toID, Haltestelle.NAME);
+        String destinationName = getPropertyValueById(Haltestelle.WORKSPACE, toID, Haltestelle.NAME);
         reservation.setDestination(destinationName);
 
         return reservation;
@@ -926,6 +930,10 @@ public class BlsPojoService {
      * - from-to strecke of the trainservice is valid.
      */
     public boolean validateReservation(Reservation reservation) throws RepositoryException {
+        String departure = getPropertyValueById(Haltestelle.WORKSPACE, reservation.getFromID(), Haltestelle.NAME);
+        reservation.setDeparture(departure);
+        String destination = getPropertyValueById(Haltestelle.WORKSPACE, reservation.getToID(), Haltestelle.NAME);
+        reservation.setDestination(destination);
         // TODO: catch possible errors!
         boolean reservationIsValid = false;
         String zugserviceID = reservation.getZugserviceID();
@@ -943,9 +951,7 @@ public class BlsPojoService {
                 Wagenplan wagenplan = getWagenplanById(wagenplanID);
                 for (Seat seat : wagenplan.getSeats()) {
                     if (seat.getId().equals(reservation.getSitzNumber())) {
-                        // TODO: check if from-to is valid for the given strecke
-
-                        reservationIsValid = true;
+                        reservationIsValid = strecke.validateStreckenReservation(reservation);
                         return reservationIsValid;
                     }
                 }

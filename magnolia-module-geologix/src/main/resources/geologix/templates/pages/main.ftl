@@ -13,6 +13,5 @@
     [@cms.area name="main"/]
     [@cms.area name="footer"/]
     <div id="modalwindow"></div>
-    [#--TODO: load emo script--]
 </body>
 </html>

@@ -27,6 +27,8 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +49,10 @@ public class Wagenplan extends NodeItem {
 
     private String code;
     private String description;
-    private String image;
+    private String imageLink;
+    @JsonIgnore
     private List<String> wagentypIDs;
+    private List<String> wagentypen;
     private List<Seat> seats = new ArrayList<>();
 
     public List<String> getWagentypIDs() {
@@ -75,12 +79,12 @@ public class Wagenplan extends NodeItem {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public List<Seat> getSeats() {
@@ -89,5 +93,13 @@ public class Wagenplan extends NodeItem {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+    public List<String> getWagentypen() {
+        return wagentypen;
+    }
+
+    public void setWagentypen(List<String> wagentypen) {
+        this.wagentypen = wagentypen;
     }
 }

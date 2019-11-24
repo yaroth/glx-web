@@ -72,7 +72,7 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
             @ApiResponse(code = 400, message = STATUS_MESSAGE_BAD_REQUEST)
     })
     public Response getTrainServices(TrainServiceRequest request) {
-        List<TrainService> result = null;
+        List<TrainService> result;
         try {
             result = blsPojoService.getTrainServicesForRequest(request);
             return Response.ok(result).build();

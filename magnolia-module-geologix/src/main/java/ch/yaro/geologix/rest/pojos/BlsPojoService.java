@@ -165,14 +165,25 @@ public class BlsPojoService {
 
         wagenplan.setDescription(PropertyUtil.getString(node, Wagenplan.DESCRIPTION, ""));
 
-        // TODO: set URL of image, so that vueJS can get and render the Wagenplan background layout
-        wagenplan.setImage(PropertyUtil.getString(node, Wagenplan.IMAGE, ""));
+        String imageAssetKey = PropertyUtil.getString(node, Wagenplan.IMAGE, "");
+        if (imageAssetKey != null) {
+            Image img = getImage(imageAssetKey);
+            if (img != null) {
+                wagenplan.setImageLink(img.getLink());
+            }
+        }
 
-        List<String> wagentypList = getPropertyValuesList(node, Wagenplan.WAGENTYP);
-        wagenplan.setWagentypIDs(wagentypList);
+        List<String> wagentypIDsList = getPropertyValuesList(node, Wagenplan.WAGENTYP);
+        wagenplan.setWagentypIDs(wagentypIDsList);
 
-        // TODO: add filter for node type of seat: mgnl:contentNode
-        Iterable<Node> nodeIterable = NodeUtil.collectAllChildren(node);
+        List<String> wagentypen = new ArrayList<>();
+        for (String typID : wagentypIDsList) {
+            String wagentyp = getPropertyValueById(Wagentyp.WORKSPACE, typID, Wagentyp.NAME);
+            wagentypen.add(wagentyp);
+        }
+        wagenplan.setWagentypen(wagentypen);
+
+        Iterable<Node> nodeIterable = NodeUtil.collectAllChildren(node, SEAT_FILTER);
         if (nodeIterable != null) {
             for (Node seatNode : nodeIterable) {
                 Seat seat = getSeatByNode(seatNode);
@@ -294,13 +305,12 @@ public class BlsPojoService {
         String wagenNumber = PropertyUtil.getString(node, Wagen.NUMBER, "");
         wagen.setNumber(wagenNumber);
 
-        String wagenplanID = PropertyUtil.getString(node, Wagen.WAGENPLAN, "");
+        String wagenplanID = PropertyUtil.getString(node, Wagen.WAGENPLAN_ID, "");
         wagen.setWagenplanID(wagenplanID);
 
         Wagenplan wagenplan = getWagenplanById(wagenplanID);
         wagen.setWagenplan(wagenplan);
 
-        // TODO: get seat list, wagentyp list,
         return wagen;
     }
 
@@ -330,7 +340,6 @@ public class BlsPojoService {
         String zugkompositionID = PropertyUtil.getString(node, TrainService.ZUGKOMPOSITION_ID, "");
         trainService.setZugkompositionID(zugkompositionID);
 
-        // TODO: do not only get the ZugkompositionID, but the whole Zugkomposition, incl. Waggons, Seats, Waggontype,...
         LinkedList<Wagen> zugkomposition = getZugkompositionById(zugkompositionID).getWagenList();
         trainService.setZugkomposition(zugkomposition);
 
@@ -493,7 +502,7 @@ public class BlsPojoService {
     public List<TrainService> getTrainServicesForRequest(TrainServiceRequest request) throws RepositoryException {
         List<TrainService> allTrainServices = getAllTrainServices();
         List<TrainService> trainServicesForRequest = new ArrayList<>();
-        // TODO: define a maximal time after requestTime for which future train services should be considered
+        // TODO: define a maximum number of returned train services: 6
 
         for (TrainService trainService : allTrainServices) {
             if (trainService.fitsRequest(request)) {
@@ -722,8 +731,6 @@ public class BlsPojoService {
         Session session = MgnlContext.getJCRSession(workspace);
         Node node = session.getNodeByIdentifier(id);
         String str = PropertyUtil.getString(node, propertyName, "");
-        // TODO: when do we logout of a session?
-//        session.logout();
         return str;
     }
 
@@ -839,10 +846,6 @@ public class BlsPojoService {
      * for the specified Strecke.
      */
     public boolean checkReservation(Reservation reservation) throws RepositoryException {
-        /** TODO: implement logic of checking whether requested seat is available for that strecke in that zugservice
-         * get all reservations for that seat (ex.: waggon 10, seat 31) and check overlaps in 'Strecken'
-         */
-        // get all reservations for that zugservice for that waggon for that seat
         List<Reservation> reservationsForZugservice = getReservationsForZugserviceID(reservation.getZugserviceID());
         List<Reservation> sameSeatReservations = new ArrayList<>();
         for (Reservation res : reservationsForZugservice) {

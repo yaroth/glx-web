@@ -14,7 +14,6 @@
 [@cms.area name="footer"/]
 <div id="modalwindow"></div>
 
-[#--TODO: load emo script--]
 <!-- emo -->
 <script>
     var emo_addr = new Array();

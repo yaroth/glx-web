@@ -27,6 +27,8 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 /**
@@ -40,9 +42,10 @@ public class Wagen extends NodeItem {
     public static final String BASEPATH = "/";
 
     public static final String NUMBER = "number";
-    public static final String WAGENPLAN = "wagenplan";
+    public static final String WAGENPLAN_ID = "wagenplanID";
 
     private String number;
+    @JsonIgnore
     private String wagenplanID;
     private Wagenplan wagenplan;
 

@@ -388,7 +388,7 @@ subApps:
               - name: number
                 label: Nummer
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: wagenplan
+              - name: wagenplanID
                 label: Wagenplan
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: category

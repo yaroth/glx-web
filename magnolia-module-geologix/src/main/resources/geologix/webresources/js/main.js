@@ -198,7 +198,6 @@ $(document).ready(function () {
             $(".box").removeClass("active");
             $(".flowbutton").show();
             $(".box.bgbox").each(function (index, element) {
-                // todo - renew
                 var bg = $(this).children(".bg");
                 if (bg.length) {
                     $(this).css("background-image", bg.css("background-image"));

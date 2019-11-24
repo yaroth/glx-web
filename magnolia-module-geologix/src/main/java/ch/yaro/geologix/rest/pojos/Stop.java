@@ -27,6 +27,8 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalTime;
 
 /**
@@ -60,6 +62,8 @@ public class Stop {
         this.timeIN = timeIN;
     }
 
+    // TODO: fix this, so format in JSON will be of form HH:mm
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     public LocalTime getTimeOut() {
         return timeOut;
     }

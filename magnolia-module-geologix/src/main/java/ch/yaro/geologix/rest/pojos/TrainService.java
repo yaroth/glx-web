@@ -1,6 +1,8 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.inject.Inject;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -21,8 +23,10 @@ public class TrainService extends NodeItem {
 
     private String name;
     private String departure;
+    @JsonIgnore
     private String streckeID;
     private LinkedList<Stop> timetable;
+    @JsonIgnore
     private String zugkompositionID;
     private LinkedList<Wagen> zugkomposition;
 

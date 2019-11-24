@@ -15,8 +15,8 @@ public class TrainService extends NodeItem {
 
     public static final String NAME = "name";
     public static final String DEPARTURE = "departure";
-    public static final String STRECKE = "strecke";
-    public static final String ZUGKOMPOSITION = "zugkomposition";
+    public static final String STRECKE_ID = "strecke";
+    public static final String ZUGKOMPOSITION_ID = "zugkomposition";
 
 
     private String name;
@@ -24,6 +24,7 @@ public class TrainService extends NodeItem {
     private String streckeID;
     private LinkedList<Stop> timetable;
     private String zugkompositionID;
+    private LinkedList<Wagen> zugkomposition;
 
 
     public String getName() {
@@ -66,6 +67,14 @@ public class TrainService extends NodeItem {
         this.timetable = timetable;
     }
 
+    public LinkedList<Wagen> getZugkomposition() {
+        return zugkomposition;
+    }
+
+    public void setZugkomposition(LinkedList<Wagen> zugkomposition) {
+        this.zugkomposition = zugkomposition;
+    }
+
     public boolean fitsRequest(TrainServiceRequest request) {
         LocalTime earliestDeparture = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
         String startStop = request.getFrom();
@@ -91,12 +100,14 @@ public class TrainService extends NodeItem {
         for (Iterator stopIterator = timetable.iterator(); stopIterator.hasNext(); ) {
             Stop stop = (Stop) stopIterator.next();
             if (!startAddingStops && stop.getStopName().equals(startStop)) {
+                stop.setTimeIN(null);
                 startAddingStops = true;
             }
             if (startAddingStops){
                 updatedTimetable.add(stop);
             }
             if (stop.getStopName().equals(endStop)) {
+                stop.setTimeOut(null);
                 break;
             }
         }

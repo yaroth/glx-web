@@ -1,6 +1,7 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Zugkomposition {
@@ -13,7 +14,7 @@ public class Zugkomposition {
     public static final String WAEGEN = "waegen";
 
     private String name;
-    private List<Wagen> wagenList;
+    private LinkedList<Wagen> wagenList;
 
 
     public String getName() {
@@ -24,11 +25,11 @@ public class Zugkomposition {
         this.name = name;
     }
 
-    public List<Wagen> getWagenList() {
+    public LinkedList<Wagen> getWagenList() {
         return wagenList;
     }
 
-    public void setWagenList(List<Wagen> wagenList) {
+    public void setWagenList(LinkedList<Wagen> wagenList) {
         this.wagenList = wagenList;
     }
 }

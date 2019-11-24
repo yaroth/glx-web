@@ -321,13 +321,18 @@ public class BlsPojoService {
 
         LocalTime departureAsLocalTime = LocalTime.parse(departureTime, DateTimeFormatter.ofPattern("HH:mm"));
 
-        String streckeID = PropertyUtil.getString(node, TrainService.STRECKE, "");
+        String streckeID = PropertyUtil.getString(node, TrainService.STRECKE_ID, "");
         trainService.setStreckeID(streckeID);
         Strecke strecke = getStreckeById(streckeID);
         LinkedList<Stop> timetable = getTimetable(strecke, departureAsLocalTime);
         trainService.setTimetable(timetable);
 
-        trainService.setZugkompositionID(PropertyUtil.getString(node, TrainService.ZUGKOMPOSITION, ""));
+        String zugkompositionID = PropertyUtil.getString(node, TrainService.ZUGKOMPOSITION_ID, "");
+        trainService.setZugkompositionID(zugkompositionID);
+
+        // TODO: do not only get the ZugkompositionID, but the whole Zugkomposition, incl. Waggons, Seats, Waggontype,...
+        LinkedList<Wagen> zugkomposition = getZugkompositionById(zugkompositionID).getWagenList();
+        trainService.setZugkomposition(zugkomposition);
 
         return trainService;
     }
@@ -373,7 +378,7 @@ public class BlsPojoService {
         String name = PropertyUtil.getString(node, Zugkomposition.NAME, "");
         zugkomposition.setName(name);
 
-        List<Wagen> wagenKomposition = new LinkedList<>();
+        LinkedList<Wagen> wagenKomposition = new LinkedList<>();
 
 
         List<String> wagenIDs = getPropertyValuesList(node, Zugkomposition.WAEGEN);

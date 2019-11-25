@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Product App</title>
+    <link rel="stylesheet" type="text/css" href="../stylesheet/style.css">
+</head>
+<body>
+
+    <div class="nav-bar"></div>
+
+    <div id="app">
+        <div class="product">
+
+            <div class="product-image">
+                <a :href="link"><img :src="image" >click me!</a>
+            </div>
+
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p v-if="inventory > 10">In Stock</p>
+                <p v-else-if="inventory<=10 && inventory > 0"> Almost sold out!!!</p>
+                <p v-else>Out of Stock</p>
+                <p>{{ description }}</p>
+                <span></span>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../Javascript/main.js"></script>
+</body>
+</html>

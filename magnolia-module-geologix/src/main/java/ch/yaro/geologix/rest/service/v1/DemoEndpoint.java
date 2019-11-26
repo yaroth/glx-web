@@ -129,10 +129,10 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
             @ApiResponse(code = 404, message = STATUS_MESSAGE_NODE_NOT_FOUND),
             @ApiResponse(code = 500, message = STATUS_MESSAGE_ERROR_OCCURRED)
     })
-    public Response getAllTest(TrainServiceRequest request) {
-        List<TrainService> result = null;
+    public Response getAllTest() {
+        List<Zugkomposition> result;
         try {
-            result = blsPojoService.getTrainServicesForRequest(request);
+            result = blsPojoService.getAllZugkompositionen();
             return Response.ok(result).build();
         } catch (RepositoryException e) {
             log.warn("Could not compute the request.");

@@ -1,29 +1,21 @@
-
-var test = new Vue({
+new Vue({
     el: '#app',
-    data () {
+    data() {
         return {
-            info: null
+            info: 'Some bloody test',
+            time: '09:30',
+            from: 'Bern',
+            to: 'Thun'
         }
     },
-    mounted () {
-        var uName = 'superuser';
-        var pWord = 'superuser';
+    mounted() {
         axios
-            .get('http://localhost:8080/.rest/demo/v1/getalltest', {
-                headers: {
-                    'Access-Control-Allow-Origin': '*'
-                },
-                auth: {
-                    username: uName,
-                    password: pWord
-                }
-            })
-            .then(response => (this.info = response.data,
-            console.log(response)))
+            .post('http://localhost:8080/.rest/demo/v1/zugservices', {time:this.time, from:this.from, to:this.to})
+            // .get('http://localhost:8080/.rest/demo/v1/getalltest')
+            .then(response => (this.info = response))
             .catch(error => console.log(error))
     }
-})
+});
 
 // var home = new Vue({
 //     el: '#home',

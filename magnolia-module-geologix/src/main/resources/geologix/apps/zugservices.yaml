@@ -415,6 +415,7 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: departure
                 label: Abfahrtszeit
+                description: Please enter a time with format 'hh:mm' (08:34, 00:12, 19:45)
                 fieldType: text
                 validators:
                   - name: time

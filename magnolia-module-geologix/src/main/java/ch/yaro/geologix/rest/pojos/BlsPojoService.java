@@ -949,6 +949,7 @@ public class BlsPojoService {
         Zugkomposition zugkomposition = getZugkompositionById(trainService.getZugkompositionID());
         Strecke strecke = getStreckeById(trainService.getStreckeID());
         LinkedList<String> stopsOnlyLinkedList = new LinkedList<>();
+        // TODO: what is this for loop for?
         for (Iterator abschnittIterator = strecke.getFahrstrecke().iterator(); abschnittIterator.hasNext(); ) {
             Abschnitt abschnitt = (Abschnitt) abschnittIterator.next();
             stopsOnlyLinkedList.add(abschnitt.getStopName());

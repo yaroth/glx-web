@@ -1,18 +1,17 @@
-var app = new Vue({
+new Vue({
     el: '#app',
     data() {
         return {
             info: 'Some bloody test',
+            time: '09:30',
+            from: 'Bern',
+            to: 'Thun'
         }
     },
-    data: {
-        info: 'Some bloody test',
-        time: '09:30',
-        from: 'Bern',
-        to: 'Thun'
-    },
     mounted() {
-        axios.post('http://localhost:8080/.rest/demo/v1/zugservices', {time:this.time, from:this.from, to:this.to})
+        axios
+            .post('http://localhost:8080/.rest/demo/v1/zugservices', {time:this.time, from:this.from, to:this.to})
+            // .get('http://localhost:8080/.rest/demo/v1/getalltest')
             .then(response => (this.info = response.data))
             .catch(error => console.log(error))
     }

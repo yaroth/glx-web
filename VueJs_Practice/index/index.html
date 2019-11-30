@@ -3,58 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../css/listview.css">
 </head>
 <body>
 
-    <div id="home">
-        <form>
-            Zeit:<br>
-            <input type="text" name="time" placeholder="hh:mm" ><br>
-            Von:<br>
-            <input type="text" name="from" ><br>
-            Nach:<br>
-            <input type="text" name="to" ><br>
-            <input type="submit" value="Submit">
-        </form><br>
+<div id="home">
+    <!--    <form>-->
+    <!--        Zeit:<br>-->
+    <!--        <input type="text" name="time" placeholder="hh:mm"><br>-->
+    <!--        Von:<br>-->
+    <!--        <input type="text" name="from"><br>-->
+    <!--        Nach:<br>-->
+    <!--        <input type="text" name="to"><br>-->
+    <!--        <input type="submit" value="Submit">-->
+    <!--    </form>-->
+    <!--    <br>-->
 
-        <section id="js-grid-list" class="grid-list" v-cloak>
+    <section id="js-grid-list" class="grid-list" v-cloak>
 
-            <div class="tool-bar">
-                <!-- These link buttons use Vue.js to bind click events to change the "layout" variable and bind an active class -->
-                <a class="list-icon" v-on:click="layout = 'list'" v-bind:class="{ 'active': layout == 'list'}" title="List"></a>
-                <a class="grid-icon" v-on:click="layout = 'grid'" v-bind:class="{ 'active': layout == 'grid'}" title="Grid"></a>
-            </div>
-
-            <!-- Vue.js lets us choose which UL to show depending on the "layout" variable -->
-
-            <ul v-if="layout === 'grid'" class="grid">
-                <!-- A "grid" view with photos only -->
-                <li v-for="blog in blog_posts">
-                    <a v-bind:href="blog.url" v-bind:style="{ backgroundImage: 'url(' + blog.image.large + ')' }" target="_blank"></a>
-                </li>
-            </ul>
-
-            <ul v-if="layout === 'list'" class="list">
-                <!-- A "list" view with small photos and blog titles -->
-                <li v-for="blog in blog_posts">
-                    <a v-bind:href="blog.url" target="_blank">
-                        <img v-bind:src="blog.image.small">
-                        <p>{{blog.title}}</p>
-                    </a>
-                </li>
-            </ul>
-            <link rel="stylesheet" href="../css/listview.css">
-        </section>
-
-        <div id="app">
-            {{ info }}
+        <div class="tool-bar">
+            <a class="back-icon" v-if="layout === 'zugservice-detail'" v-on:click="layout = 'list'"
+               v-bind:class="{ 'active': layout == 'list'}" title="Back"></a>
         </div>
 
+        <ul v-if="layout === 'list'" class="list">
+            <li v-for="zug in zugservices">
+                <a v-on:click="showZugserviceDetail(zug.uuid)">
+                    <p>{{zug.title}}</p>
+                    <!--                    <p>{{zug.uuid}}</p>-->
+                    <p v-for="waggon in zug.waggons">{{waggon.number}}</p>
+                </a>
+            </li>
+        </ul>
+        <ul v-if="layout === 'zugservice-detail'" class="zugservice-detail">
+            <template v-for="zug in zugservices">
+                <template v-if="zugserviceId === zug.uuid">
+                    <li v-for="waggon in zug.waggons" class="waggon">
+                        <p>Waggon N°: {{waggon.number}}</p>
+                        <div class="waggon-image">
+                            <img v-bind:src="waggon.image">
+                            <div class="row-placeholder row1"></div>
+                            <div class="row-placeholder row2">
+                                <button type="button" class="col1 reserved">Reservieren</button>
+                                <button type="button" class="col2">Reservieren</button>
+                                <button type="button" class="col3 unvisible">Reservieren</button>
+                                <button type="button" class="col4 ">Reservieren</button>
+                                <button type="button" class="col5 reserved">Reservieren</button>
+                            </div>
+                            <div class="row-placeholder row3"></div>
+                        </div>
+                    </li>
+                </template>
+            </template>
+        </ul>
+
+    </section>
+
+    <div id="app">
+        {{ info }}
     </div>
 
+</div>
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="../javascript/zugservice.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="../js/zugservice.js"></script>
 </body>
 </html>

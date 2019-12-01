@@ -234,6 +234,16 @@ public class BlsPojoService {
         return haltestelleList;
     }
 
+    /** Returns the UUID of the first occurrence of a {@link Haltestelle} given its name */
+    public String getHaltestelleIdByName(String name) throws RepositoryException {
+        if (name == null) return null;
+        List<Haltestelle> haltestelleList = getAllHaltestellen();
+        for (Haltestelle haltestelle : haltestelleList) {
+            if (haltestelle.getName().equals(name)) return haltestelle.getUuid();
+        }
+        return null;
+    }
+
     /**
      * Returns a list of all {@link Strecke} POJOs.
      */
@@ -938,22 +948,14 @@ public class BlsPojoService {
      * - from-to strecke of the trainservice is valid.
      */
     public boolean validateReservation(Reservation reservation) throws RepositoryException {
-        String departure = getPropertyValueById(Haltestelle.WORKSPACE, reservation.getFromID(), Haltestelle.NAME);
-        reservation.setDeparture(departure);
-        String destination = getPropertyValueById(Haltestelle.WORKSPACE, reservation.getToID(), Haltestelle.NAME);
-        reservation.setDestination(destination);
+        reservation.setFromID(getHaltestelleIdByName(reservation.getDeparture()));
+        reservation.setToID(getHaltestelleIdByName(reservation.getDestination()));
         // TODO: catch possible errors!
         boolean reservationIsValid = false;
         String zugserviceID = reservation.getZugserviceID();
         TrainService trainService = getTrainserviceById(zugserviceID);
         Zugkomposition zugkomposition = getZugkompositionById(trainService.getZugkompositionID());
         Strecke strecke = getStreckeById(trainService.getStreckeID());
-        LinkedList<String> stopsOnlyLinkedList = new LinkedList<>();
-        // TODO: what is this for loop for?
-        for (Iterator abschnittIterator = strecke.getFahrstrecke().iterator(); abschnittIterator.hasNext(); ) {
-            Abschnitt abschnitt = (Abschnitt) abschnittIterator.next();
-            stopsOnlyLinkedList.add(abschnitt.getStopName());
-        }
         for (Wagen wagen : zugkomposition.getWagenList()) {
             if (wagen.getNumber().equals(reservation.getWagenNumber())) {
                 String wagenplanID = wagen.getWagenplanID();

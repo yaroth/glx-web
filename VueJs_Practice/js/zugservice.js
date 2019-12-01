@@ -4,14 +4,9 @@ var app = new Vue({
         info: 'Some bloody test',
         time: '09:30',
         from: 'Bern',
-        to: 'Thun'
+        to: 'Thun',
+        reservationConfirmation: ''
     },
-    // mounted() {
-    //     axios
-    //         .post('http://localhost:8080/.rest/demo/v1/zugservices', {time:this.time, from:this.from, to:this.to})
-    //         .then(response => (this.info = response.data))
-    //         .catch(error => console.log(error))
-    // }
     methods: {
         getZugservices() {
             axios.post('http://localhost:8080/.rest/demo/v1/zugservices', {
@@ -19,19 +14,22 @@ var app = new Vue({
                 from: this.from,
                 to: this.to
             })
-            .then(response => (this.info = response.data))
-            .catch(error => console.log(error))
+                .then(response => (this.info = response.data))
+                .then(response => (blog_list.zugservices = response.data, blog_list.layout = 'list'))
+                .catch(error => console.log(error))
         }
     }
 });
 
 var blog_list = new Vue({
         el: '#js-grid-list',
-        data: {
+        dataOriginal: {
             layout: 'list',
             zugserviceId: '',
             zugservices: [{
                 title: 'Zürich - Interlaken',
+                name: 'Bern - Interlaken 9h35',
+                departure: '09:35',
                 uuid: '1234-5678',
                 waggons: [{
                     number: 1,
@@ -81,13 +79,16 @@ var blog_list = new Vue({
                     }]
                 }]
         },
-        dataREST: {
+        data: {
             layout: 'list',
             zugserviceId: '',
             zugservices: [{
                 uuid: 'ebdc5352-3c37-43d4-a2bd-5db4521d22f3',
                 name: 'Bern - Interlaken 8h34',
                 departure: '08:34',
+                arrival: '08:59',
+                from: 'Bern',
+                to: 'Thun',
                 timetable: [
                     {
                         stopName: 'Bern',
@@ -132,7 +133,7 @@ var blog_list = new Vue({
                         uuid: '6eaaa3e8-6023-4a7f-8ca9-f34dfc1d4127',
                         code: 'BLS Typ 01 - 2019',
                         description: 'Panoramawagen, 1. Klasse',
-                        imageLink: '/dam/jcr:2db40bd4-3f97-46f8-885e-b9954bc63a88/Sitzplan.jpg',
+                        imageLink: '../images/sitzplan.jpg',
                         wagentypen: ['Wagen mit Familienabteil', 'Wagen mit Veloverladmöglichkeit'],
                         seats: [{
                             uuid: null,
@@ -156,7 +157,7 @@ var blog_list = new Vue({
                         uuid: '4751dad2-9b3b-487d-aa03-a5004f91b909',
                         code: 'BLS Typ 02 - 2018',
                         description: 'Bistro, 1. Klasse',
-                        imageLink: '/dam/jcr:d974d2be-f1a1-465a-b704-f3287b5108fb/Pano%202.%20Klasse.png',
+                        imageLink: '../images/sitzplan.jpg',
                         wagentypen: ['Normaler Wagen'],
                         seats: [{
                             uuid: null,
@@ -180,7 +181,7 @@ var blog_list = new Vue({
                         uuid: '4751dad2-9b3b-487d-aa03-a5004f91b909',
                         code: 'BLS Typ 02 - 2018',
                         description: 'Bistro, 1. Klasse',
-                        imageLink: '/dam/jcr:d974d2be-f1a1-465a-b704-f3287b5108fb/Pano%202.%20Klasse.png',
+                        imageLink: '../images/sitzplan2.png',
                         wagentypen: ['Normaler Wagen'],
                         seats: [{
                             uuid: null,
@@ -203,6 +204,9 @@ var blog_list = new Vue({
                 uuid: '64dbb5c7-03c4-4c61-a52a-66edd8a09265',
                 name: 'Bern - Interlaken 9h35',
                 departure: '09:35',
+                arrival: '10:00',
+                from: 'Bern',
+                to: 'Thun',
                 timetable: [{
                     stopName: 'Bern',
                     timeIN: null,
@@ -430,8 +434,20 @@ var blog_list = new Vue({
             showSeatDetail() {
                 console.log("showSeatDetail line clicked");
             },
-            requestReservation(zugUuid, seatId, waggonNumber) {
-                console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid);
+            requestReservation(zugUuid, seatId, waggonNumber, from, to) {
+                console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid + ", from: " + from + ", to: " + to);
+                axios.post('http://localhost:8080/.rest/demo/v1/reservation', {
+                    firstname: 'Gael',
+                    lastname: 'Zwirbel',
+                    dateOfBirth: '1978-03-24',
+                    zugserviceID: zugUuid,
+                    wagenNumber: waggonNumber,
+                    sitzNumber: seatId,
+                    departure: from,
+                    destination: to
+                })
+                    .then(response => (app.reservationConfirmation = response.data))
+                    .catch(error => console.log(error))
             }
 
 

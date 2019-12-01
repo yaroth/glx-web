@@ -29,39 +29,38 @@
         <ul v-if="layout === 'list'" class="list">
             <li v-for="zug in zugservices">
                 <a v-on:click="showZugserviceDetail(zug.uuid)">
-                    <p>{{zug.title}}</p>
-                    <!--                    <p>{{zug.uuid}}</p>-->
-                    <p v-for="waggon in zug.waggons">{{waggon.number}}</p>
+                    <p>{{zug.departure}} {{zug.from}} - {{zug.to}} {{zug.arrival}}</p>
+                    <p v-for="waggon in zug.zugkomposition">{{waggon.number}}</p>
                 </a>
             </li>
         </ul>
         <ul v-if="layout === 'zugservice-detail'" class="zugservice-detail">
             <template v-for="zug in zugservices">
                 <template v-if="zugserviceId === zug.uuid">
-                    <li v-for="waggon in zug.waggons" class="waggon">
-                        <p>Waggon N°: {{waggon.number}}</p>
+                    <li v-for="waggon in zug.zugkomposition" class="waggon">
+                        <p>Waggon N°: {{waggon.number}} ({{waggon.wagenplan.description}})</p>
                         <div class="waggon-image">
-                            <img v-bind:src="waggon.image">
+                            <img v-bind:src="waggon.wagenplan.imageLink">
                             <div class="row-placeholder row1"></div>
                             <div class="row-placeholder row2">
-                                <button v-on:click="requestReservation(zug.uuid, 11, waggon.number)" id="11" type="button" class="col1 ">
+                                <button v-on:click="requestReservation(zug.uuid, 11, waggon.number, zug.from, zug.to)" id="11" type="button" class="col1 ">
                                     Reservieren
                                 </button>
-                                <button v-on:click="requestReservation(zug.uuid, 13, waggon.number)" id="13" type="button" class="col2">
+                                <button v-on:click="requestReservation(zug.uuid, 13, waggon.number, zug.from, zug.to)" id="13" type="button" class="col2">
                                     Reservieren
                                 </button>
-                                <button type="button" class="col3 unvisible">Reservieren</button>
-                                <button v-on:click="requestReservation(zug.uuid, 17, waggon.number)" id="17" type="button" class="col4 ">
+                                <button type="button" class="col3 invisible">Reservieren</button>
+                                <button v-on:click="requestReservation(zug.uuid, 17, waggon.number, zug.from, zug.to)" id="17" type="button" class="col4 ">
                                     Reservieren
                                 </button>
-                                <button v-on:click="requestReservation(zug.uuid, 15, waggon.number)" id="15" type="button" class="col5 reserved">
+                                <button v-on:click="requestReservation(zug.uuid, 15, waggon.number, zug.from, zug.to)" id="15" type="button" class="col5 reserved">
                                     Reservieren
                                 </button>
                             </div>
                             <div class="row-placeholder row3">
                                 <button type="button" class="col1 ">Reservieren</button>
                                 <button type="button" class="col2 reserved">Reservieren</button>
-                                <button type="button" class="col3 unvisible">Reservieren</button>
+                                <button type="button" class="col3 invisible">Reservieren</button>
                                 <button type="button" class="col4 reserved">Reservieren</button>
                                 <button type="button" class="col5 reserved">Reservieren</button>
                             </div>
@@ -76,6 +75,9 @@
     <div id="app">
         <input v-on:click="getZugservices" type="submit" value="Submit">
         {{ info }}
+        <div id="reservation-confirmation">
+            {{reservationConfirmation}}
+        </div>
     </div>
 
 </div>

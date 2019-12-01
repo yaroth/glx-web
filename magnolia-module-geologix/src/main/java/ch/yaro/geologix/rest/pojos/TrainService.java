@@ -3,7 +3,7 @@ package ch.yaro.geologix.rest.pojos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.inject.Inject;
+import javax.jcr.RepositoryException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
@@ -23,12 +23,16 @@ public class TrainService extends NodeItem {
 
     private String name;
     private String departure;
+    private String arrival;
+    private String from;
+    private String to;
     @JsonIgnore
     private String streckeID;
     private LinkedList<Stop> timetable;
     @JsonIgnore
     private String zugkompositionID;
     private LinkedList<Wagen> zugkomposition;
+
 
 
     public String getName() {
@@ -79,6 +83,30 @@ public class TrainService extends NodeItem {
         this.zugkomposition = zugkomposition;
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
+    }
+
     public boolean fitsRequest(TrainServiceRequest request) {
         LocalTime earliestDeparture = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
         String startStop = request.getFrom();
@@ -96,7 +124,7 @@ public class TrainService extends NodeItem {
         return false;
     }
 
-    public void adaptTimetableToRequest(TrainServiceRequest request) {
+    public void adaptTimetableToRequest(TrainServiceRequest request) throws RepositoryException {
         String startStop = request.getFrom();
         String endStop = request.getTo();
         LinkedList<Stop> updatedTimetable = new LinkedList<>();
@@ -106,12 +134,16 @@ public class TrainService extends NodeItem {
             if (!startAddingStops && stop.getStopName().equals(startStop)) {
                 stop.setTimeIN(null);
                 startAddingStops = true;
+                setFrom(startStop);
+                setDeparture(stop.getTimeOut().getHour() + ":" + stop.getTimeOut().getMinute());
             }
             if (startAddingStops){
                 updatedTimetable.add(stop);
             }
             if (stop.getStopName().equals(endStop)) {
                 stop.setTimeOut(null);
+                setTo(endStop);
+                setArrival(stop.getTimeIN().getHour() + ":" + stop.getTimeIN().getMinute());
                 break;
             }
         }

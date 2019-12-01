@@ -34,7 +34,8 @@
     <ul v-if="layout === 'grid'" class="grid">
         <!-- A "grid" view with photos only -->
         <li v-for="blog in blog_posts">
-            <a v-bind:href="blog.url" v-bind:style="{ backgroundImage: 'url(' + blog.image.large + ')' }" target="_blank"></a>
+            <a v-bind:href="blog.url" v-bind:style="{ backgroundImage: 'url(' + blog.image.large + ')' }"
+               target="_blank"></a>
         </li>
     </ul>
 
@@ -53,7 +54,8 @@
         {{ zugservice.uuid }}<br>
         {{ zugservice.name }}<br>
     </div>
-    <#--    <div>{{ info }}</div>-->
+    <div>{{ info }}</div>
+    <input v-on:click="getZugservices" type="submit" value="Submit">
 </div>
 
 </div>

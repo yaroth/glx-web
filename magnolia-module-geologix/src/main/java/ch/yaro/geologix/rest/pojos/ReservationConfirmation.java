@@ -46,8 +46,8 @@ public class ReservationConfirmation extends Reservation {
         super.setZugserviceID(reservation.getZugserviceID());
         super.setWagenNumber(reservation.getWagenNumber());
         super.setSitzNumber(reservation.getSitzNumber());
-        super.setFromID(reservation.getFromID());
-        super.setToID(reservation.getToID());
+        super.setDeparture(reservation.getDeparture());
+        super.setDestination(reservation.getDestination());
         this.message = "";
         this.qrCode = "";
     }

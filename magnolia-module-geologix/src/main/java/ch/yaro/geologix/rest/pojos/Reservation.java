@@ -26,6 +26,8 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.rmi.server.RemoteServer;
 import java.time.LocalDate;
 import java.util.List;
@@ -57,7 +59,9 @@ public class Reservation extends NodeItem {
     private String sitzNumber;
     private String departure;
     private String destination;
+    @JsonIgnore
     private String fromID;
+    @JsonIgnore
     private String toID;
 
 
@@ -146,4 +150,5 @@ public class Reservation extends NodeItem {
     public String toString(){
         return "First: " + firstname + ", last: " + lastname + ", trainservice: " + zugserviceID + ", wagen nb: " + wagenNumber + ", seat nb: " + sitzNumber + ", from: " + departure + ", to: " + destination;
     }
+
 }

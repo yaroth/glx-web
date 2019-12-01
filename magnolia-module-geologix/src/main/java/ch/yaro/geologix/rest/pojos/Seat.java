@@ -48,6 +48,7 @@ public class Seat extends NodeItem {
     private String id;
     private String location;
     private List<String> options;
+    private boolean isReserved = false;
 
     public int getKlasse() {
         return klasse;
@@ -79,5 +80,13 @@ public class Seat extends NodeItem {
 
     public void setOptions(List<String> options) {
         this.options = options;
+    }
+
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        isReserved = reserved;
     }
 }

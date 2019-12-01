@@ -149,4 +149,8 @@ public class TrainService extends NodeItem {
         }
         timetable = updatedTimetable;
     }
+
+    public void setReservedSeats(TrainServiceRequest request) {
+
+    }
 }

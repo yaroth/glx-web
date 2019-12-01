@@ -517,6 +517,9 @@ public class BlsPojoService {
         for (TrainService trainService : allTrainServices) {
             if (trainService.fitsRequest(request)) {
                 trainService.adaptTimetableToRequest(request);
+                //TODO: for all seats in this trainservice, check if they are reserved on the
+                // TODO: requested Strecke.
+                trainService.setReservedSeats(request);
                 trainServicesForRequest.add(trainService);
             }
         }

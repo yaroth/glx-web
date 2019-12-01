@@ -14,8 +14,7 @@ var app = new Vue({
                 from: this.from,
                 to: this.to
             })
-                .then(response => (this.info = response.data))
-                .then(response => (blog_list.zugservices = response.data, blog_list.layout = 'list'))
+                .then(response => (blog_list.zugservices = response.data))
                 .catch(error => console.log(error))
         }
     }

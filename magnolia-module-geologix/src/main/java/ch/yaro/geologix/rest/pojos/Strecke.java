@@ -83,9 +83,7 @@ public class Strecke {
     }
 
 
-    public void setTakenAbschnitte(Reservation reservation) {
-        String departure = reservation.getDeparture();
-        String destination = reservation.getDestination();
+    public void setTakenAbschnitte(String departure, String destination) {
         boolean isDepartureInStrecke = false;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
             Abschnitt abschnitt = (Abschnitt) stopIterator.next();
@@ -101,9 +99,7 @@ public class Strecke {
         }
     }
 
-    public boolean checkSeatAvailability(Reservation reservation) {
-        String departure = reservation.getDeparture();
-        String destination = reservation.getDestination();
+    public boolean seatIsAvailable(String departure, String destination) {
         boolean isDepartureInStrecke = false;
         boolean seatIsAvailable = true;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {

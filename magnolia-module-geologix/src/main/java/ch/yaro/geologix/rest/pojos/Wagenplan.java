@@ -102,4 +102,11 @@ public class Wagenplan extends NodeItem {
     public void setWagentypen(List<String> wagentypen) {
         this.wagentypen = wagentypen;
     }
+
+    public Seat getSeatByNumber(String seatNumber) {
+        for (Seat seat : seats) {
+            if (seat.getId().equals(seatNumber)) return seat;
+        }
+        return null;
+    }
 }

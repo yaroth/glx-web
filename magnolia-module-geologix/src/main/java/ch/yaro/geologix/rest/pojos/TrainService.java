@@ -150,7 +150,12 @@ public class TrainService extends NodeItem {
         timetable = updatedTimetable;
     }
 
-    public void setReservedSeats(TrainServiceRequest request) {
-
+    public Wagen getWagenByNumber (String wagenNumber) {
+        for (Iterator wagenIterator = zugkomposition.iterator(); wagenIterator.hasNext();) {
+            Wagen w = (Wagen) wagenIterator.next();
+            if (w.getNumber().equals(wagenNumber)) return w;
+        }
+        return null;
     }
+
 }

@@ -982,7 +982,6 @@ public class BlsPojoService {
     /** Checks which seats of the */
     private void setReservedSeats(TrainService trainService, TrainServiceRequest trainServiceRequest) throws RepositoryException {
         List<Reservation> reservationsInTrainservice = getReservationsForZugserviceID(trainService.getUuid());
-        // TODO: get the reservations for this specific Strecke!
         Strecke strecke = getStreckeById(trainService.getStreckeID());
         for (Reservation reservation : reservationsInTrainservice) {
             strecke.setTakenAbschnitte(reservation.getDeparture(), reservation.getDestination());

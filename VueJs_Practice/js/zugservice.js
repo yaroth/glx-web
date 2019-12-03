@@ -1,13 +1,13 @@
 var home = new Vue({
     el: '#home',
     data: {
-        time: '09:30',
+        time: '08:30',
         from: 'Bern',
         to: 'Thun',
         reservationConfirmation: ''
     },
     methods: {
-        getZugservices() {
+        getZugservices(e) {
             e.preventDefault();
             axios.post('http://localhost:8080/.rest/demo/v1/zugservices', {
                 time: this.time,
@@ -371,6 +371,7 @@ var blog_list = new Vue({
             showZugserviceDetail(uuid) {
                 this.layout = 'zugservice-detail';
                 this.zugserviceId = uuid;
+                this.infopanel = 'yann';
                 console.log("Zugservicedetails line clicked, uuid: " + uuid);
             }
             ,
@@ -394,6 +395,20 @@ var blog_list = new Vue({
             }
 
 
+        },
+        computed: {
+            infoRequest: function () {
+                return 'Anfrage: ' + home.from + ' - ' + home.to + '  ab: ' + home.time;
+            },
+            infoTrainDetail: function () {
+                for (var i = 0; i < this.zugservices.length; i++) {
+                    if (this.zugservices[i].uuid === this.zugserviceId) {
+                        let zug = this.zugservices[i];
+                        return zug.from + ' ab ' + zug.departure + ' - ' + zug.to + ' an ' + zug.arrival;
+                    }
+                }
+
+            }
         }
     })
 ;

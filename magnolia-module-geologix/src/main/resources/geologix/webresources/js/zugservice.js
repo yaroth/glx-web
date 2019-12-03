@@ -1,44 +1,60 @@
-var app = new Vue({
-    el: '#app',
-    data() {
-        return {
-            info: 'Some bloody test',
-        }
-    },
+var home = new Vue({
+    el: '#home',
     data: {
-        info: 'Some bloody test',
-        time: '09:30',
+        info: '',
+        time: '08:30',
         from: 'Bern',
-        to: 'Thun'
+        to: 'Thun',
+        reservationConfirmation: ''
     },
-    mounted() {
-        axios.post('http://localhost:8080/.rest/demo/v1/zugservices', {time:this.time, from:this.from, to:this.to})
-            .then(response => (this.info = response.data))
-            .catch(error => console.log(error))
+    methods: {
+        getZugservices(e) {
+            e.preventDefault();
+            axios.post('http://localhost:8080/.rest/demo/v1/zugservices', {
+                time: this.time,
+                from: this.from,
+                to: this.to
+            })
+                .then(response => (blog_list.zugservices = response.data))
+                .catch(error => console.log(error))
+        }
     }
 });
 
 var blog_list = new Vue({
-    el: '#js-grid-list',
-    data: {
-        // The layout mode, possible values are "grid" or "list".
-        layout: 'list',
+        el: '#js-grid-list',
+        data: {
+            layout: 'list',
+            zugserviceId: '',
+            zugservices: ''
+        },
+        methods: {
+            showZugserviceDetail(uuid) {
+                this.layout = 'zugservice-detail';
+                this.zugserviceId = uuid;
+                console.log("Zugservicedetails line clicked, uuid: " + uuid);
+            }
+            ,
+            showSeatDetail() {
+                console.log("showSeatDetail line clicked");
+            },
+            requestReservation(zugUuid, seatId, waggonNumber, from, to) {
+                console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid + ", from: " + from + ", to: " + to);
+                axios.post('http://localhost:8080/.rest/demo/v1/reservation', {
+                    firstname: 'Gael',
+                    lastname: 'Zwirbel',
+                    dateOfBirth: '1978-03-24',
+                    zugserviceID: zugUuid,
+                    wagenNumber: waggonNumber,
+                    sitzNumber: seatId,
+                    departure: from,
+                    destination: to
+                })
+                    .then(response => (home.reservationConfirmation = response.data))
+                    .catch(error => console.log(error))
+            }
 
-        // demo data
-        blog_posts: [{
-            title: 'Tapping into UGC with Offerpop',
-            url: 'https://voltagead.com/tapping-ugc-offerpop/',
-            image: {
-                'large': 'https://2e64oz2sjk733hqp882l9xbo-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/header-960x500-copy-960x500.jpg',
-                'small': 'https://2e64oz2sjk733hqp882l9xbo-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/header-960x500-copy-300x300.jpg'
-            }
-        }, {
-            title: '5 websites that get design right',
-            url: 'https://voltagead.com/5-websites-get-design-right/',
-            image: {
-                'large': 'https://2e64oz2sjk733hqp882l9xbo-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/HERO-960x500.jpg',
-                'small': 'https://2e64oz2sjk733hqp882l9xbo-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/HERO-300x300.jpg'
-            }
-        }]
-    }
-});
+
+        }
+    })
+;

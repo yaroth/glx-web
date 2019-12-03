@@ -3,67 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="${ctx.contextPath}/.resources/geologix/webresources/css/listview.css">
 </head>
 <body>
 
-<div id="home">
-    <form>
-        Zeit:<br>
-        <input type="text" name="time" placeholder="hh:mm"><br>
-        Von:<br>
-        <input type="text" name="from"><br>
-        Nach:<br>
-        <input type="text" name="to"><br>
-        <input type="submit" value="Submit">
-    </form>
-    <br>
-</div>
+<div>
 
-<section id="js-grid-list" class="grid-list" v-cloak>
-
-    <div class="tool-bar">
-        <!-- These link buttons use Vue.js to bind click events to change the "layout" variable and bind an active class -->
-        <a class="list-icon" v-on:click="layout = 'list'" v-bind:class="{ 'active': layout == 'list'}"
-           title="List"></a>
-        <a class="grid-icon" v-on:click="layout = 'grid'" v-bind:class="{ 'active': layout == 'grid'}"
-           title="Grid"></a>
+    <div id="home">
+        <form @submit="getZugservices">
+            Zeit:<br>
+            <input type="text" v-model="time" placeholder="Abfahrt (hh:mm)"><br>
+            Von:<br>
+            <input type="text" v-model="from" placeholder="Start"><br>
+            Nach:<br>
+            <input type="text" v-model="to" placeholder="Ende"><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="reservation-confirmation">
+            {{reservationConfirmation}}
+        </div>
     </div>
 
-    <!-- Vue.js lets us choose which UL to show depending on the "layout" variable -->
+    <section id="js-grid-list" class="grid-list" v-cloak>
 
-    <ul v-if="layout === 'grid'" class="grid">
-        <!-- A "grid" view with photos only -->
-        <li v-for="blog in blog_posts">
-            <a v-bind:href="blog.url" v-bind:style="{ backgroundImage: 'url(' + blog.image.large + ')' }"
-               target="_blank"></a>
-        </li>
-    </ul>
+        <div class="tool-bar">
+            <a class="back-icon" v-if="layout === 'zugservice-detail'" v-on:click="layout = 'list'"
+               v-bind:class="{ 'active': layout == 'list'}" title="Back"></a>
+        </div>
 
-    <ul v-if="layout === 'list'" class="list">
-        <!-- A "list" view with small photos and blog titles -->
-        <li v-for="blog in blog_posts">
-            <a v-bind:href="blog.url" target="_blank">
-                <img v-bind:src="blog.image.small">
-                <p>{{blog.title}}</p>
-            </a>
-        </li>
-    </ul>
-</section>
-<div id="app">
-    <div v-for="zugservice in info" class="currency">
-        {{ zugservice.uuid }}<br>
-        {{ zugservice.name }}<br>
-    </div>
-    <div>{{ info }}</div>
-    <input v-on:click="getZugservices" type="submit" value="Submit">
-</div>
+        <ul v-if="layout === 'list'" class="list">
+            <li v-for="zug in zugservices">
+                <a v-on:click="showZugserviceDetail(zug.uuid)">
+                    <p>{{zug.departure}} {{zug.from}} - {{zug.to}} {{zug.arrival}}</p>
+                    <p v-for="waggon in zug.zugkomposition">{{waggon.number}}</p>
+                </a>
+            </li>
+        </ul>
+        <ul v-if="layout === 'zugservice-detail'" class="zugservice-detail">
+            <template v-for="zug in zugservices">
+                <template v-if="zugserviceId === zug.uuid">
+                    <li v-for="waggon in zug.zugkomposition" class="waggon">
+                        <p>Waggon N°: {{waggon.number}} ({{waggon.wagenplan.description}})</p>
+                        <div class="waggon-image">
+                            <img v-bind:src="waggon.wagenplan.imageLink">
+                            <div class="row-placeholder row1"></div>
+                            <div class="row-placeholder row2">
+                                <button v-on:click="requestReservation(zug.uuid, 11, waggon.number, zug.from, zug.to)" id="11" type="button" class="col1 ">
+                                    Reservieren
+                                </button>
+                                <button v-on:click="requestReservation(zug.uuid, 13, waggon.number, zug.from, zug.to)" id="13" type="button" class="col2">
+                                    Reservieren
+                                </button>
+                                <button type="button" class="col3 invisible">Reservieren</button>
+                                <button v-on:click="requestReservation(zug.uuid, 17, waggon.number, zug.from, zug.to)" id="17" type="button" class="col4 ">
+                                    Reservieren
+                                </button>
+                                <button v-on:click="requestReservation(zug.uuid, 15, waggon.number, zug.from, zug.to)" id="15" type="button" class="col5 reserved">
+                                    Reservieren
+                                </button>
+                            </div>
+                            <div class="row-placeholder row3">
+                                <button type="button" class="col1 ">Reservieren</button>
+                                <button type="button" class="col2 reserved">Reservieren</button>
+                                <button type="button" class="col3 invisible">Reservieren</button>
+                                <button type="button" class="col4 reserved">Reservieren</button>
+                                <button type="button" class="col5 reserved">Reservieren</button>
+                            </div>
+                        </div>
+                    </li>
+                </template>
+            </template>
+        </ul>
+    </section>
 
-</div>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<#--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.27/vue.min.js"></script>-->
-<script src="${ctx.contextPath}/.resources/geologix/webresources/js/zugservice.js"></script>
-<link rel="stylesheet" href="${ctx.contextPath}/.resources/geologix/webresources/css/listview.css">
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="${ctx.contextPath}/.resources/geologix/webresources/js/zugservice.js"></script>
+
 </body>
 </html>
 

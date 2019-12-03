@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../css/listview.css">
 </head>
 <body>
-
-<div id="home">
-    <form>
-        Zeit:<br>
-        <input type="text" name="time" placeholder="hh:mm"><br>
-        Von:<br>
-        <input type="text" name="from"><br>
-        Nach:<br>
-        <input type="text" name="to"><br>
-        <input type="submit" value="Submit">
-    </form>
-    <br>
+<div>
+    <div id="home">
+        <form @submit="getZugservices">
+            Zeit:<br>
+            <input type="text" v-model="time" placeholder="Abfahrt (hh:mm)"><br>
+            Von:<br>
+            <input type="text" v-model="from" placeholder="Start"><br>
+            Nach:<br>
+            <input type="text" v-model="to" placeholder="Ende"><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="reservation-confirmation">
+            {{reservationConfirmation}}
+        </div>
+    </div>
 
     <section id="js-grid-list" class="grid-list" v-cloak>
 
@@ -43,17 +46,21 @@
                             <img v-bind:src="waggon.wagenplan.imageLink">
                             <div class="row-placeholder row1"></div>
                             <div class="row-placeholder row2">
-                                <button v-on:click="requestReservation(zug.uuid, 11, waggon.number, zug.from, zug.to)" id="11" type="button" class="col1 ">
+                                <button v-on:click="requestReservation(zug.uuid, 11, waggon.number, zug.from, zug.to)"
+                                        id="11" type="button" class="col1 ">
                                     Reservieren
                                 </button>
-                                <button v-on:click="requestReservation(zug.uuid, 13, waggon.number, zug.from, zug.to)" id="13" type="button" class="col2">
+                                <button v-on:click="requestReservation(zug.uuid, 13, waggon.number, zug.from, zug.to)"
+                                        id="13" type="button" class="col2">
                                     Reservieren
                                 </button>
                                 <button type="button" class="col3 invisible">Reservieren</button>
-                                <button v-on:click="requestReservation(zug.uuid, 17, waggon.number, zug.from, zug.to)" id="17" type="button" class="col4 ">
+                                <button v-on:click="requestReservation(zug.uuid, 17, waggon.number, zug.from, zug.to)"
+                                        id="17" type="button" class="col4 ">
                                     Reservieren
                                 </button>
-                                <button v-on:click="requestReservation(zug.uuid, 15, waggon.number, zug.from, zug.to)" id="15" type="button" class="col5 reserved">
+                                <button v-on:click="requestReservation(zug.uuid, 15, waggon.number, zug.from, zug.to)"
+                                        id="15" type="button" class="col5 reserved">
                                     Reservieren
                                 </button>
                             </div>
@@ -71,14 +78,6 @@
         </ul>
 
     </section>
-
-    <div id="app">
-        <input v-on:click="getZugservices" type="submit" value="Submit">
-        {{ info }}
-        <div id="reservation-confirmation">
-            {{reservationConfirmation}}
-        </div>
-    </div>
 
 </div>
 

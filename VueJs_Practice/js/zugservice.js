@@ -1,7 +1,6 @@
-var app = new Vue({
-    el: '#app',
+var home = new Vue({
+    el: '#home',
     data: {
-        info: 'Some bloody test',
         time: '09:30',
         from: 'Bern',
         to: 'Thun',
@@ -9,6 +8,7 @@ var app = new Vue({
     },
     methods: {
         getZugservices() {
+            e.preventDefault();
             axios.post('http://localhost:8080/.rest/demo/v1/zugservices', {
                 time: this.time,
                 from: this.from,
@@ -22,62 +22,6 @@ var app = new Vue({
 
 var blog_list = new Vue({
         el: '#js-grid-list',
-        dataOriginal: {
-            layout: 'list',
-            zugserviceId: '',
-            zugservices: [{
-                title: 'Zürich - Interlaken',
-                name: 'Bern - Interlaken 9h35',
-                departure: '09:35',
-                uuid: '1234-5678',
-                waggons: [{
-                    number: 1,
-                    image: '../images/sitzplan.jpg',
-                    seats: [{
-                        number: 22,
-                        reserved: 'yes'
-                    }, {
-                        number: 33,
-                        reserved: 'no'
-                    }]
-                }, {
-                    number: 2,
-                    image: '../images/sitzplan.jpg',
-                    seats: [{
-                        number: 44,
-                        reserved: 'yes'
-                    }, {
-                        number: 55,
-                        reserved: 'no'
-                    }]
-                }]
-            },
-                {
-                    title: 'Basel - Interlaken',
-                    uuid: 'ab12-cd99',
-                    waggons: [{
-                        number: 44,
-                        image: '../images/sitzplan2.png',
-                        seats: [{
-                            number: 1,
-                            reserved: 'yes'
-                        }, {
-                            number: 2,
-                            reserved: 'no'
-                        }]
-                    }, {
-                        number: 45,
-                        image: '../images/sitzplan2.png',
-                        seats: [{
-                            number: 3,
-                            reserved: 'yes'
-                        }, {
-                            number: 4,
-                            reserved: 'no'
-                        }]
-                    }]
-                }]
-        },
         data: {
             layout: 'list',
             zugserviceId: '',
@@ -445,7 +389,7 @@ var blog_list = new Vue({
                     departure: from,
                     destination: to
                 })
-                    .then(response => (app.reservationConfirmation = response.data))
+                    .then(response => (home.reservationConfirmation = response.data))
                     .catch(error => console.log(error))
             }
 

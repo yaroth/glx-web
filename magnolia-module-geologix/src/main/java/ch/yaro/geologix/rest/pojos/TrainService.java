@@ -135,7 +135,10 @@ public class TrainService extends NodeItem {
                 stop.setTimeIN(null);
                 startAddingStops = true;
                 setFrom(startStop);
-                setDeparture(stop.getTimeOut().getHour() + ":" + stop.getTimeOut().getMinute());
+                int minutes = stop.getTimeOut().getMinute();
+                String minutesPlaceholder = "";
+                if (minutes < 10) minutesPlaceholder = "0";
+                setDeparture(stop.getTimeOut().getHour() + ":" + minutesPlaceholder + minutes);
             }
             if (startAddingStops){
                 updatedTimetable.add(stop);
@@ -143,7 +146,10 @@ public class TrainService extends NodeItem {
             if (stop.getStopName().equals(endStop)) {
                 stop.setTimeOut(null);
                 setTo(endStop);
-                setArrival(stop.getTimeIN().getHour() + ":" + stop.getTimeIN().getMinute());
+                int minutes = stop.getTimeIN().getMinute();
+                String minutesPlaceholder = "";
+                if (minutes < 10) minutesPlaceholder = "0";
+                setArrival(stop.getTimeIN().getHour() + ":" + minutesPlaceholder + minutes);
                 break;
             }
         }

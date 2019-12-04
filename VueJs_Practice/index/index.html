@@ -7,7 +7,7 @@
 </head>
 <body>
 <div>
-    <div id="home">
+    <div id="home" v-if="layout === 'home'">
         <form @submit="getZugservices">
             Zeit:<br>
             <input type="text" v-model="time" placeholder="Abfahrt (hh:mm)"><br>
@@ -22,13 +22,13 @@
         </div>
     </div>
 
-    <section id="js-grid-list" class="grid-list" v-cloak>
+    <section id="js-grid-list" v-if="layout === 'zugservice-detail' || layout === 'list'" class="grid-list" v-cloak>
 
         <div class="tool-bar">
-            <a class="back-icon" v-if="layout === 'zugservice-detail'" v-on:click="layout = 'list'" v-bind:class="{ 'active': layout == 'list'}" title="Back"></a>
+            <div v-on:click="backToHome" class="home-btn" v-if="layout === 'list'"></div>
+            <div v-on:click="layout = 'list'" class="back-icon" v-if="layout === 'zugservice-detail'"  title="Back"></div>
             <div v-if="layout === 'list'" class="infopanel">{{infoRequest}}</div>
             <div v-else-if="layout === 'zugservice-detail'" class="infopanel">{{infoTrainDetail}}</div>
-
         </div>
 
         <ul v-if="layout === 'list'" class="list">

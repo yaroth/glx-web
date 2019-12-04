@@ -1,6 +1,7 @@
 var home = new Vue({
     el: '#home',
     data: {
+        layout: 'home',
         time: '08:30',
         from: 'Bern',
         to: 'Thun',
@@ -15,7 +16,9 @@ var home = new Vue({
                 to: this.to
             })
                 .then(response => (blog_list.zugservices = response.data))
-                .catch(error => console.log(error))
+                .catch(error => console.log(error));
+            this.layout = '';
+            blog_list.layout = 'list';
         }
     }
 });
@@ -23,7 +26,7 @@ var home = new Vue({
 var blog_list = new Vue({
         el: '#js-grid-list',
         data: {
-            layout: 'list',
+            layout: '',
             zugserviceId: '',
             zugservices: [{
                 uuid: 'ebdc5352-3c37-43d4-a2bd-5db4521d22f3',
@@ -267,6 +270,9 @@ var blog_list = new Vue({
                 uuid: '78fb8b0d-2fea-45ee-846c-1b97da4f9233',
                 name: 'Olten Interlaken 10h',
                 departure: '10:00',
+                arrival: '10:52',
+                from: 'Bern',
+                to: 'Thun',
                 timetable: [{
                     stopName: 'Bern',
                     timeIN: null,
@@ -392,6 +398,10 @@ var blog_list = new Vue({
                 })
                     .then(response => (home.reservationConfirmation = response.data))
                     .catch(error => console.log(error))
+            },
+            backToHome(){
+                home.layout = 'home';
+                this.layout = '';
             }
 
 

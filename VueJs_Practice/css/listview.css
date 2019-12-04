@@ -45,7 +45,7 @@ a:hover {
     position: relative;
     text-align: left;
     width: 100%;
-    height: 50px;
+    height: 60px;
 }
 
 .tool-bar a {
@@ -241,4 +241,28 @@ button {
 
 .invisible {
     visibility: hidden;
+}
+
+.home-btn {
+    width: 40px;
+}
+.home-btn {
+    background-image: url(../images/home.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    float: left;
+}
+.back-icon {
+    background-image: url(../images/back.svg);
+    width: 40px;
+    height: 40px;
+    float: left;
+    cursor: pointer;
+}
+.infopanel {
+    text-align: center;
+    font-size: 23px;
 }

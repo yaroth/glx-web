@@ -1,6 +1,7 @@
 var home = new Vue({
     el: '#home',
     data: {
+        layout: 'home',
         time: '08:30',
         from: 'Bern',
         to: 'Thun',
@@ -15,7 +16,9 @@ var home = new Vue({
                 to: this.to
             })
                 .then(response => (blog_list.zugservices = response.data))
-                .catch(error => console.log(error))
+                .catch(error => console.log(error));
+            this.layout = '';
+            blog_list.layout = 'list';
         }
     }
 });
@@ -23,7 +26,7 @@ var home = new Vue({
 var blog_list = new Vue({
         el: '#js-grid-list',
         data: {
-            layout: 'list',
+            layout: '',
             zugserviceId: '',
             zugservices: ''
         },
@@ -51,6 +54,10 @@ var blog_list = new Vue({
                 })
                     .then(response => (home.reservationConfirmation = response.data))
                     .catch(error => console.log(error))
+            },
+            backToHome(){
+                home.layout = 'home';
+                this.layout = '';
             }
 
 

@@ -5,7 +5,18 @@ var home = new Vue({
         time: '08:30',
         from: 'Bern',
         to: 'Thun',
-        reservationConfirmation: ''
+        reservationConfirmation: {
+            firstname: 'Fritz',
+            lastname: 'Hubacher',
+            dateOfBirth: '1969-10-19',
+            zugserviceID: 'ebdc5352-3c37-43d4-a2bd-5db4521d22f3',
+            wagenNumber: '10',
+            sitzNumber: '11',
+            departure: 'Bern',
+            destination: 'Thun',
+            message: 'OK',
+            qrCode: ''
+        }
     },
     methods: {
         getZugservices(e) {
@@ -454,30 +465,58 @@ var blog_list = new Vue({
                     departure: from,
                     destination: to
                 })
-                    .then(response => (home.reservationConfirmation = response.data))
-                    .catch(error => console.log(error))
+                    .then(response => {
+                        home.reservationConfirmation = response.data;
+                        // TODO: move these lines into the .then part
+                        let resConf = home.reservationConfirmation;
+                        if (resConf.message == 'OK') {
+                            let zugId = resConf.zugserviceID;
+                            let wagNb = resConf.wagenNumber;
+                            let sitzNb = resConf.sitzNumber;
+                            let seat = this.getSeat(zugId, wagNb, sitzNb);
+                            if (seat !== undefined) {
+                                seat.reserved = true;
+                            }
+                        }
+                    })
+                    .catch(error => console.log(error));
+                let resConf = home.reservationConfirmation;
+                if (resConf.message == 'OK') {
+                    let zugId = resConf.zugserviceID;
+                    let wagNb = resConf.wagenNumber;
+                    let sitzNb = resConf.sitzNumber;
+                    let seat = this.getSeat(zugId, wagNb, sitzNb);
+                    if (seat !== undefined) {
+                        seat.reserved = true;
+                    }
+                }
+
             },
             backToHome() {
                 home.layout = 'home';
                 this.layout = '';
             },
-            setReservation(zugUuid, waggonNb, seatNb){
-                if (this.isReserved(zugUuid, waggonNb, seatNb)) return 'reserved';
+            setReservation(zugUuid, waggonNb, seatNb) {
+                let seat = this.getSeat(zugUuid, waggonNb, seatNb);
+                if (seat !== undefined && seat.reserved) return 'reserved';
             },
             setDisabled(zugUuid, waggonNb, seatNb) {
-                if (this.isReserved(zugUuid, waggonNb, seatNb)) return 'disabled';
+                let seat = this.getSeat(zugUuid, waggonNb, seatNb);
+                if (seat !== undefined && seat.reserved) return 'disabled';
             },
-            isReserved(zugUuid, waggonNb, seatNb) {
+            getSeat(zugUuid, waggonNb, seatNb) {
+                let wagenNbInt = parseInt(waggonNb);
+                let seatNbInt = parseInt(seatNb);
                 let trains = this.zugservices;
-                for (let i=0 ; i < trains.length ; i++) {
+                for (let i = 0; i < trains.length; i++) {
                     if (trains[i].uuid === zugUuid) {
                         let waggons = trains[i].zugkomposition;
-                        for (let j = 0 ; j < waggons.length ; j++) {
-                            if (waggons[j].number === waggonNb) {
+                        for (let j = 0; j < waggons.length; j++) {
+                            if (parseInt(waggons[j].number) === wagenNbInt) {
                                 let seats = waggons[j].wagenplan.seats;
-                                for (let k=0 ; k < seats.length ; k++) {
-                                    if (parseInt(seats[k].id) === seatNb) {
-                                        if (seats[k].reserved === true) return true;
+                                for (let k = 0; k < seats.length; k++) {
+                                    if (parseInt(seats[k].id) === seatNbInt) {
+                                        return seats[k];
                                     }
                                 }
                             }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -50,26 +50,18 @@
                             <img v-bind:src="waggon.wagenplan.imageLink">
                             <div class="row-placeholder row1"></div>
                             <div class="row-placeholder row2">
-                                <button v-on:click="requestReservation(zug.uuid, 11, waggon.number, zug.from, zug.to)" id="11" type="button" class="col1 ">
-                                    Reservieren
-                                </button>
-                                <button v-on:click="requestReservation(zug.uuid, 13, waggon.number, zug.from, zug.to)" id="13" type="button" class="col2">
-                                    Reservieren
-                                </button>
-                                <button type="button" class="col3 invisible">Reservieren</button>
-                                <button v-on:click="requestReservation(zug.uuid, 17, waggon.number, zug.from, zug.to)" id="17" type="button" class="col4 ">
-                                    Reservieren
-                                </button>
-                                <button v-on:click="requestReservation(zug.uuid, 15, waggon.number, zug.from, zug.to)" id="15" type="button" class="col5 reserved">
-                                    Reservieren
-                                </button>
+                                <button v-on:click="requestReservation(zug.uuid, 11, waggon.number, zug.from, zug.to)" id="11" type="button" class="col1" :class="setReservation(zug.uuid, waggon.number, 11)" :disabled="setDisabled(zug.uuid, waggon.number, 11)"></button>
+                                <button v-on:click="requestReservation(zug.uuid, 13, waggon.number, zug.from, zug.to)" id="13" type="button" class="col2" :class="setReservation(zug.uuid, waggon.number, 13)" :disabled="setDisabled(zug.uuid, waggon.number, 13)"></button>
+                                <button type="button" class="col3 invisible"></button>
+                                <button v-on:click="requestReservation(zug.uuid, 17, waggon.number, zug.from, zug.to)" id="17" type="button" class="col4" :class="setReservation(zug.uuid, waggon.number, 17)" :disabled="setDisabled(zug.uuid, waggon.number, 17)"></button>
+                                <button v-on:click="requestReservation(zug.uuid, 15, waggon.number, zug.from, zug.to)" id="15" type="button" class="col5" :class="setReservation(zug.uuid, waggon.number, 15)" :disabled="setDisabled(zug.uuid, waggon.number, 15)"></button>
                             </div>
                             <div class="row-placeholder row3">
-                                <button type="button" class="col1 ">Reservieren</button>
-                                <button type="button" class="col2 reserved">Reservieren</button>
-                                <button type="button" class="col3 invisible">Reservieren</button>
-                                <button type="button" class="col4 reserved">Reservieren</button>
-                                <button type="button" class="col5 reserved">Reservieren</button>
+                                <button v-on:click="requestReservation(zug.uuid, 12, waggon.number, zug.from, zug.to)"type="button" id="12" class="col1" :class="setReservation(zug.uuid, waggon.number, 12)" :disabled="setDisabled(zug.uuid, waggon.number, 12)"></button>
+                                <button v-on:click="requestReservation(zug.uuid, 14, waggon.number, zug.from, zug.to)"type="button" id="14" class="col2" :class="setReservation(zug.uuid, waggon.number, 14)" :disabled="setDisabled(zug.uuid, waggon.number, 14)"></button>
+                                <button type="button" class="col3 invisible"></button>
+                                <button v-on:click="requestReservation(zug.uuid, 18, waggon.number, zug.from, zug.to)"type="button" id="18" class="col4" :class="setReservation(zug.uuid, waggon.number, 18)" :disabled="setDisabled(zug.uuid, waggon.number, 18)"></button>
+                                <button v-on:click="requestReservation(zug.uuid, 16, waggon.number, zug.from, zug.to)"type="button" id="16" class="col5" :class="setReservation(zug.uuid, waggon.number, 16)" :disabled="setDisabled(zug.uuid, waggon.number, 16)"></button>
                             </div>
                         </div>
                     </li>
@@ -78,11 +70,11 @@
         </ul>
     </section>
 
+</div>
 
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="${ctx.contextPath}/.resources/geologix/webresources/js/zugservice.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="${ctx.contextPath}/.resources/geologix/webresources/js/zugservice.js"></script>
 
 </body>
 </html>

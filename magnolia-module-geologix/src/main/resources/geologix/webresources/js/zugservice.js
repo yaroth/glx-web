@@ -52,15 +52,53 @@ var blog_list = new Vue({
                     departure: from,
                     destination: to
                 })
-                    .then(response => (home.reservationConfirmation = response.data))
-                    .catch(error => console.log(error))
+                    .then(response => {
+                        home.reservationConfirmation = response.data;
+                        let resConf = home.reservationConfirmation;
+                        if (resConf.message == 'OK') {
+                            let zugId = resConf.zugserviceID;
+                            let wagNb = resConf.wagenNumber;
+                            let sitzNb = resConf.sitzNumber;
+                            let seat = this.getSeat(zugId, wagNb, sitzNb);
+                            if (seat !== undefined) {
+                                seat.reserved = true;
+                            }
+                        }
+                    })
+                    .catch(error => console.log(error));
             },
-            backToHome(){
+            backToHome() {
                 home.layout = 'home';
                 this.layout = '';
+            },
+            setReservation(zugUuid, waggonNb, seatNb) {
+                let seat = this.getSeat(zugUuid, waggonNb, seatNb);
+                if (seat !== undefined && seat.reserved) return 'reserved';
+            },
+            setDisabled(zugUuid, waggonNb, seatNb) {
+                let seat = this.getSeat(zugUuid, waggonNb, seatNb);
+                if (seat !== undefined && seat.reserved) return 'disabled';
+            },
+            getSeat(zugUuid, waggonNb, seatNb) {
+                let wagenNbInt = parseInt(waggonNb);
+                let seatNbInt = parseInt(seatNb);
+                let trains = this.zugservices;
+                for (let i = 0; i < trains.length; i++) {
+                    if (trains[i].uuid === zugUuid) {
+                        let waggons = trains[i].zugkomposition;
+                        for (let j = 0; j < waggons.length; j++) {
+                            if (parseInt(waggons[j].number) === wagenNbInt) {
+                                let seats = waggons[j].wagenplan.seats;
+                                for (let k = 0; k < seats.length; k++) {
+                                    if (parseInt(seats[k].id) === seatNbInt) {
+                                        return seats[k];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
-
         },
         computed: {
             infoRequest: function () {
@@ -76,5 +114,4 @@ var blog_list = new Vue({
 
             }
         }
-    })
-;
+    });

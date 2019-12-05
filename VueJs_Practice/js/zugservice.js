@@ -86,13 +86,57 @@ var blog_list = new Vue({
                             klasse: 2,
                             id: '11',
                             location: 'fenster',
-                            options: ['220V']
+                            options: ['220V'],
+                            reserved: false
                         }, {
                             uuid: null,
                             klasse: 2,
                             id: '13',
                             location: 'gang',
-                            options: []
+                            options: [],
+                            reserved: false
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '17',
+                            location: 'mitte',
+                            options: ['220V'],
+                            reserved: false
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '15',
+                            location: 'mitte',
+                            options: ['220V'],
+                            reserved: true
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '12',
+                            location: 'fenster',
+                            options: ['220V'],
+                            reserved: false
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '14',
+                            location: 'gang',
+                            options: [],
+                            reserved: true
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '16',
+                            location: 'mitte',
+                            options: ['220V'],
+                            reserved: true
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '18',
+                            location: 'mitte',
+                            options: ['220V'],
+                            reserved: true
                         }
                         ]
                     }
@@ -117,6 +161,20 @@ var blog_list = new Vue({
                             id: '13',
                             location: 'mitte',
                             options: ['220V']
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '17',
+                            location: 'mitte',
+                            options: ['220V'],
+                            reserved: false
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '15',
+                            location: 'mitte',
+                            options: ['220V'],
+                            reserved: true
                         }
                         ]
                     }
@@ -399,12 +457,34 @@ var blog_list = new Vue({
                     .then(response => (home.reservationConfirmation = response.data))
                     .catch(error => console.log(error))
             },
-            backToHome(){
+            backToHome() {
                 home.layout = 'home';
                 this.layout = '';
+            },
+            setReservation(zugUuid, waggonNb, seatNb){
+                if (this.isReserved(zugUuid, waggonNb, seatNb)) return 'reserved';
+            },
+            setDisabled(zugUuid, waggonNb, seatNb) {
+                if (this.isReserved(zugUuid, waggonNb, seatNb)) return 'disabled';
+            },
+            isReserved(zugUuid, waggonNb, seatNb) {
+                let trains = this.zugservices;
+                for (let i=0 ; i < trains.length ; i++) {
+                    if (trains[i].uuid === zugUuid) {
+                        let waggons = trains[i].zugkomposition;
+                        for (let j = 0 ; j < waggons.length ; j++) {
+                            if (waggons[j].number === waggonNb) {
+                                let seats = waggons[j].wagenplan.seats;
+                                for (let k=0 ; k < seats.length ; k++) {
+                                    if (parseInt(seats[k].id) === seatNb) {
+                                        if (seats[k].reserved === true) return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
-
         },
         computed: {
             infoRequest: function () {

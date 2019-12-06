@@ -21,7 +21,7 @@ var home = new Vue({
     methods: {
         getZugservices(e) {
             e.preventDefault();
-            axios.post('http://localhost:8080/.rest/demo/v1/zugservices', {
+            axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/zugservices', {
                 time: this.time,
                 from: this.from,
                 to: this.to
@@ -455,7 +455,7 @@ var blog_list = new Vue({
             },
             requestReservation(zugUuid, seatId, waggonNumber, from, to) {
                 console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid + ", from: " + from + ", to: " + to);
-                axios.post('http://localhost:8080/.rest/demo/v1/reservation', {
+                axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/reservation', {
                     firstname: 'Gael',
                     lastname: 'Zwirbel',
                     dateOfBirth: '1978-03-24',

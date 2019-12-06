@@ -102,7 +102,7 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
                         ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
                         return Response.ok(reservationConfirmation).build();
                     } else {
-                        // TODO: proper response status 'unknown error'
+                        // TODO: proper response status 'reservation is NOT allowed, seat already reserved!'
                         return Response.status(Response.Status.CONFLICT).build();
                     }
                 } else {

@@ -234,7 +234,9 @@ public class BlsPojoService {
         return haltestelleList;
     }
 
-    /** Returns the UUID of the first occurrence of a {@link Haltestelle} given its name */
+    /**
+     * Returns the UUID of the first occurrence of a {@link Haltestelle} given its name
+     */
     public String getHaltestelleIdByName(String name) throws RepositoryException {
         if (name == null) return null;
         List<Haltestelle> haltestelleList = getAllHaltestellen();
@@ -518,8 +520,6 @@ public class BlsPojoService {
 
         for (TrainService trainService : allTrainServices) {
             if (trainService.fitsRequest(request)) {
-                //TODO: for all seats in this trainservice, check if they are reserved on the
-                // TODO: requested Strecke.
                 setReservedSeats(trainService, request);
                 trainService.adaptTimetableToRequest(request);
                 trainServicesForRequest.add(trainService);
@@ -871,10 +871,11 @@ public class BlsPojoService {
         }
         TrainService trainService = getTrainserviceById(zugserviceID);
         Strecke strecke = getStreckeById(trainService.getStreckeID());
-        for (Reservation seatReservation : sameSeatReservations) {
-            strecke.setTakenAbschnitte(seatReservation.getDeparture(), seatReservation.getDestination());
+        for (Reservation res : sameSeatReservations) {
+            strecke.setTakenAbschnitteForReservation(res);
         }
-        boolean seatAvailable = strecke.seatIsAvailable(reservation.getDeparture(), reservation.getDestination());
+        boolean seatAvailable = strecke.seatIsAvailable(reservation.getDeparture(), reservation.getDestination(),
+                Integer.parseInt(reservation.getWagenNumber()), Integer.parseInt(reservation.getSitzNumber()));
         return seatAvailable;
     }
 
@@ -945,7 +946,6 @@ public class BlsPojoService {
     }
 
 
-
     /**
      * Checks whether reservation is valid, i.e. are all reservation properties
      * valid trainservice properties?
@@ -979,25 +979,34 @@ public class BlsPojoService {
     }
 
 
-    /** Checks which seats of the */
+    /**
+     * Checks which seats of the trainservice are already reserved for the requested Strecke.
+     */
     private void setReservedSeats(TrainService trainService, TrainServiceRequest trainServiceRequest) throws RepositoryException {
         List<Reservation> reservationsInTrainservice = getReservationsForZugserviceID(trainService.getUuid());
         Strecke strecke = getStreckeById(trainService.getStreckeID());
         for (Reservation reservation : reservationsInTrainservice) {
-            strecke.setTakenAbschnitte(reservation.getDeparture(), reservation.getDestination());
+            strecke.setTakenAbschnitteForReservation(reservation);
         }
-        String departure = trainServiceRequest.getFrom();
-        String destination = trainServiceRequest.getTo();
-        for (Reservation reservation : reservationsInTrainservice) {
-            Wagen w = trainService.getWagenByNumber(reservation.getWagenNumber());
-            if (w != null){
-                Seat s = w.getWagenplan().getSeatByNumber(reservation.getSitzNumber());
-                if (s != null) {
-                    boolean isNotReserved = strecke.seatIsAvailable(departure,destination);
-                    s.setReserved(!isNotReserved);
+        // TODO: iterate over all seats in all waggons to check their reservation status on the
+        // required Strecke
+        LinkedList<Wagen> waggons = trainService.getZugkomposition();
+        if (waggons != null) {
+            for (Wagen w : waggons) {
+                List<Seat> seats = w.getWagenplan().getSeats();
+                if (seats != null) {
+                    for (Seat s : seats) {
+                        String from = trainServiceRequest.getFrom();
+                        String to = trainServiceRequest.getTo();
+                        Integer wagNb = Integer.parseInt(w.getNumber());
+                        Integer seatNb = Integer.parseInt(s.getId());
+                        boolean seatIsAvailable = strecke.seatIsAvailable(from, to, wagNb, seatNb);
+                        s.setReserved(!seatIsAvailable);
+                    }
                 }
             }
         }
+
 
     }
 }

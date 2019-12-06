@@ -1,20 +1,20 @@
 /**
  * This file Copyright (c) 2014 Magnolia International
  * Ltd.  (http://www.magnolia-cms.com). All rights reserved.
- *
- *
+ * <p>
+ * <p>
  * This file is licensed under the MIT License (MIT)
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,7 +22,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
  */
 package ch.yaro.geologix.rest.pojos;
 
@@ -83,7 +82,12 @@ public class Strecke {
     }
 
 
-    public void setTakenAbschnitte(String departure, String destination) {
+    public void setTakenAbschnitteForReservation(Reservation reservation) {
+        String departure = reservation.getDeparture();
+        String destination = reservation.getDestination();
+        Integer wagenNumber = Integer.parseInt(reservation.getWagenNumber());
+        Integer sitzNumber = Integer.parseInt(reservation.getSitzNumber());
+
         boolean isDepartureInStrecke = false;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
             Abschnitt abschnitt = (Abschnitt) stopIterator.next();
@@ -93,13 +97,25 @@ public class Strecke {
             if (isDepartureInStrecke && abschnitt.getStopName().equals(destination)) {
                 isDepartureInStrecke = false;
             }
-            if (isDepartureInStrecke){
+            if (isDepartureInStrecke) {
                 abschnitt.setReservedTillNextStop(true);
+                // adds Waggons with Seats to the Abschnitt
+                if (abschnitt.containsWaggon(wagenNumber)) {
+                    WagenReservation wagenReservation = abschnitt.getWagenReservation(wagenNumber);
+                    if (!wagenReservation.getReservedSeats().contains(sitzNumber)) {
+                        wagenReservation.getReservedSeats().add(sitzNumber);
+                    }
+                } else {
+                    abschnitt.getWaggonReservationList().add(new WagenReservation(wagenNumber, sitzNumber));
+                }
             }
         }
     }
 
-    public boolean seatIsAvailable(String departure, String destination) {
+    /**
+     * Precondition: setTakenAbschnitteForReservation has been run on the Strecke!
+     */
+    public boolean seatIsAvailable(String departure, String destination, Integer waggonNumber, Integer seatNumber) {
         boolean isDepartureInStrecke = false;
         boolean seatIsAvailable = true;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
@@ -110,13 +126,19 @@ public class Strecke {
             if (isDepartureInStrecke && abschnitt.getStopName().equals(destination)) {
                 isDepartureInStrecke = false;
             }
-            if (isDepartureInStrecke){
+            if (isDepartureInStrecke) {
                 if (abschnitt.isReservedTillNextStop()) {
-                    seatIsAvailable = false;
-                    return seatIsAvailable;
+                    if (abschnitt.containsWaggon(waggonNumber)) {
+                        WagenReservation wr = abschnitt.getWagenReservation(waggonNumber);
+                        if (wr.getReservedSeats().contains(seatNumber)) {
+                            seatIsAvailable = false;
+                            return seatIsAvailable;
+                        }
+                    }
                 }
             }
         }
         return seatIsAvailable;
     }
+
 }

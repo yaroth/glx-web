@@ -27,6 +27,8 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.util.ArrayList;
+
 /**
  * This class is a simple POJO representation for a "Abschnitt" item stored in the "strecken" app in the 'strecke' repository.<br/>
  * Objects of this type are handy to create json on REST endpoints or within template model classes.
@@ -45,6 +47,16 @@ public class Abschnitt {
     private int stopDuration;
     private int tripDuration;
     private boolean isReservedTillNextStop = false;
+    private ArrayList<WagenReservation> waggonReservationList = new ArrayList<>();
+
+
+    public ArrayList<WagenReservation> getWaggonReservationList() {
+        return waggonReservationList;
+    }
+
+    public void setWaggonReservationList(ArrayList<WagenReservation> waggonReservationList) {
+        this.waggonReservationList = waggonReservationList;
+    }
 
     public String getStopName() {
         return stopName;
@@ -77,5 +89,19 @@ public class Abschnitt {
 
     public void setReservedTillNextStop(boolean reservedTillNextStop) {
         isReservedTillNextStop = reservedTillNextStop;
+    }
+
+    public boolean containsWaggon(Integer waggonNumber) {
+        for (WagenReservation wr : waggonReservationList) {
+            if (wr.getWaggonNumber().equals(waggonNumber)) return true;
+        }
+        return false;
+    }
+
+    public WagenReservation getWagenReservation(Integer waggonNumber) {
+        for (WagenReservation wr : waggonReservationList) {
+            if (wr.getWaggonNumber().equals(waggonNumber)) return wr;
+        }
+        return null;
     }
 }

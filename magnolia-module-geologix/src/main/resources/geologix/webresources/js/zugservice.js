@@ -4,8 +4,7 @@ var home = new Vue({
         layout: 'home',
         time: '08:30',
         from: 'Bern',
-        to: 'Thun',
-        reservationConfirmation: ''
+        to: 'Thun'
     },
     methods: {
         getZugservices(e) {
@@ -31,7 +30,8 @@ var blog_list = new Vue({
     data: {
         layout: '',
         zugserviceId: '',
-        zugservices: ''
+        zugservices: '',
+        reservationStatus: ''
     },
     methods: {
         showZugserviceDetail(uuid) {
@@ -56,8 +56,8 @@ var blog_list = new Vue({
                 destination: to
             })
                 .then(response => {
-                    home.reservationConfirmation = response.data;
-                    let resConf = home.reservationConfirmation;
+                    this.reservationStatus = response.data;
+                    let resConf = this.reservationStatus;
                     if (resConf.message == 'OK') {
                         let zugId = resConf.zugserviceID;
                         let wagNb = resConf.wagenNumber;
@@ -65,6 +65,19 @@ var blog_list = new Vue({
                         let seat = this.getSeat(zugId, wagNb, sitzNb);
                         if (seat !== undefined) {
                             seat.reserved = true;
+                            //Shows confirmation of reservation
+                            //TODO: Add User Information like Name / Firstname / Birthdate
+                            Swal.fire({
+                                title: 'Ihre Reservation wurde bestätigt.',
+                                text: 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '\n'
+                                    + 'Wagen: ' + wagNb + '\n'
+                                    + 'Sitz: ' + sitzNb,
+                                imageUrl: location.protocol + '//' + location.host + '/.resources/geologix/webresources/img/Test_QR_Code.png',
+                                customClass: 'reservation-confirmation',
+                                showConfirmButton: false,
+                                showCloseButton: true,
+                                icon: 'success'
+                            })
                         }
                     }
                 })

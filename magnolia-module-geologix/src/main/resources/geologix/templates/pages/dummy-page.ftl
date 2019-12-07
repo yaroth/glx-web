@@ -19,9 +19,6 @@
             <input type="text" v-model="to" placeholder="Ende"><br>
             <input type="submit" value="Submit">
         </form>
-        <div id="reservation-confirmation">
-            {{reservationConfirmation}}
-        </div>
     </div>
 
     <section id="js-grid-list" v-if="layout === 'zugservice-detail' || layout === 'list'" class="grid-list" v-cloak>
@@ -39,10 +36,14 @@
                 <p v-for="waggon in zug.zugkomposition">{{waggon.number}}</p>
             </li>
         </ul>
+
         <ul v-if="layout === 'zugservice-detail'" class="zugservice-detail">
             <template v-for="zug in zugservices">
                 <template v-if="zugserviceId === zug.uuid">
                     <li v-for="waggon in zug.zugkomposition" class="waggon">
+                        <div id="reservation-confirmation">
+                            {{reservationStatus}}
+                        </div>
                         <p>Waggon N°: {{waggon.number}} ({{waggon.wagenplan.description}})</p>
                         <div class="waggon-image">
                             <img v-bind:src="waggon.wagenplan.imageLink">
@@ -73,7 +74,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="${ctx.contextPath}/.resources/geologix/webresources/js/zugservice.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </body>
 </html>
 

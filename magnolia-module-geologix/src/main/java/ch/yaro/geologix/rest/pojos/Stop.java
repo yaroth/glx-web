@@ -63,7 +63,6 @@ public class Stop {
     }
 
     // TODO: fix this, so format in JSON will be of form HH:mm
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     public LocalTime getTimeOut() {
         return timeOut;
     }

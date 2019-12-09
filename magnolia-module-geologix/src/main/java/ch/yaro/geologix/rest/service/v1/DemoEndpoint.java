@@ -71,16 +71,23 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
             @ApiResponse(code = 406, message = STATUS_MESSAGE_NOT_ACCEPTABLE),
             @ApiResponse(code = 400, message = STATUS_MESSAGE_BAD_REQUEST)
     })
-    public Response getTrainServices(TrainServiceRequest request) {
-        List<TrainService> result;
-        try {
-            result = blsPojoService.getTrainServicesForRequest(request);
-            return Response.ok(result).build();
-        } catch (RepositoryException e) {
-            log.warn("Could not compute the request.");
-            return Response.status(Response.Status.BAD_REQUEST).build();
+    public Response getTrainServices(TrainServiceRequest trainServiceRequest) {
+        boolean requestIsValid = trainServiceRequest.isValid();
+        if (requestIsValid) {
+            List<TrainService> result;
+            try {
+                result = blsPojoService.getTrainServicesForRequest(trainServiceRequest);
+                return Response.ok(result).build();
+            } catch (RepositoryException e) {
+                log.warn("Could not compute the request.");
+                return Response.status(Response.Status.BAD_REQUEST).entity("Could not compute the request.").build();
+            }
+        }
+        else {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("TrainServiceRequest is not valid!").build();
         }
     }
+
 
     @Path("/reservation")
     @Consumes({MediaType.APPLICATION_JSON})
@@ -102,20 +109,18 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
                         ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
                         return Response.ok(reservationConfirmation).build();
                     } else {
-                        // TODO: proper response status 'reservation is NOT allowed, seat already reserved!'
-                        return Response.status(Response.Status.CONFLICT).build();
+                        return Response.status(Response.Status.CONFLICT).entity("Reservation is NOT allowed, seat already reserved.").build();
                     }
                 } else {
-                    // TODO: proper response 'reservation is not valid: wrong trainservice, waggon, seat number....
-                    return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+                    return Response.status(Response.Status.NOT_ACCEPTABLE).entity("Reservation is not valid. Check your submission.").build();
                 }
             } catch (Exception e) {
                 log.error("Failed !");
-                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+                return Response.status(Response.Status.NOT_ACCEPTABLE).entity("Could not confirm reservation. Unknown error occurred. Sorry!").build();
             }
         } else {
             log.error("Failed! No Reservation provided");
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("No Reservation provided").build();
         }
     }
 

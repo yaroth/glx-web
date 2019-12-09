@@ -81,20 +81,21 @@ public class Strecke {
         return false;
     }
 
-
+    /** Update the reserved seat on the Strecke for the Reservation. */
     public void setTakenAbschnitteForReservation(Reservation reservation) {
-        String departure = reservation.getDeparture();
-        String destination = reservation.getDestination();
+        String departureLower = reservation.getDeparture().toLowerCase();
+        String destinationLower = reservation.getDestination().toLowerCase();
         Integer wagenNumber = Integer.parseInt(reservation.getWagenNumber());
         Integer sitzNumber = Integer.parseInt(reservation.getSitzNumber());
 
         boolean isDepartureInStrecke = false;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
             Abschnitt abschnitt = (Abschnitt) stopIterator.next();
-            if (!isDepartureInStrecke && abschnitt.getStopName().equals(departure)) {
+            String abschnittLower = abschnitt.getStopName().toLowerCase();
+            if (!isDepartureInStrecke && abschnittLower.equals(departureLower)) {
                 isDepartureInStrecke = true;
             }
-            if (isDepartureInStrecke && abschnitt.getStopName().equals(destination)) {
+            if (isDepartureInStrecke && abschnittLower.equals(destinationLower)) {
                 isDepartureInStrecke = false;
             }
             if (isDepartureInStrecke) {
@@ -120,10 +121,11 @@ public class Strecke {
         boolean seatIsAvailable = true;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
             Abschnitt abschnitt = (Abschnitt) stopIterator.next();
-            if (!isDepartureInStrecke && abschnitt.getStopName().equals(departure)) {
+            String abschnittLower = abschnitt.getStopName().toLowerCase();
+            if (!isDepartureInStrecke && abschnittLower.equals(departure.toLowerCase())) {
                 isDepartureInStrecke = true;
             }
-            if (isDepartureInStrecke && abschnitt.getStopName().equals(destination)) {
+            if (isDepartureInStrecke && abschnittLower.equals(destination.toLowerCase())) {
                 isDepartureInStrecke = false;
             }
             if (isDepartureInStrecke) {

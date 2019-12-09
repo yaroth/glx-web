@@ -107,17 +107,21 @@ public class TrainService extends NodeItem {
         this.arrival = arrival;
     }
 
+    /** Checks for each TrainService if it fits the request, i.e. Departure and Destination are within timetable
+     * and departure time @Departure station is AFTER request departure time.
+     * Comparisons are done on lower case strings! */
     public boolean fitsRequest(TrainServiceRequest request) {
         LocalTime earliestDeparture = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
-        String startStop = request.getFrom();
-        String endStop = request.getTo();
+        String startStopLower = request.getFrom().toLowerCase();
+        String endStopLower = request.getTo().toLowerCase();
         boolean startStopFitsDeparture = false;
         for (Iterator stopIterator = timetable.iterator(); stopIterator.hasNext(); ) {
             Stop stop = (Stop) stopIterator.next();
-            if (!startStopFitsDeparture && stop.getStopName().equals(startStop) && stop.getTimeOut().isAfter(earliestDeparture)) {
+            String stopLower = stop.getStopName().toLowerCase();
+            if (!startStopFitsDeparture && stopLower.equals(startStopLower) && stop.getTimeOut().isAfter(earliestDeparture)) {
                 startStopFitsDeparture = true;
             }
-            if (startStopFitsDeparture && stop.getStopName().equals(endStop)) {
+            if (startStopFitsDeparture && stopLower.equals(endStopLower)) {
                 return true;
             }
         }
@@ -125,16 +129,17 @@ public class TrainService extends NodeItem {
     }
 
     public void adaptTimetableToRequest(TrainServiceRequest request) throws RepositoryException {
-        String startStop = request.getFrom();
-        String endStop = request.getTo();
+        String startStopLower = request.getFrom().toLowerCase();
+        String endStopLower = request.getTo().toLowerCase();
         LinkedList<Stop> updatedTimetable = new LinkedList<>();
         boolean startAddingStops = false;
         for (Iterator stopIterator = timetable.iterator(); stopIterator.hasNext(); ) {
             Stop stop = (Stop) stopIterator.next();
-            if (!startAddingStops && stop.getStopName().equals(startStop)) {
+            String stopLower = stop.getStopName().toLowerCase();
+            if (!startAddingStops && stopLower.equals(startStopLower)) {
                 stop.setTimeIN(null);
                 startAddingStops = true;
-                setFrom(startStop);
+                setFrom(stop.getStopName());
                 int minutes = stop.getTimeOut().getMinute();
                 String minutesPlaceholder = "";
                 if (minutes < 10) minutesPlaceholder = "0";
@@ -143,9 +148,9 @@ public class TrainService extends NodeItem {
             if (startAddingStops){
                 updatedTimetable.add(stop);
             }
-            if (stop.getStopName().equals(endStop)) {
+            if (stopLower.equals(endStopLower)) {
                 stop.setTimeOut(null);
-                setTo(endStop);
+                setTo(stop.getStopName());
                 int minutes = stop.getTimeIN().getMinute();
                 String minutesPlaceholder = "";
                 if (minutes < 10) minutesPlaceholder = "0";
@@ -154,14 +159,6 @@ public class TrainService extends NodeItem {
             }
         }
         timetable = updatedTimetable;
-    }
-
-    public Wagen getWagenByNumber (String wagenNumber) {
-        for (Iterator wagenIterator = zugkomposition.iterator(); wagenIterator.hasNext();) {
-            Wagen w = (Wagen) wagenIterator.next();
-            if (w.getNumber().equals(wagenNumber)) return w;
-        }
-        return null;
     }
 
 }

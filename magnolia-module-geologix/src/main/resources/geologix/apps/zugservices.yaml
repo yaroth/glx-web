@@ -78,7 +78,7 @@ subApps:
       renameZugservice:
         icon: icon-edit
         label: Rename Zugservice Item
-        dialogName: zugservice:renameZugservice
+        dialogName: zugservices:renameZugservice
         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
         availability:
           writePermissionRequired: true
@@ -148,6 +148,10 @@ subApps:
       confirmDeleteZugservice:
         successActionName: delete
         label: Delete
+        confirmationHeader: Do you really want to delete the selected item?
+        confirmationMessage: Deleting the selected item cannot be undone. Do you want to proceed?
+        proceedLabel: Delete
+        cancelLabel: Cancel
         icon: icon-delete
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
         availability:
@@ -409,10 +413,14 @@ subApps:
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: name
                 label: Name
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                validators:
+                  - name: name
+                    class: info.magnolia.ui.form.validator.definition.RegexpValidatorDefinition
+                    pattern: ^[a-zA-Z0-9\-\_\s]+$
+                    errorMessage: Format Error! Please enter letter, numbers, '-' and '_' only!
               - name: departure
                 label: Abfahrtszeit
                 description: Please enter a time with format 'hh:mm' (08:34, 00:12, 19:45)

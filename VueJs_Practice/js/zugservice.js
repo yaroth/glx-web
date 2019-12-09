@@ -4,19 +4,7 @@ var home = new Vue({
         layout: 'home',
         time: '08:30',
         from: 'Bern',
-        to: 'Thun',
-        reservationConfirmation: {
-            firstname: 'Fritz',
-            lastname: 'Hubacher',
-            dateOfBirth: '1969-10-19',
-            zugserviceID: 'ebdc5352-3c37-43d4-a2bd-5db4521d22f3',
-            wagenNumber: '10',
-            sitzNumber: '11',
-            departure: 'Bern',
-            destination: 'Thun',
-            message: 'OK',
-            qrCode: ''
-        }
+        to: 'Thun'
     },
     methods: {
         getZugservices(e) {
@@ -36,6 +24,18 @@ var home = new Vue({
 
 var blog_list = new Vue({
         el: '#js-grid-list',
+        reservationConfirmation: {
+            firstname: 'Fritz',
+            lastname: 'Hubacher',
+            dateOfBirth: '1969-10-19',
+            zugserviceID: 'ebdc5352-3c37-43d4-a2bd-5db4521d22f3',
+            wagenNumber: '10',
+            sitzNumber: '11',
+            departure: 'Bern',
+            destination: 'Thun',
+            message: 'OK',
+            qrCode: ''
+        },
         data: {
             layout: '',
             zugserviceId: '',
@@ -488,6 +488,19 @@ var blog_list = new Vue({
                     let seat = this.getSeat(zugId, wagNb, sitzNb);
                     if (seat !== undefined) {
                         seat.reserved = true;
+                        //Shows confirmation of reservation
+                        //TODO: Add User Information like Name / Firstname / Birthdate
+                        Swal.fire({
+                            title: 'Ihre Reservation wurde bestätigt.',
+                            text: 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '\n'
+                                + 'Wagen: ' + wagNb + '\n'
+                                + 'Sitz: ' + sitzNb,
+                            imageUrl: location.protocol + '//' + location.host + '/.resources/geologix/webresources/img/Test_QR_Code.png',
+                            customClass: 'reservation-confirmation',
+                            showConfirmButton: false,
+                            showCloseButton: true,
+                            icon: 'success'
+                        })
                     }
                 }
 
@@ -527,7 +540,8 @@ var blog_list = new Vue({
         },
         computed: {
             infoRequest: function () {
-                return 'Anfrage: ' + home.from + ' - ' + home.to + '  ab: ' + home.time;
+                return 'Anfrage: ' + home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
+                    home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.time;
             },
             infoTrainDetail: function () {
                 for (var i = 0; i < this.zugservices.length; i++) {

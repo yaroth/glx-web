@@ -137,10 +137,14 @@ subApps:
           rules:
             - name: IsDeletedRule
               implementationClass: info.magnolia.ui.framework.availability.IsDeletedRule
-      confirmDeleteNews:
+      confirmDeleteHaltestelle:
+        icon: icon-delete
         successActionName: delete
         label: Delete
-        icon: icon-delete
+        confirmationHeader: Do you really want to delete the selected item?
+        confirmationMessage: Deleting the selected item cannot be undone. Do you want to proceed?
+        proceedLabel: Delete
+        cancelLabel: Cancel
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
         availability:
           multiple: true
@@ -205,7 +209,7 @@ subApps:
             - name: addActions
               items:
                 - name: addHaltestelle
-                - name: confirmDeleteNews
+                - name: confirmDeleteHaltestelle
             - name: editActions
               items:
                 - name: editHaltestelle
@@ -259,7 +263,7 @@ subApps:
             - name: addActions
               items:
                 - name: addHaltestelle
-                - name: confirmDeleteNews
+                - name: confirmDeleteHaltestelle
             - name: editActions
               items:
                 - name: editHaltestelle
@@ -387,6 +391,11 @@ subApps:
               - name: name
                 label: Haltestelle
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                validators:
+                  - name: noWhitespaceEndBeginning
+                    class: info.magnolia.ui.form.validator.definition.RegexpValidatorDefinition
+                    pattern: ^[^\s].+[^\s]$
+                    errorMessage: Format Error! Please remove any trailing or leading whitespace!
 
     actions:
       commit:

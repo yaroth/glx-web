@@ -142,6 +142,10 @@ subApps:
         label: Delete
         icon: icon-delete
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        confirmationHeader: Do you really want to delete the selected item?
+        confirmationMessage: Deleting the selected item cannot be undone. Do you want to proceed?
+        proceedLabel: Delete
+        cancelLabel: Cancel
         availability:
           multiple: true
           writePermissionRequired: true
@@ -386,16 +390,13 @@ subApps:
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: abschnitt
                 label: Abschnitte
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
                 field:
-#                  name: title
                   fieldType: composite
                   transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
-#                  label: Event
                   fields:
                     - name: stopID
                       label: Haltestelle
@@ -408,9 +409,19 @@ subApps:
                     - name: tripduration
                       label: Reisedauer
                       fieldType: text
+                      validators:
+                        - name: number
+                          class: info.magnolia.ui.form.validator.definition.RegexpValidatorDefinition
+                          pattern: \d+
+                          errorMessage: Format Error! Please enter a number only!
                     - name: stopduration
                       label: Verweildauer (Bhf)
                       fieldType: text
+                      validators:
+                        - name: number
+                          class: info.magnolia.ui.form.validator.definition.RegexpValidatorDefinition
+                          pattern: \d+
+                          errorMessage: Format Error! Please enter a number only!
 
     actions:
       commit:

@@ -389,22 +389,18 @@ subApps:
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: date
                 class: info.magnolia.ui.form.field.definition.DateFieldDefinition
                 time: false
                 type: Date
                 label: Datum
-                i18n: false
                 required: true
                 defaultValue: now
               - name: title
                 label: Titel
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: lead
                 label: Lead
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 rows: 3
               - name: image
@@ -418,7 +414,6 @@ subApps:
                   contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
               - name: text
                 label: Text
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
               - name: tags
                 label: Tags

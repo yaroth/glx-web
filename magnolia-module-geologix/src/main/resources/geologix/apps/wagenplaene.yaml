@@ -142,6 +142,10 @@ subApps:
         label: Delete
         icon: icon-delete
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        confirmationHeader: Do you really want to delete the selected item?
+        confirmationMessage: Deleting the selected item cannot be undone. Do you want to proceed?
+        proceedLabel: Delete
+        cancelLabel: Cancel
         availability:
           multiple: true
           writePermissionRequired: true
@@ -392,14 +396,11 @@ subApps:
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: code
                 label: Code
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: description
                 label: Description
-                i18n: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: image
                 label: Wagenplan
@@ -426,15 +427,18 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
                 field:
-#                  name: seat
                   fieldType: composite
                   transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
-#                  label: Sitz
                   fields:
                     - name: id
                       label: ID
                       fieldType: text
                       maxLength: 10
+                      validators:
+                        - name: number
+                          class: info.magnolia.ui.form.validator.definition.RegexpValidatorDefinition
+                          pattern: \d+
+                          errorMessage: Format Error! Please enter a number only!
                     - name: class
                       label: Klasse
                       fieldType: optionGroup

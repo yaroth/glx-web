@@ -142,6 +142,10 @@ subApps:
         label: Delete
         icon: icon-delete
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
+        confirmationHeader: Do you really want to delete the selected item?
+        confirmationMessage: Deleting the selected item cannot be undone. Do you want to proceed?
+        proceedLabel: Delete
+        cancelLabel: Cancel
         availability:
           multiple: true
           writePermissionRequired: true
@@ -386,7 +390,6 @@ subApps:
                 label: Name
                 required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                i18n: false
               - name: name
                 label: Name Zugkomposition
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition

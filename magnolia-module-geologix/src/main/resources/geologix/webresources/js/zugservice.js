@@ -118,7 +118,8 @@ var blog_list = new Vue({
     },
     computed: {
         infoRequest: function () {
-            return 'Anfrage: ' + home.from + ' - ' + home.to + '  ab: ' + home.time;
+            return 'Anfrage: ' + home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
+                home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.time;
         },
         infoTrainDetail: function () {
             for (var i = 0; i < this.zugservices.length; i++) {

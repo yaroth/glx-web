@@ -1,6 +1,7 @@
 package ch.yaro.geologix.rest.service.v1;
 
 import ch.yaro.geologix.rest.pojos.*;
+import com.google.gson.Gson;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.jcr.predicate.AbstractPredicate;
 import info.magnolia.jcr.util.NodeUtil;
@@ -80,11 +81,15 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
                 return Response.ok(result).build();
             } catch (RepositoryException e) {
                 log.warn("Could not compute the request.");
-                return Response.status(Response.Status.BAD_REQUEST).entity("Could not compute the request.").build();
+                Gson gson = new Gson();
+                String errorJson = gson.toJson("Could not compute the request.");
+                return Response.status(Response.Status.BAD_REQUEST).entity(errorJson).build();
             }
-        }
-        else {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("TrainServiceRequest is not valid!").build();
+        } else {
+            String em = "TrainServiceRequest is not valid!";
+            Gson gson = new Gson();
+            String errorJson = gson.toJson(em);
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity(errorJson).build();
         }
     }
 
@@ -109,6 +114,7 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
                         ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
                         return Response.ok(reservationConfirmation).build();
                     } else {
+                        // TODO: return ResponseConfirmation with error message and zugservice, waggon and seat that is already taken!
                         return Response.status(Response.Status.CONFLICT).entity("Reservation is NOT allowed, seat already reserved.").build();
                     }
                 } else {

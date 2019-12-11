@@ -125,7 +125,7 @@ var blog_list = new Vue({
             for (var i = 0; i < this.zugservices.length; i++) {
                 if (this.zugservices[i].uuid === this.zugserviceId) {
                     let zug = this.zugservices[i];
-                    return zug.from + ' ab ' + zug.departure + ' - ' + zug.to + ' an ' + zug.arrival;
+                    return zug.departure + ' ' + zug.from  + ' ––––––––– ' + zug.to + ' ' + zug.arrival;
                 }
             }
 

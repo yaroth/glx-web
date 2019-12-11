@@ -90,7 +90,7 @@ var blog_list = new Vue({
                         uuid: '6eaaa3e8-6023-4a7f-8ca9-f34dfc1d4127',
                         code: 'BLS Typ 01 - 2019',
                         description: 'Panoramawagen, 1. Klasse',
-                        imageLink: '../images/sitzplan.jpg',
+                        imageLink: '../img/sitzplan3.png',
                         wagentypen: ['Wagen mit Familienabteil', 'Wagen mit Veloverladmöglichkeit'],
                         seats: [{
                             uuid: null,
@@ -158,7 +158,7 @@ var blog_list = new Vue({
                         uuid: '4751dad2-9b3b-487d-aa03-a5004f91b909',
                         code: 'BLS Typ 02 - 2018',
                         description: 'Bistro, 1. Klasse',
-                        imageLink: '../images/sitzplan.jpg',
+                        imageLink: '../img/sitzplan3.png',
                         wagentypen: ['Normaler Wagen'],
                         seats: [{
                             uuid: null,
@@ -196,7 +196,7 @@ var blog_list = new Vue({
                         uuid: '4751dad2-9b3b-487d-aa03-a5004f91b909',
                         code: 'BLS Typ 02 - 2018',
                         description: 'Bistro, 1. Klasse',
-                        imageLink: '../images/sitzplan2.png',
+                        imageLink: '../img/sitzplan3.png',
                         wagentypen: ['Normaler Wagen'],
                         seats: [{
                             uuid: null,
@@ -547,7 +547,7 @@ var blog_list = new Vue({
                 for (var i = 0; i < this.zugservices.length; i++) {
                     if (this.zugservices[i].uuid === this.zugserviceId) {
                         let zug = this.zugservices[i];
-                        return zug.from + ' ab ' + zug.departure + ' - ' + zug.to + ' an ' + zug.arrival;
+                        return zug.departure + ' ' + zug.from  + ' ––––––––– ' + zug.to + ' ' + zug.arrival;
                     }
                 }
 

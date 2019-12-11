@@ -10,6 +10,10 @@
 <div id="container">
 
     <div id="home" v-if="layout === 'home'">
+        <div class="tool-bar">
+            <div class="infopanel">Reservation</div>
+            <div class="bls-icon"></div>
+        </div>
         <form @submit="getZugservices">
             Zeit:<br>
             <input type="text" v-model="time" placeholder="Abfahrt (hh:mm)"><br>
@@ -28,21 +32,18 @@
             <div v-on:click="layout = 'list'" class="back-icon" v-if="layout === 'zugservice-detail'"  title="Back"></div>
             <div v-if="layout === 'list'" class="infopanel">{{infoRequest}}</div>
             <div v-else-if="layout === 'zugservice-detail'" class="infopanel">{{infoTrainDetail}}</div>
+            <div class="bls-icon"></div>
         </div>
 
-        <ul v-if="layout === 'list'" class="list">
-            <li v-for="zug in zugservices" v-on:click="showZugserviceDetail(zug.uuid)" class="zugservice">
-                <p>{{zug.departure}} {{zug.from}} - {{zug.to}} {{zug.arrival}}</p>
-            </li>
-        </ul>
-
-        <ul v-if="layout === 'zugservice-detail'" class="zugservice-detail">
+        <div v-if="layout === 'list'" class="list">
+            <div v-for="zug in zugservices" v-on:click="showZugserviceDetail(zug.uuid)" class="zugservice">
+                <p>{{zug.departure}} <span>{{zug.from}}</span> ––––––––––– <span>{{zug.to}}</span> {{zug.arrival}}</p>
+            </div>
+        </div>
+        <div v-if="layout === 'zugservice-detail'" class="zugservice-detail">
             <template v-for="zug in zugservices">
                 <template v-if="zugserviceId === zug.uuid">
-                    <li v-for="waggon in zug.zugkomposition" class="waggon">
-                        <div id="reservation-confirmation">
-                            {{reservationStatus}}
-                        </div>
+                    <div v-for="waggon in zug.zugkomposition" class="waggon">
                         <p>Waggon N°: {{waggon.number}} ({{waggon.wagenplan.description}})</p>
                         <div class="waggon-image">
                             <img v-bind:src="waggon.wagenplan.imageLink">
@@ -76,10 +77,10 @@
                                 <button v-on:click="requestReservation(zug.uuid, 71, waggon.number, zug.from, zug.to)" id="71" type="button" class="col5" :class="setReservation(zug.uuid, waggon.number, 71)" :disabled="setDisabled(zug.uuid, waggon.number, 71)"></button>
                             </div>
                         </div>
-                    </li>
+                    </div>
                 </template>
             </template>
-        </ul>
+        </div>
     </section>
 
 </div>

@@ -8,7 +8,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.LinkedList;
-
 public class TrainService extends NodeItem {
 
     public static final String WORKSPACE = "zugservices";
@@ -110,6 +109,7 @@ public class TrainService extends NodeItem {
     /** Checks for each TrainService if it fits the request, i.e. Departure and Destination are within timetable
      * and departure time @Departure station is AFTER request departure time.
      * Comparisons are done on lower case strings! */
+    //TODO: remove time check, since we need to provide train services @1h30 if request is @23h30!
     public boolean fitsRequest(TrainServiceRequest request) {
         LocalTime earliestDeparture = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
         String startStopLower = request.getFrom().toLowerCase();
@@ -128,6 +128,8 @@ public class TrainService extends NodeItem {
         return false;
     }
 
+    /** Returns the timetable starting at request departure Stop and ending at
+     * request destination Stop. */
     public void adaptTimetableToRequest(TrainServiceRequest request) throws RepositoryException {
         String startStopLower = request.getFrom().toLowerCase();
         String endStopLower = request.getTo().toLowerCase();

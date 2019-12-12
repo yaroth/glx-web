@@ -4,6 +4,11 @@ package ch.yaro.geologix.rest.pojos;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class is a simple POJO representation for a "Zugkomposition" item stored in the "zugkompositionen"
+ * app in the 'zugkomposition' repository.<br/>
+ * Mainly contains a list (LinkedList!) of {@link Wagen}.
+ */
 public class Zugkomposition {
 
     public static final String WORKSPACE = "zugkompositionen";

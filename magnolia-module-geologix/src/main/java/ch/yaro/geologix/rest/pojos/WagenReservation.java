@@ -30,7 +30,9 @@ package ch.yaro.geologix.rest.pojos;
 import java.util.ArrayList;
 
 /**
- * This class is a simple POJO representation for a "wagen reservation" item.
+ * This class is a simple POJO representation for a "WagenReservation" item.
+ * Contains the waggon number and the list of seats identified by number of that waggon
+ * that are reserved.
  */
 public class WagenReservation {
 

@@ -37,7 +37,6 @@ import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
  */
 @Api(value = "/demo/v1", description = "The demo endpoint")
 @Path("/demo/v1")
-//public class DemoEndpoint<D extends EndpointDefinition> extends AbstractEndpoint<D> {
 public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends AbstractEndpoint<D> {
 
     private static final String STATUS_MESSAGE_OK = "OK";
@@ -115,40 +114,29 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
                         return Response.ok(reservationConfirmation).build();
                     } else {
                         // TODO: return ResponseConfirmation with error message and zugservice, waggon and seat that is already taken!
-                        return Response.status(Response.Status.CONFLICT).entity("Reservation is NOT allowed, seat already reserved.").build();
+                        Gson gson = new Gson();
+                        String errorJson = gson.toJson(STATUS_MESSAGE_SEAT_NO_LONGER_AVAILABLE);
+                        return Response.status(Response.Status.CONFLICT).entity(errorJson).build();
                     }
                 } else {
-                    return Response.status(Response.Status.NOT_ACCEPTABLE).entity("Reservation is not valid. Check your submission.").build();
+                    Gson gson = new Gson();
+                    String errorJson = gson.toJson("Reservation is not valid. Check your submission.");
+                    return Response.status(Response.Status.NOT_ACCEPTABLE).entity(errorJson).build();
                 }
             } catch (Exception e) {
                 log.error("Failed !");
-                return Response.status(Response.Status.NOT_ACCEPTABLE).entity("Could not confirm reservation. Unknown error occurred. Sorry!").build();
+                Gson gson = new Gson();
+                String errorJson = gson.toJson("Could not confirm reservation. Unknown error occurred. Sorry!");
+                return Response.status(Response.Status.NOT_ACCEPTABLE).entity(errorJson).build();
             }
         } else {
             log.error("Failed! No Reservation provided");
-            return Response.status(Response.Status.BAD_REQUEST).entity("No Reservation provided").build();
+            Gson gson = new Gson();
+            String errorJson = gson.toJson("No Reservation provided.");
+            return Response.status(Response.Status.BAD_REQUEST).entity(errorJson).build();
         }
     }
 
-    @Path("/getalltest")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Test endpoint.", notes = "No comment")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = STATUS_MESSAGE_OK, response = List.class),
-            @ApiResponse(code = 401, message = STATUS_MESSAGE_UNAUTHORIZED),
-            @ApiResponse(code = 404, message = STATUS_MESSAGE_NODE_NOT_FOUND),
-            @ApiResponse(code = 500, message = STATUS_MESSAGE_ERROR_OCCURRED)
-    })
-    public Response getAllTest() {
-        List<Zugkomposition> result;
-        try {
-            result = blsPojoService.getAllZugkompositionen();
-            return Response.ok(result).build();
-        } catch (RepositoryException e) {
-            log.warn("Could not compute the request.");
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-    }
+
 
 }

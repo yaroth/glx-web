@@ -6,9 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** Incoming request containing departure time, departure Stop and destination Stop.
+ * Is used to query for {@link TrainService}s fitting the request.*/
 public class TrainServiceRequest {
 
-    /** MUST be of format 'HH:mm' */
+    /** Time MUST be of format 'HH:mm' */
     private String time;
     private String from;
     private String to;
@@ -44,7 +46,7 @@ public class TrainServiceRequest {
     }
 
     /** We can only check if the time is valid.
-     * Checks on from and to and only 'not null' */
+     * Checks on from and to are only 'not null' */
     @JsonIgnore
     public boolean isValid() {
         String TIME24HOURS_PATTERN = "([01]?[0-9]|2[0-3]):[0-5][0-9]";

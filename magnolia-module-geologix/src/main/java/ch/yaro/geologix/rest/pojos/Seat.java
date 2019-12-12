@@ -30,8 +30,7 @@ package ch.yaro.geologix.rest.pojos;
 import java.util.List;
 
 /**
- * This class is a simple POJO representation for a "wagen" item stored in the "wagen" app.<br/>
- * Objects of this type are handy to create json on REST endpoints or within template model classes.
+ * This class is a simple POJO representation for a "Seat" item stored in the "wagenplaene" app.<br/>
  */
 public class Seat extends NodeItem {
 

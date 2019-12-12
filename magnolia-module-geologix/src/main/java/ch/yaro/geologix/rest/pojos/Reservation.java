@@ -33,8 +33,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * This class is a simple POJO representation for a "wagen" item stored in the "wagen" app.<br/>
- * Objects of this type are handy to create json on REST endpoints or within template model classes.
+ * This class is a simple POJO representation for a "Reservation" item stored in the "reservationen" app.<br/>
  */
 public class Reservation extends NodeItem {
 

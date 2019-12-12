@@ -34,7 +34,6 @@ import java.util.List;
 
 /**
  * This class is a simple POJO representation for a "Strecke" item stored in the "strecken" app in the 'strecke' repository.<br/>
- * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
 public class Strecke {
 
@@ -65,6 +64,9 @@ public class Strecke {
         this.fahrstrecke = fahrstrecke;
     }
 
+    /** Makes sure that a {@link Reservation} can be done on this Strecke.
+     * Is a check whether departure and destination {@link Stop}s are in that
+     * order in this Strecke.*/
     public boolean validateStreckenReservation(Reservation reservation) {
         String departure = reservation.getDeparture();
         String destination = reservation.getDestination();
@@ -81,7 +83,9 @@ public class Strecke {
         return false;
     }
 
-    /** Update the reserved seat on the Strecke for the Reservation. */
+    /** Updates the reserved {@link Seat}s and the {@link Abschnitt}s reserved until the
+     * next {@link Stop} on the whole Strecke.
+     * @param reservation*/
     public void setTakenAbschnitteForReservation(Reservation reservation) {
         String departureLower = reservation.getDeparture().toLowerCase();
         String destinationLower = reservation.getDestination().toLowerCase();
@@ -115,6 +119,12 @@ public class Strecke {
 
     /**
      * Precondition: setTakenAbschnitteForReservation has been run on the Strecke!
+     * Returns if a seat (Waggon and Seat) on a Strecke (departure, destination) is available
+     * for reservation.
+     * @param departure
+     * @param destination
+     * @param waggonNumber
+     * @param seatNumber
      */
     public boolean seatIsAvailable(String departure, String destination, Integer waggonNumber, Integer seatNumber) {
         boolean isDepartureInStrecke = false;

@@ -29,7 +29,6 @@ package ch.yaro.geologix.rest.pojos;
 
 /**
  * This class is a simple POJO representation for an "image" item stored in the 'dam' app.<br/>
- * Objects of this type are handy to create json on REST endpoints or within template model classes.
  */
 public class Image {
 

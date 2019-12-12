@@ -2,15 +2,25 @@ var home = new Vue({
     el: '#home',
     data: {
         layout: 'home',
+        lastName: 'Awesome',
+        firstName: 'User',
+        birthDate: '',
         time: '08:30',
         from: 'Bern',
-        to: 'Thun'
+        to: 'Thun',
+        //Rules for the field validations
+        rules: {
+            name: [
+                { required: true, message: 'Bitte tragen sie Ihren Nachnahmen ein!', trigger: 'blur' },
+                { min: 0, max: 30, message: 'Es sind nur 30 Zeichen erlaubt!', trigger: 'blur' }
+            ]
+        }
     },
     methods: {
         getZugservices(e) {
             e.preventDefault();
             axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/zugservices', {
-                time: this.time,
+                time: this.correctTimeFormat(this.time),
                 from: this.from,
                 to: this.to
             })
@@ -21,6 +31,16 @@ var home = new Vue({
                 .catch(error => console.log(error));
             this.layout = '';
             blog_list.layout = 'list';
+        },
+        //Converts entered time into correct format for the request
+        correctTimeFormat(enteredTime){
+            console.log(enteredTime.getMinutes())
+            var correctTimeDisplay = enteredTime.getHours() + ':' +  enteredTime.getMinutes();
+            if(enteredTime.getHours() < 10){
+                return '0'+ correctTimeDisplay;
+            } else{
+                return correctTimeDisplay;
+            }
         }
     }
 });
@@ -46,9 +66,9 @@ var blog_list = new Vue({
         requestReservation(zugUuid, seatId, waggonNumber, from, to) {
             console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid + ", from: " + from + ", to: " + to);
             axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/reservation', {
-                firstname: 'Gael',
-                lastname: 'Zwirbel',
-                dateOfBirth: '1978-03-24',
+                firstname: home.firstName,
+                lastname: home.lastName,
+                dateOfBirth: home.birthDate.getFullYear() + '-' +  home.birthDate.getMonth() + '-' + home.birthDate.getDate(),
                 zugserviceID: zugUuid,
                 wagenNumber: waggonNumber,
                 sitzNumber: seatId,
@@ -66,12 +86,11 @@ var blog_list = new Vue({
                         if (seat !== undefined) {
                             seat.reserved = true;
                             //Shows confirmation of reservation
-                            //TODO: Add User Information like Name / Firstname / Birthdate
+                            var confirmation = this.reservationConfirmation(home.firstName, home.lastName,
+                                this.reservationStatus.departure, this.reservationStatus.destination, wagNb, sitzNb);
                             Swal.fire({
-                                title: 'Ihre Reservation wurde bestätigt.',
-                                text: 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '\n'
-                                    + 'Wagen: ' + wagNb + '\n'
-                                    + 'Sitz: ' + sitzNb,
+                                title: 'Reservation bestätigt.',
+                                html: confirmation,
                                 imageUrl: location.protocol + '//' + location.host + '/.resources/geologix/webresources/img/Test_QR_Code.png',
                                 customClass: 'reservation-confirmation',
                                 showConfirmButton: false,
@@ -114,6 +133,17 @@ var blog_list = new Vue({
                     }
                 }
             }
+        },
+        //makes a multiline text for the reservation confirmation text in the sweetalert2 confirmation window
+        reservationConfirmation(fName, lName, departure, destination, wagNb, seatNb){
+            var span = document.createElement("span");
+            return span.innerHTML= 'Benutzer: ' + fName + ' ' + lName + '<br>'
+                + 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '<br>'
+                + 'Wagen: ' + wagNb + ' Sitz Nr.: ' + seatNb;
+        },
+        // converts entered date into correct date format to save
+        correctDateFormat(enteredDate){
+            return enteredDate.getFullYear() + '-' +  enteredDate.getMonth() + '-' + enteredDate.getDate();
         }
     },
     computed: {

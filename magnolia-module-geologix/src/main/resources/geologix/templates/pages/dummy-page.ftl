@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="${ctx.contextPath}/.resources/geologix/webresources/css/listview.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 <body>
 
@@ -14,15 +15,37 @@
             <div class="infopanel">Reservation</div>
             <div class="bls-icon"></div>
         </div>
-        <form @submit="getZugservices">
-            Zeit:<br>
-            <input type="text" v-model="time" placeholder="Abfahrt (hh:mm)"><br>
-            Von:<br>
-            <input type="text" v-model="from" placeholder="Start"><br>
-            Nach:<br>
-            <input type="text" v-model="to" placeholder="Ende"><br>
-            <input type="submit" value="Submit">
-        </form>
+        <el-form status-icon :rules="rules" label-width="120px" class="demo-ruleForm" size="medium">
+            <el-form-item label="Name" prop="name">
+                <el-input v-model="lastName"></el-input>
+            </el-form-item>
+            <el-form-item label="Vorname" prop="firstName">
+                <el-input v-model="firstName"></el-input>
+            </el-form-item>
+            <el-form-item label="Geburtsdatum" prop="birth">
+                <el-date-picker
+                        v-model="birthDate"
+                        type="date"
+                        placeholder="Pick a day">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="Zeit" prop="startTime">
+                <el-time-picker
+                        v-model="time"
+                        format="HH:mm"
+                        placeholder="Arbitrary time">
+                </el-time-picker>
+            </el-form-item>
+            <el-form-item label="Von" prop="startPlace">
+                <el-input v-model="from"></el-input>
+            </el-form-item>
+            <el-form-item label="Nach" prop="endPlace">
+                <el-input v-model="to"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="getZugservices">Suchen</el-button>
+            </el-form-item>
+        </el-form>
     </div>
 
     <section id="js-grid-list" v-if="layout === 'zugservice-detail' || layout === 'list'" class="grid-list" v-cloak>
@@ -87,8 +110,9 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="${ctx.contextPath}/.resources/geologix/webresources/js/zugservice.js"></script>
+<script type="module" src="${ctx.contextPath}/.resources/geologix/webresources/js/zugservice.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </body>
 </html>
 

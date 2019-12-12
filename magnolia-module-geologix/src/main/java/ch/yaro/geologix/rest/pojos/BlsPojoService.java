@@ -493,6 +493,18 @@ public class BlsPojoService {
                 trainServicesForRequest.add(trainService);
             }
         }
+        trainServicesForRequest.sort((ts1, ts2) -> {
+            LocalTime departureTS1 = ts1.getTimetable().getFirst().getTimeOut();
+            LocalTime departureTS2 = ts2.getTimetable().getFirst().getTimeOut();
+            int result = 0;
+            if (departureTS1.isBefore(departureTS2)) {
+                result = -1;
+            }
+            else if (departureTS1.isAfter(departureTS2)) {
+                result = 1;
+            }
+            return result;
+        });
         return trainServicesForRequest;
     }
 

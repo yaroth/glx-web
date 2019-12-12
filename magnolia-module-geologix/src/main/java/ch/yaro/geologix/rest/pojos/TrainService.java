@@ -112,16 +112,17 @@ public class TrainService extends NodeItem {
     //TODO: remove time check, since we need to provide train services @1h30 if request is @23h30!
     public boolean fitsRequest(TrainServiceRequest request) {
         LocalTime earliestDeparture = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
-        String startStopLower = request.getFrom().toLowerCase();
-        String endStopLower = request.getTo().toLowerCase();
+        String departureStopLower = request.getFrom().toLowerCase();
+        String destinationStopLower = request.getTo().toLowerCase();
         boolean startStopFitsDeparture = false;
         for (Iterator stopIterator = timetable.iterator(); stopIterator.hasNext(); ) {
             Stop stop = (Stop) stopIterator.next();
-            String stopLower = stop.getStopName().toLowerCase();
-            if (!startStopFitsDeparture && stopLower.equals(startStopLower) && stop.getTimeOut().isAfter(earliestDeparture)) {
+            String currentStopLower = stop.getStopName().toLowerCase();
+            if (!startStopFitsDeparture && currentStopLower.equals(departureStopLower)) {
+//            if (!startStopFitsDeparture && currentStopLower.equals(departureStopLower) && stop.getTimeOut().isAfter(earliestDeparture)) {
                 startStopFitsDeparture = true;
             }
-            if (startStopFitsDeparture && stopLower.equals(endStopLower)) {
+            if (startStopFitsDeparture && currentStopLower.equals(destinationStopLower)) {
                 return true;
             }
         }

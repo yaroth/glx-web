@@ -30,8 +30,11 @@ package ch.yaro.geologix.rest.pojos;
 import java.util.ArrayList;
 
 /**
- * This class is a simple POJO representation for a "Abschnitt" item stored in the "strecken" app in the 'strecke' repository.<br/>
- * Objects of this type are handy to create json on REST endpoints or within template model classes.
+ * This class is a simple POJO representation for a "Abschnitt" item stored in the
+ * 'Strecken' app in the 'Strecke' repository.<br/>
+ * Is used to define whether the {@link Strecke} is reserved till the next {@link Stop}.
+ * Contains a waggon list of {@link WagenReservation} listing which {@link Wagen} has
+ * which {@link Seat} reserved on this specific Abschnitt.
  */
 public class Abschnitt {
 

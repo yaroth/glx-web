@@ -237,17 +237,13 @@ button {
 }
 
 .home-btn {
-    width: 40px;
-}
-
-.home-btn {
     background-image: url(../img/home.svg);
     background-repeat: no-repeat;
     background-size: contain;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
-    float: left;
+    position: absolute;
 }
 
 .bls-icon {
@@ -290,6 +286,9 @@ button {
     margin: 0 30px;
     border-radius: 3px;
 }
+#container {
+    margin-top: 5px;
+}
 #home {
     max-width: 600px;
     min-width: 300px;
@@ -308,4 +307,11 @@ button {
 .el-form {
     padding: 30px;
     background-color: rgba(160, 225, 0, 0.3);
+}
+.date-separator {
+    border-bottom: 1px solid white;
+    text-align: center;
+    font-size: 20px;
+    background-color: #a0e100;
+    padding: 5px;
 }

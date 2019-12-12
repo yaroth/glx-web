@@ -5,9 +5,9 @@ var home = new Vue({
         lastName: '',
         firstName: '',
         birthDate: '',
-        time: '',
-        from: '',
-        to: '',
+        time: '08:30',
+        from: 'Bern',
+        to: 'Thun',
         //Rules for the field validations
         rules: {
             name: [
@@ -59,6 +59,7 @@ var blog_list = new Vue({
         data: {
             layout: '',
             zugserviceId: '',
+            allowDateCheck: true,
             zugservices: [{
                 uuid: 'ebdc5352-3c37-43d4-a2bd-5db4521d22f3',
                 name: 'Bern - Interlaken 8h34',
@@ -358,7 +359,7 @@ var blog_list = new Vue({
             }, {
                 uuid: '78fb8b0d-2fea-45ee-846c-1b97da4f9233',
                 name: 'Olten Interlaken 10h',
-                departure: '10:00',
+                departure: '07:00',
                 arrival: '10:52',
                 from: 'Bern',
                 to: 'Thun',
@@ -556,12 +557,24 @@ var blog_list = new Vue({
                         }
                     }
                 }
+            },
+            departureIsNextDay(departure) {
+                let earliestDeparture = home.time;
+                let earliestDepartureHours = earliestDeparture.getHours();
+                let earliestDepartureMinutes = earliestDeparture.getMinutes();
+
+                let timeArray = departure.split(":");
+                let depHour = parseInt(timeArray[0]);
+                let depMinutes = parseInt(timeArray[1]);
+                let isNextDay = depHour < earliestDepartureHours || (depHour === earliestDepartureHours && depMinutes < earliestDepartureMinutes);
+                if (isNextDay) this.allowDateCheck = false;
+                return isNextDay;
             }
         },
         computed: {
             infoRequest: function () {
                 return home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
-                    home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.time;
+                    home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.correctTimeFormat(home.time);
             },
             infoTrainDetail: function () {
                 for (var i = 0; i < this.zugservices.length; i++) {

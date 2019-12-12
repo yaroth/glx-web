@@ -60,6 +60,7 @@ public class BlsPojoService {
     private final DamTemplatingFunctions damfn;
     private final TemplatingFunctions cmsfn;
     private final NodeEndpoint<ConfiguredNodeEndpointDefinition> nodeEndpoint;
+    private final int MAX_RESULT_SIZE = 6;
 
 
     @Inject
@@ -103,7 +104,6 @@ public class BlsPojoService {
         }
         return wagen;
     }
-
 
 
     /**
@@ -165,8 +165,11 @@ public class BlsPojoService {
         return wagenplan;
     }
 
-    /** Returns a {@link Seat} by a given {@link Node}
-     * @param node*/
+    /**
+     * Returns a {@link Seat} by a given {@link Node}
+     *
+     * @param node
+     */
     private Seat getSeatByNode(Node node) throws RepositoryException {
         if (node == null || !Seat.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
             return null;
@@ -208,6 +211,7 @@ public class BlsPojoService {
 
     /**
      * Returns the UUID of the first occurrence of a {@link Haltestelle} given by its name
+     *
      * @param name
      */
     public String getHaltestelleIdByName(String name) throws RepositoryException {
@@ -222,6 +226,7 @@ public class BlsPojoService {
 
     /**
      * Returns a single {@link Strecke} given by id.
+     *
      * @param id
      */
     public Strecke getStreckeById(String id) throws RepositoryException {
@@ -236,6 +241,7 @@ public class BlsPojoService {
 
     /**
      * Returns a single {@link Zugkomposition} by id.
+     *
      * @param id
      */
     public Zugkomposition getZugkompositionById(String id) throws RepositoryException {
@@ -250,6 +256,7 @@ public class BlsPojoService {
 
     /**
      * Returns a single {@link TrainService} by id.
+     *
      * @param id
      */
     public TrainService getTrainserviceById(String id) throws RepositoryException {
@@ -265,6 +272,7 @@ public class BlsPojoService {
 
     /**
      * Returns a {@link Wagen} by a given {@link Node}.
+     *
      * @param node
      */
     private Wagen getWagenByNode(Node node) throws RepositoryException {
@@ -287,6 +295,7 @@ public class BlsPojoService {
 
     /**
      * Returns a {@link TrainService} by a given {@link Node}.
+     *
      * @param node
      */
     private TrainService getTrainserviceByNode(Node node) throws RepositoryException {
@@ -320,9 +329,12 @@ public class BlsPojoService {
         return trainService;
     }
 
-    /** Given a {@link Strecke} and a departureTime, establishes the corresponding timetable.
-     * @param  strecke of {@link Strecke}
-     * @param departureTime : time of departure, as {@link LocalTime}*/
+    /**
+     * Given a {@link Strecke} and a departureTime, establishes the corresponding timetable.
+     *
+     * @param strecke       of {@link Strecke}
+     * @param departureTime : time of departure, as {@link LocalTime}
+     */
     private LinkedList<Stop> getTimetable(Strecke strecke, LocalTime departureTime) {
         LinkedList<Stop> timetable = new LinkedList<>();
         if (strecke != null) {
@@ -341,6 +353,7 @@ public class BlsPojoService {
 
     /**
      * Returns a {@link Haltestelle} by a given {@link Node}.
+     *
      * @param node
      */
     private Haltestelle getHaltestelleByNode(Node node) throws RepositoryException {
@@ -356,6 +369,7 @@ public class BlsPojoService {
 
     /**
      * Returns a {@link Zugkomposition} by a given {@link Node}.
+     *
      * @param node
      */
     private Zugkomposition getZugkompositionByNode(Node node) throws RepositoryException {
@@ -410,6 +424,7 @@ public class BlsPojoService {
 
     /**
      * Returns a {@link Abschnitt} by a given {@link Node}.
+     *
      * @param node
      */
     private Abschnitt getAbschnittByNode(Node node) throws RepositoryException {
@@ -441,6 +456,7 @@ public class BlsPojoService {
 
     /**
      * Returns a {@link Wagentyp} by a given {@link Node}.
+     *
      * @param node
      */
     private Wagentyp getWagentypByNode(Node node) throws RepositoryException {
@@ -483,28 +499,42 @@ public class BlsPojoService {
      */
     public List<TrainService> getTrainServicesForRequest(TrainServiceRequest request) throws RepositoryException {
         List<TrainService> allTrainServices = getAllTrainServices();
-        List<TrainService> trainServicesForRequest = new ArrayList<>();
-        // TODO: define a maximum number of returned train services: 6
+        List<TrainService> trainServicesChronological = new ArrayList<>();
 
         for (TrainService trainService : allTrainServices) {
             if (trainService.fitsRequest(request)) {
                 setReservedSeats(trainService, request);
                 trainService.adaptTimetableToRequest(request);
-                trainServicesForRequest.add(trainService);
+                trainServicesChronological.add(trainService);
             }
         }
-        trainServicesForRequest.sort((ts1, ts2) -> {
+        trainServicesChronological.sort((ts1, ts2) -> {
             LocalTime departureTS1 = ts1.getTimetable().getFirst().getTimeOut();
             LocalTime departureTS2 = ts2.getTimetable().getFirst().getTimeOut();
             int result = 0;
             if (departureTS1.isBefore(departureTS2)) {
                 result = -1;
-            }
-            else if (departureTS1.isAfter(departureTS2)) {
+            } else if (departureTS1.isAfter(departureTS2)) {
                 result = 1;
             }
             return result;
         });
+        // TrainServices AFTER request time are put to the end -> next day!
+        List<TrainService> tempTooEarly = new ArrayList<>();
+        List<TrainService> trainServicesForRequest = new ArrayList<>();
+        LocalTime requestTime = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
+        for (TrainService trainService : trainServicesChronological){
+            if (trainService.getTimetable().getFirst().getTimeOut().isBefore(requestTime)) {
+                tempTooEarly.add(trainService);
+            }
+            else {
+                trainServicesForRequest.add(trainService);
+            }
+        }
+        trainServicesForRequest.addAll(tempTooEarly);
+        if (trainServicesForRequest.size() > MAX_RESULT_SIZE) {
+            trainServicesForRequest.subList(0, MAX_RESULT_SIZE - 1);
+        }
         return trainServicesForRequest;
     }
 
@@ -512,6 +542,7 @@ public class BlsPojoService {
     /**
      * Returns an {@link Image} by a given assetKey (as String).
      * The Image contains contains an AssetKey and an AssetLink.
+     *
      * @param assetKey
      */
     public Image getImage(String assetKey) {
@@ -527,6 +558,7 @@ public class BlsPojoService {
 
     /**
      * Returns a {@link Category} by a given uuid.
+     *
      * @param uuid
      */
     public Category getCategory(String uuid) throws RepositoryException {
@@ -719,9 +751,11 @@ public class BlsPojoService {
         return str;
     }
 
-    /** Returns the {@link ReservationConfirmation} after making a {@link Reservation}.
-     * @param  reservation
-     * Uses the nodeEndpoint service of Magnolia to save node to JCR. */
+    /**
+     * Returns the {@link ReservationConfirmation} after making a {@link Reservation}.
+     *
+     * @param reservation Uses the nodeEndpoint service of Magnolia to save node to JCR.
+     */
     public ReservationConfirmation makeReservation(Reservation reservation) throws RepositoryException {
         log.info("Reservation: " + reservation);
 
@@ -750,7 +784,9 @@ public class BlsPojoService {
         return reservationConfirmation;
     }
 
-    /** Sets the properties of the {@link Reservation} to be made. */
+    /**
+     * Sets the properties of the {@link Reservation} to be made.
+     */
     private ArrayList<RepositoryProperty> setProperties(Reservation reservation) {
         ArrayList<RepositoryProperty> properties = new ArrayList<>();
 
@@ -833,6 +869,7 @@ public class BlsPojoService {
      * Precondition: reservation is valid.
      * checks if seat in waggon is available
      * for the specified Strecke.
+     *
      * @param reservation
      */
     public boolean checkReservation(Reservation reservation) throws RepositoryException {
@@ -854,9 +891,11 @@ public class BlsPojoService {
         return seatAvailable;
     }
 
-    /** Returns all the {@link Reservation} given a zugservice ID.
-     * @param  zugserviceID
-     * */
+    /**
+     * Returns all the {@link Reservation} given a zugservice ID.
+     *
+     * @param zugserviceID
+     */
     private List<Reservation> getReservationsForZugserviceID(String zugserviceID) throws RepositoryException {
         List<Reservation> allReservations = getAllReservations();
         List<Reservation> reservationsForZugservice = new ArrayList<>();
@@ -868,7 +907,9 @@ public class BlsPojoService {
         return reservationsForZugservice;
     }
 
-    /** Returns all {@link Reservation}s*/
+    /**
+     * Returns all {@link Reservation}s
+     */
     private List<Reservation> getAllReservations() throws RepositoryException {
         Session session = MgnlContext.getJCRSession(Reservation.WORKSPACE);
         Node reservationRootNode = session.getNode(Reservation.BASEPATH);
@@ -885,8 +926,11 @@ public class BlsPojoService {
         return reservationList;
     }
 
-    /** Returns a {@link Reservation} given a node.
-     * @param  node*/
+    /**
+     * Returns a {@link Reservation} given a node.
+     *
+     * @param node
+     */
     private Reservation getReservationByNode(Node node) throws RepositoryException {
         if (node == null || !Reservation.NODETYPE.equals(node.getPrimaryNodeType().getName())) {
             return null;

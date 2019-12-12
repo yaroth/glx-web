@@ -109,7 +109,6 @@ public class TrainService extends NodeItem {
     /** Checks for each TrainService if it fits the request, i.e. Departure and Destination are within timetable
      * and departure time @Departure station is AFTER request departure time.
      * Comparisons are done on lower case strings! */
-    //TODO: remove time check, since we need to provide train services @1h30 if request is @23h30!
     public boolean fitsRequest(TrainServiceRequest request) {
         LocalTime earliestDeparture = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
         String departureStopLower = request.getFrom().toLowerCase();
@@ -119,7 +118,6 @@ public class TrainService extends NodeItem {
             Stop stop = (Stop) stopIterator.next();
             String currentStopLower = stop.getStopName().toLowerCase();
             if (!startStopFitsDeparture && currentStopLower.equals(departureStopLower)) {
-//            if (!startStopFitsDeparture && currentStopLower.equals(departureStopLower) && stop.getTimeOut().isAfter(earliestDeparture)) {
                 startStopFitsDeparture = true;
             }
             if (startStopFitsDeparture && currentStopLower.equals(destinationStopLower)) {

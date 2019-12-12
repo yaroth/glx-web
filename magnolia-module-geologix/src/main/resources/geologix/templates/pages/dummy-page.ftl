@@ -2,14 +2,12 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="${ctx.contextPath}/.resources/geologix/webresources/css/listview.css">
+    <title>BLS Sitzplatzreservation</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="${ctx.contextPath}/.resources/geologix/webresources/css/listview.css">
 </head>
 <body>
-
 <div id="container">
-
     <div id="home" v-if="layout === 'home'">
         <div class="tool-bar">
             <div class="infopanel">Reservation</div>
@@ -17,30 +15,22 @@
         </div>
         <el-form status-icon :rules="rules" label-width="120px" class="demo-ruleForm" size="medium">
             <el-form-item label="Name" prop="name">
-                <el-input v-model="lastName"></el-input>
+                <el-input v-model="lastName" placeholder="Name"></el-input>
             </el-form-item>
-            <el-form-item label="Vorname" prop="firstName">
-                <el-input v-model="firstName"></el-input>
+            <el-form-item label="Vorname" prop="firstName" >
+                <el-input v-model="firstName" placeholder="Vorname"></el-input>
             </el-form-item>
             <el-form-item label="Geburtsdatum" prop="birth">
-                <el-date-picker
-                        v-model="birthDate"
-                        type="date"
-                        placeholder="Pick a day">
-                </el-date-picker>
+                <el-date-picker v-model="birthDate" type="date" placeholder="Pick a date"></el-date-picker>
             </el-form-item>
             <el-form-item label="Zeit" prop="startTime">
-                <el-time-picker
-                        v-model="time"
-                        format="HH:mm"
-                        placeholder="Arbitrary time">
-                </el-time-picker>
+                <el-time-picker v-model="time" format="HH:mm" placeholder="Departure time"></el-time-picker>
             </el-form-item>
             <el-form-item label="Von" prop="startPlace">
-                <el-input v-model="from"></el-input>
+                <el-input v-model="from" placeholder="Haltestelle"></el-input>
             </el-form-item>
             <el-form-item label="Nach" prop="endPlace">
-                <el-input v-model="to"></el-input>
+                <el-input v-model="to" placeholder="Haltestelle"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="getZugservices">Suchen</el-button>
@@ -115,4 +105,3 @@
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </body>
 </html>
-

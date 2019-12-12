@@ -2,15 +2,25 @@ var home = new Vue({
     el: '#home',
     data: {
         layout: 'home',
-        time: '08:30',
-        from: 'Bern',
-        to: 'Thun'
+        lastName: '',
+        firstName: '',
+        birthDate: '',
+        time: '',
+        from: '',
+        to: '',
+        //Rules for the field validations
+        rules: {
+            name: [
+                { required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur' },
+                { min: 0, max: 30, message: 'Es sind nur 30 Zeichen erlaubt!', trigger: 'blur' }
+            ]
+        }
     },
     methods: {
         getZugservices(e) {
             e.preventDefault();
             axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/zugservices', {
-                time: this.time,
+                time: this.correctTimeFormat(this.time),
                 from: this.from,
                 to: this.to
             })
@@ -18,6 +28,16 @@ var home = new Vue({
                 .catch(error => console.log(error));
             this.layout = '';
             blog_list.layout = 'list';
+        },
+        //Converts entered time into correct format for the request
+        correctTimeFormat(enteredTime){
+            console.log(enteredTime.getMinutes())
+            var correctTimeDisplay = enteredTime.getHours() + ':' +  enteredTime.getMinutes();
+            if(enteredTime.getHours() < 10){
+                return '0'+ correctTimeDisplay;
+            } else {
+                return correctTimeDisplay;
+            }
         }
     }
 });
@@ -540,7 +560,7 @@ var blog_list = new Vue({
         },
         computed: {
             infoRequest: function () {
-                return 'Anfrage: ' + home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
+                return home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
                     home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.time;
             },
             infoTrainDetail: function () {

@@ -128,42 +128,15 @@ a:hover {
     width: 100%;
 }
 
-.list div {
+.list .zugservice {
     border-bottom: 1px solid #fff;
     overflow: hidden;
     padding: 5px;
     transition: background 0.2s linear;
 }
 
-.list div:hover {
-    background-color: #fff;
-}
-
-.list div a {
-    display: table;
-    width: 100%;
-}
-
-
-.list li img {
-    border: none;
-    display: table-cell;
-    height: 120px;
-    vertical-align: middle;
-    width: 120px;
-}
-
-.list li:hover p {
-    color: #0096d4;
-}
-
-.list li p {
-    color: #000;
-    display: table-cell;
-    font-weight: 700;
-    padding: 0 0 0 15px;
-    vertical-align: middle;
-    width: 100%;
+.list .zugservice:hover {
+    background-color: rgba(160, 225, 0, 0.4);
 }
 
 /* waggon */
@@ -323,4 +296,16 @@ button {
     margin: 0 auto;
     color: #5e5b64;
     font: 17px/1.3 "Open Sans", sans-serif;
+}
+.el-button {
+    height: initial;
+    width: initial;
+}
+.el-button--primary {
+    background-color: #a0e100;
+    border-color: #a0e100;
+}
+.el-form {
+    padding: 30px;
+    background-color: rgba(160, 225, 0, 0.3);
 }

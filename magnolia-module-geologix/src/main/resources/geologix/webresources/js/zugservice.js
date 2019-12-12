@@ -2,16 +2,16 @@ var home = new Vue({
     el: '#home',
     data: {
         layout: 'home',
-        lastName: 'Awesome',
-        firstName: 'User',
+        lastName: '',
+        firstName: '',
         birthDate: '',
-        time: '08:30',
-        from: 'Bern',
-        to: 'Thun',
+        time: '',
+        from: '',
+        to: '',
         //Rules for the field validations
         rules: {
             name: [
-                { required: true, message: 'Bitte tragen sie Ihren Nachnahmen ein!', trigger: 'blur' },
+                { required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur' },
                 { min: 0, max: 30, message: 'Es sind nur 30 Zeichen erlaubt!', trigger: 'blur' }
             ]
         }
@@ -38,7 +38,7 @@ var home = new Vue({
             var correctTimeDisplay = enteredTime.getHours() + ':' +  enteredTime.getMinutes();
             if(enteredTime.getHours() < 10){
                 return '0'+ correctTimeDisplay;
-            } else{
+            } else {
                 return correctTimeDisplay;
             }
         }
@@ -148,8 +148,8 @@ var blog_list = new Vue({
     },
     computed: {
         infoRequest: function () {
-            return 'Anfrage: ' + home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
-                home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.time;
+            return home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
+                home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.correctTimeFormat(home.time);
         },
         infoTrainDetail: function () {
             for (var i = 0; i < this.zugservices.length; i++) {

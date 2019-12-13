@@ -58,7 +58,6 @@ var blog_list = new Vue({
         data: {
             layout: '',
             zugserviceId: '',
-            allowDateCheck: true,
             zugservices: [{
                 uuid: 'ebdc5352-3c37-43d4-a2bd-5db4521d22f3',
                 name: 'Bern - Interlaken 8h34',
@@ -664,26 +663,6 @@ var blog_list = new Vue({
                             }
                         }
                     }
-                }
-            },
-            renderDelimiter(departure) {
-                let trainDeparture = Date.parse('01/01/1970 ' + departure + ':00');
-                let earliestDeparture = Date.parse('01/01/1970 ' + home.time.getHours() + ':' + home.time.getMinutes() + ':00');
-                // console.log(trainDeparture, earliestDeparture);
-                // console.log(trainDeparture < earliestDeparture);
-
-                console.log(departure);
-                console.log("Allow date check: " + this.allowDateCheck);
-                if (this.allowDateCheck) {
-                    let show = trainDeparture < earliestDeparture;
-                    console.log("show: " + show);
-                    if (show === true) {
-                        this.allowDateCheck = false;
-                        return show;
-                    }
-                } else {
-                    console.log("ELSE: " + false);
-                    return false;
                 }
             },
             setSeparator(nextDay){

@@ -143,6 +143,9 @@ a:hover {
 .waggon {
     list-style: none;
     margin-top: 30px;
+    background-color: rgba(160, 225, 0, 0.3);
+    padding-bottom: 30px;
+    border-radius: 15px;
 }
 
 .waggon p {
@@ -159,6 +162,7 @@ a:hover {
 
 .waggon-image img {
     max-width: 100%;
+    border-radius: 10px;
 }
 
 .row-placeholder {
@@ -282,8 +286,7 @@ button {
 }
 
 .zugservice-detail {
-    background-color: rgba(160, 225, 0, 0.3);
-    margin: 0 30px;
+    margin: 0 100px;
     border-radius: 3px;
 }
 #container {

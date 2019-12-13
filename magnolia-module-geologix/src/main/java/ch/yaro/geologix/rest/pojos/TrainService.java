@@ -25,12 +25,14 @@ public class TrainService extends NodeItem {
     private String arrival;
     private String from;
     private String to;
+    private boolean isNextDay = false;
     @JsonIgnore
     private String streckeID;
     private LinkedList<Stop> timetable;
     @JsonIgnore
     private String zugkompositionID;
     private LinkedList<Wagen> zugkomposition;
+
 
 
 
@@ -162,4 +164,11 @@ public class TrainService extends NodeItem {
         timetable = updatedTimetable;
     }
 
+    public boolean isNextDay() {
+        return isNextDay;
+    }
+
+    public void setNextDay(boolean nextDay) {
+        isNextDay = nextDay;
+    }
 }

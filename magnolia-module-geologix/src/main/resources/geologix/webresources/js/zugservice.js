@@ -142,17 +142,8 @@ var blog_list = new Vue({
             correctDateFormat(enteredDate) {
                 return enteredDate.getFullYear() + '-' + enteredDate.getMonth() + '-' + enteredDate.getDate();
             },
-            departureIsNextDay(departure) {
-                let earliestDeparture = home.time;
-                let earliestDepartureHours = earliestDeparture.getHours();
-                let earliestDepartureMinutes = earliestDeparture.getMinutes();
-
-                let timeArray = departure.split(":");
-                let depHour = parseInt(timeArray[0]);
-                let depMinutes = parseInt(timeArray[1]);
-                let isNextDay = depHour < earliestDepartureHours || (depHour === earliestDepartureHours && depMinutes < earliestDepartureMinutes);
-                if (isNextDay) this.allowDateCheck = false;
-                return isNextDay;
+            setSeparator(nextDay){
+                return nextDay;
             }
         },
         computed: {

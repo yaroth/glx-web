@@ -11,8 +11,8 @@ var home = new Vue({
         //Rules for the field validations
         rules: {
             name: [
-                { required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur' },
-                { min: 0, max: 30, message: 'Es sind nur 30 Zeichen erlaubt!', trigger: 'blur' }
+                {required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur'},
+                {min: 0, max: 30, message: 'Es sind nur 30 Zeichen erlaubt!', trigger: 'blur'}
             ]
         }
     },
@@ -30,11 +30,10 @@ var home = new Vue({
             blog_list.layout = 'list';
         },
         //Converts entered time into correct format for the request
-        correctTimeFormat(enteredTime){
-            console.log(enteredTime.getMinutes())
-            var correctTimeDisplay = enteredTime.getHours() + ':' +  enteredTime.getMinutes();
-            if(enteredTime.getHours() < 10){
-                return '0'+ correctTimeDisplay;
+        correctTimeFormat(enteredTime) {
+            var correctTimeDisplay = enteredTime.getHours() + ':' + enteredTime.getMinutes();
+            if (enteredTime.getHours() < 10) {
+                return '0' + correctTimeDisplay;
             } else {
                 return correctTimeDisplay;
             }
@@ -67,6 +66,7 @@ var blog_list = new Vue({
                 arrival: '08:59',
                 from: 'Bern',
                 to: 'Thun',
+                nextDay: false,
                 timetable: [
                     {
                         stopName: 'Bern',
@@ -243,6 +243,7 @@ var blog_list = new Vue({
                 arrival: '10:00',
                 from: 'Bern',
                 to: 'Thun',
+                nextDay: false,
                 timetable: [{
                     stopName: 'Bern',
                     timeIN: null,
@@ -363,6 +364,112 @@ var blog_list = new Vue({
                 arrival: '10:52',
                 from: 'Bern',
                 to: 'Thun',
+                nextDay: true,
+                timetable: [{
+                    stopName: 'Bern',
+                    timeIN: null,
+                    timeOut: {
+                        hour: 10,
+                        minute: 36,
+                        second: 0,
+                        nano: 0
+                    }
+                }, {
+                    stopName: 'Thun',
+                    timeIN: {
+                        hour: 10,
+                        minute: 52,
+                        second: 0,
+                        nano: 0
+                    },
+                    timeOut: null
+                }
+                ],
+                zugkomposition: [{
+                    uuid: '8989382e-4016-4d9d-9ff7-1b5cd71ca42c',
+                    number: '10',
+                    wagenplan: {
+                        uuid: '6eaaa3e8-6023-4a7f-8ca9-f34dfc1d4127',
+                        code: 'BLS Typ 01 - 2019',
+                        description: 'Panoramawagen, 1. Klasse',
+                        imageLink: '/dam/jcr:2db40bd4-3f97-46f8-885e-b9954bc63a88/Sitzplan.jpg',
+                        wagentypen: ['Wagen mit Familienabteil', 'Wagen mit Veloverladmöglichkeit'],
+                        seats: [{
+                            uuid: null,
+                            klasse: 2,
+                            id: '11',
+                            location: 'fenster',
+                            options: ['220V']
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '13',
+                            location: 'gang',
+                            options: []
+                        }]
+                    }
+                }, {
+                    uuid: '96e28d17-aebe-43da-9d31-7193e5d56a6b',
+                    number: '11',
+                    wagenplan: {
+                        uuid: '4751dad2-9b3b-487d-aa03-a5004f91b909',
+                        code: 'BLS Typ 02 - 2018',
+                        description: 'Bistro, 1. Klasse',
+                        imageLink: '/dam/jcr:d974d2be-f1a1-465a-b704-f3287b5108fb/Pano%202.%20Klasse.png',
+                        wagentypen: [
+                            'Normaler Wagen'
+                        ],
+                        seats: [{
+                            uuid: null,
+                            klasse: 2,
+                            id: '11',
+                            location: 'fenster',
+                            options: ['220V']
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '13',
+                            location: 'mitte',
+                            options: ['220V']
+                        }
+                        ]
+                    }
+                }, {
+                    uuid: 'bf4a588a-4c92-4885-a68f-89ad2521322a',
+                    number: '12',
+                    wagenplan: {
+                        uuid: '4751dad2-9b3b-487d-aa03-a5004f91b909',
+                        code: 'BLS Typ 02 - 2018',
+                        description: 'Bistro, 1. Klasse',
+                        imageLink: '/dam/jcr:d974d2be-f1a1-465a-b704-f3287b5108fb/Pano%202.%20Klasse.png',
+                        wagentypen: [
+                            'Normaler Wagen'
+                        ],
+                        seats: [{
+                            uuid: null,
+                            klasse: 2,
+                            id: '11',
+                            location: 'fenster',
+                            options: ['220V']
+                        }, {
+                            uuid: null,
+                            klasse: 2,
+                            id: '13',
+                            location: 'mitte',
+                            options: ['220V']
+                        }
+                        ]
+                    }
+                }
+                ]
+            }, {
+                uuid: '78fb8b0d-2fea-45ee-846c-1b97da4f9233',
+                name: 'Olten Interlaken 10h',
+                departure: '08:00',
+                arrival: '10:52',
+                from: 'Bern',
+                to: 'Thun',
+                nextDay: false,
                 timetable: [{
                     stopName: 'Bern',
                     timeIN: null,
@@ -529,6 +636,7 @@ var blog_list = new Vue({
             backToHome() {
                 home.layout = 'home';
                 this.layout = '';
+                this.allowDateCheck = true;
             },
             setReservation(zugUuid, waggonNb, seatNb) {
                 let seat = this.getSeat(zugUuid, waggonNb, seatNb);
@@ -558,17 +666,28 @@ var blog_list = new Vue({
                     }
                 }
             },
-            departureIsNextDay(departure) {
-                let earliestDeparture = home.time;
-                let earliestDepartureHours = earliestDeparture.getHours();
-                let earliestDepartureMinutes = earliestDeparture.getMinutes();
+            renderDelimiter(departure) {
+                let trainDeparture = Date.parse('01/01/1970 ' + departure + ':00');
+                let earliestDeparture = Date.parse('01/01/1970 ' + home.time.getHours() + ':' + home.time.getMinutes() + ':00');
+                // console.log(trainDeparture, earliestDeparture);
+                // console.log(trainDeparture < earliestDeparture);
 
-                let timeArray = departure.split(":");
-                let depHour = parseInt(timeArray[0]);
-                let depMinutes = parseInt(timeArray[1]);
-                let isNextDay = depHour < earliestDepartureHours || (depHour === earliestDepartureHours && depMinutes < earliestDepartureMinutes);
-                if (isNextDay) this.allowDateCheck = false;
-                return isNextDay;
+                console.log(departure);
+                console.log("Allow date check: " + this.allowDateCheck);
+                if (this.allowDateCheck) {
+                    let show = trainDeparture < earliestDeparture;
+                    console.log("show: " + show);
+                    if (show === true) {
+                        this.allowDateCheck = false;
+                        return show;
+                    }
+                } else {
+                    console.log("ELSE: " + false);
+                    return false;
+                }
+            },
+            setSeparator(nextDay){
+                return nextDay;
             }
         },
         computed: {
@@ -580,7 +699,7 @@ var blog_list = new Vue({
                 for (var i = 0; i < this.zugservices.length; i++) {
                     if (this.zugservices[i].uuid === this.zugserviceId) {
                         let zug = this.zugservices[i];
-                        return zug.departure + ' ' + zug.from  + ' ––––––––– ' + zug.to + ' ' + zug.arrival;
+                        return zug.departure + ' ' + zug.from + ' ––––––––– ' + zug.to + ' ' + zug.arrival;
                     }
                 }
 

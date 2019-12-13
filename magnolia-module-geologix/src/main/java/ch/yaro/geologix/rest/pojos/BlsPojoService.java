@@ -523,13 +523,15 @@ public class BlsPojoService {
         List<TrainService> tempTooEarly = new ArrayList<>();
         List<TrainService> trainServicesForRequest = new ArrayList<>();
         LocalTime requestTime = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
-        for (TrainService trainService : trainServicesChronological){
+        for (TrainService trainService : trainServicesChronological) {
             if (trainService.getTimetable().getFirst().getTimeOut().isBefore(requestTime)) {
                 tempTooEarly.add(trainService);
-            }
-            else {
+            } else {
                 trainServicesForRequest.add(trainService);
             }
+        }
+        if (tempTooEarly.size() > 0) {
+            tempTooEarly.get(0).setNextDay(true);
         }
         trainServicesForRequest.addAll(tempTooEarly);
         if (trainServicesForRequest.size() > MAX_RESULT_SIZE) {

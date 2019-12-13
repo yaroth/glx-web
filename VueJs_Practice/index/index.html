@@ -51,9 +51,7 @@
 
         <div v-if="layout === 'list'" class="list">
             <template v-for="zug in zugservices">
-<!--                <template v-if="this.allowDateCheck === true">-->
-                    <div class="date-separator" v-if="departureIsNextDay(zug.departure)">Zugverbindung Morgen</div>
-<!--                </template>-->
+                <div class="date-separator" v-if="setSeparator(zug.nextDay)">Zugverbindung Morgen</div>
                 <div v-on:click="showZugserviceDetail(zug.uuid)" class="zugservice">
                     <p>{{zug.departure}} <span>{{zug.from}}</span> ––––––––––– <span>{{zug.to}}</span> {{zug.arrival}}</p>
                 </div>

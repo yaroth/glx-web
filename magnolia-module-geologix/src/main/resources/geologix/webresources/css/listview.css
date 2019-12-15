@@ -302,13 +302,15 @@ button {
 .el-button {
     height: initial;
     width: initial;
+    position: relative;
 }
 .el-button--primary {
     background-color: #a0e100;
     border-color: #a0e100;
 }
-.el-button--reset {
-    right: 200px;
+.el-button--primary:hover, .el-button--primary:focus {
+    background-color: #92cc00;
+    border-color: #92cc00;
 }
 .el-form {
     padding: 30px;

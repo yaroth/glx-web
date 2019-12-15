@@ -307,6 +307,9 @@ button {
     background-color: #a0e100;
     border-color: #a0e100;
 }
+.el-button--reset {
+    right: 200px;
+}
 .el-form {
     padding: 30px;
     background-color: rgba(160, 225, 0, 0.3);

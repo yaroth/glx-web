@@ -2,36 +2,59 @@ var home = new Vue({
     el: '#home',
     data: {
         layout: 'home',
-        lastName: '',
-        firstName: '',
-        birthDate: '',
-        time: '',
-        from: '',
-        to: '',
+        ruleForm: {
+            lastName: '',
+            firstName: '',
+            birthDate: '',
+            time: '',
+            from: '',
+            to: ''
+        },
         //Rules for the field validations
         rules: {
-            name: [
-                {required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur'},
-                {min: 0, max: 30, message: 'Es sind nur 30 Zeichen erlaubt!', trigger: 'blur'}
+            lastName: [
+                {type: 'string', required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur'},
+                {max: 25, message: 'Nicht mehr als 25 Zeichen erlaubt!', trigger: 'blur'}
+            ],
+            firstName: [
+                {type: 'string', required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur'},
+                {max: 25, message: 'Nicht mehr als 25 Zeichen erlaubt!', trigger: 'blur'}
+            ],
+            birthDate: [
+                {type: 'date', required: true, message: 'Bitte tragen sie Ihr Geburtsdatum ein!', trigger: 'blur'}
             ]
         }
     },
     methods: {
-        getZugservices(e) {
-            e.preventDefault();
-            axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/zugservices', {
-                time: this.correctTimeFormat(this.time),
-                from: this.from,
-                to: this.to
-            })
-                .then(response => (blog_list.zugservices = response.data))
-                .catch(error => console.log(error));
-            this.layout = '';
-            blog_list.layout = 'list';
+        getZugservices(formName) {
+            //Checks if the filled in data from the form is correct.
+            //according to the result the REST post is executed
+            //or it shows the necessary fields who still neededs to be filled.
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    //REST post to get the trainservices.
+                    //Removes spaces in the from/to strings for correct requesting
+                    axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/zugservices', {
+                        time: this.correctTimeFormat(this.ruleForm.time),
+                        from: this.ruleForm.from.replace(/\s+/g, ''),
+                        to: this.ruleForm.to.replace(/\s+/g, '')
+                    })
+                        .then(response => (blog_list.zugservices = response.data))
+                        .catch(error => console.log(error));
+                    this.layout = '';
+                    blog_list.layout = 'list';
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         },
         //Converts entered time into correct format for the request
         correctTimeFormat(enteredTime) {
-            console.log(enteredTime.getMinutes())
             var correctTimeDisplay = enteredTime.getHours() + ':' + enteredTime.getMinutes();
             if (enteredTime.getHours() < 10) {
                 return '0' + correctTimeDisplay;
@@ -63,9 +86,9 @@ var blog_list = new Vue({
             requestReservation(zugUuid, seatId, waggonNumber, from, to) {
                 console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid + ", from: " + from + ", to: " + to);
                 axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/reservation', {
-                    firstname: home.firstName,
-                    lastname: home.lastName,
-                    dateOfBirth: home.birthDate.getFullYear() + '-' + home.birthDate.getMonth() + '-' + home.birthDate.getDate(),
+                    firstname: home.ruleForm.firstName,
+                    lastname: home.ruleForm.lastName,
+                    dateOfBirth: home.ruleForm.birthDate.getFullYear() + '-' + home.ruleForm.birthDate.getMonth() + '-' + home.ruleForm.birthDate.getDate(),
                     zugserviceID: zugUuid,
                     wagenNumber: waggonNumber,
                     sitzNumber: seatId,
@@ -83,7 +106,7 @@ var blog_list = new Vue({
                             if (seat !== undefined) {
                                 seat.reserved = true;
                                 //Shows confirmation of reservation
-                                var confirmation = this.reservationConfirmation(home.firstName, home.lastName,
+                                var confirmation = this.reservationConfirmation(home.ruleForm.firstName, home.ruleForm.lastName,
                                     this.reservationStatus.departure, this.reservationStatus.destination, wagNb, sitzNb);
                                 Swal.fire({
                                     title: 'Reservation bestätigt.',
@@ -148,8 +171,8 @@ var blog_list = new Vue({
         },
         computed: {
             infoRequest: function () {
-                return home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
-                    home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.correctTimeFormat(home.time);
+                return home.ruleForm.from.charAt(0).toUpperCase() + home.ruleForm.from.slice(1) + ' - ' +
+                    home.ruleForm.to.charAt(0).toUpperCase() + home.ruleForm.to.slice(1) + '  ab: ' + home.correctTimeFormat(home.ruleForm.time);
             },
             infoTrainDetail: function () {
                 for (var i = 0; i < this.zugservices.length; i++) {

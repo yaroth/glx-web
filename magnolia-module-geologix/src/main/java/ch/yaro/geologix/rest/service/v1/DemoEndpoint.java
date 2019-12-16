@@ -45,7 +45,11 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
     private static final String STATUS_MESSAGE_NODE_NOT_FOUND = "Node not found";
     private static final String STATUS_MESSAGE_ERROR_OCCURRED = "Error occurred";
     private static final String STATUS_MESSAGE_BAD_REQUEST = "Bad request";
-    private static final String STATUS_MESSAGE_SEAT_NO_LONGER_AVAILABLE = "Seat no longer available. Please choose another seat.";
+    private static final String STATUS_MESSAGE_SEAT_NO_LONGER_AVAILABLE = "SeatNoLongerAvailable.";
+    private static final String STATUS_MESSAGE_NO_RESERVATION_PROVIDED = "NoReservationProvided.";
+    private static final String STATUS_MESSAGE_UNKNOWN_ERROR = "UnknownError";
+    private static final String STATUS_MESSAGE_RESERVATION_NOT_VALID = "ReservationNotValid";
+    private static final String STATUS_MESSAGE_TRAINSERVICE_REQUEST_NOT_VALID = "TrainServiceRequestNotValid";
 
     private static final Logger log = LoggerFactory.getLogger(EndpointDefinition.class);
     private final BlsPojoService blsPojoService;
@@ -81,13 +85,12 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
             } catch (RepositoryException e) {
                 log.warn("Could not compute the request.");
                 Gson gson = new Gson();
-                String errorJson = gson.toJson("Could not compute the request.");
+                String errorJson = gson.toJson(STATUS_MESSAGE_UNKNOWN_ERROR);
                 return Response.status(Response.Status.BAD_REQUEST).entity(errorJson).build();
             }
         } else {
-            String em = "TrainServiceRequest is not valid!";
             Gson gson = new Gson();
-            String errorJson = gson.toJson(em);
+            String errorJson = gson.toJson(STATUS_MESSAGE_TRAINSERVICE_REQUEST_NOT_VALID);
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(errorJson).build();
         }
     }
@@ -113,26 +116,25 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
                         ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
                         return Response.ok(reservationConfirmation).build();
                     } else {
-                        // TODO: return ResponseConfirmation with error message and zugservice, waggon and seat that is already taken!
                         Gson gson = new Gson();
                         String errorJson = gson.toJson(STATUS_MESSAGE_SEAT_NO_LONGER_AVAILABLE);
                         return Response.status(Response.Status.CONFLICT).entity(errorJson).build();
                     }
                 } else {
                     Gson gson = new Gson();
-                    String errorJson = gson.toJson("Reservation is not valid. Check your submission.");
+                    String errorJson = gson.toJson(STATUS_MESSAGE_RESERVATION_NOT_VALID);
                     return Response.status(Response.Status.NOT_ACCEPTABLE).entity(errorJson).build();
                 }
             } catch (Exception e) {
                 log.error("Failed !");
                 Gson gson = new Gson();
-                String errorJson = gson.toJson("Could not confirm reservation. Unknown error occurred. Sorry!");
+                String errorJson = gson.toJson(STATUS_MESSAGE_UNKNOWN_ERROR);
                 return Response.status(Response.Status.NOT_ACCEPTABLE).entity(errorJson).build();
             }
         } else {
-            log.error("Failed! No Reservation provided");
+            log.error("No Reservation provided");
             Gson gson = new Gson();
-            String errorJson = gson.toJson("No Reservation provided.");
+            String errorJson = gson.toJson(STATUS_MESSAGE_NO_RESERVATION_PROVIDED);
             return Response.status(Response.Status.BAD_REQUEST).entity(errorJson).build();
         }
     }

@@ -65,6 +65,20 @@ var blog_list = new Vue({
                 arrival: '08:59',
                 from: 'Bern',
                 to: 'Thun',
+                date: {
+                    year: 2019,
+                    month: "DECEMBER",
+                    monthValue: 12,
+                    dayOfMonth: 16,
+                    dayOfWeek: "MONDAY",
+                    era: "CE",
+                    dayOfYear: 350,
+                    leapYear: false,
+                    chronology: {
+                        id: "ISO",
+                        calendarType: "iso8601"
+                    }
+                },
                 nextDay: false,
                 timetable: [
                     {
@@ -242,6 +256,20 @@ var blog_list = new Vue({
                 arrival: '10:00',
                 from: 'Bern',
                 to: 'Thun',
+                date: {
+                    year: 2019,
+                    month: "DECEMBER",
+                    monthValue: 12,
+                    dayOfMonth: 16,
+                    dayOfWeek: "MONDAY",
+                    era: "CE",
+                    dayOfYear: 350,
+                    leapYear: false,
+                    chronology: {
+                        id: "ISO",
+                        calendarType: "iso8601"
+                    }
+                },
                 nextDay: false,
                 timetable: [{
                     stopName: 'Bern',
@@ -363,6 +391,20 @@ var blog_list = new Vue({
                 arrival: '10:52',
                 from: 'Bern',
                 to: 'Thun',
+                date: {
+                    year: 2019,
+                    month: "DECEMBER",
+                    monthValue: 12,
+                    dayOfMonth: 16,
+                    dayOfWeek: "MONDAY",
+                    era: "CE",
+                    dayOfYear: 350,
+                    leapYear: false,
+                    chronology: {
+                        id: "ISO",
+                        calendarType: "iso8601"
+                    }
+                },
                 nextDay: true,
                 timetable: [{
                     stopName: 'Bern',
@@ -468,6 +510,20 @@ var blog_list = new Vue({
                 arrival: '10:52',
                 from: 'Bern',
                 to: 'Thun',
+                date: {
+                    year: 2019,
+                    month: "DECEMBER",
+                    monthValue: 12,
+                    dayOfMonth: 17,
+                    dayOfWeek: "MONDAY",
+                    era: "CE",
+                    dayOfYear: 350,
+                    leapYear: false,
+                    chronology: {
+                        id: "ISO",
+                        calendarType: "iso8601"
+                    }
+                },
                 nextDay: false,
                 timetable: [{
                     stopName: 'Bern',
@@ -580,7 +636,7 @@ var blog_list = new Vue({
             showSeatDetail() {
                 console.log("showSeatDetail line clicked");
             },
-            requestReservation(zugUuid, seatId, waggonNumber, from, to) {
+            requestReservation(zugUuid, seatId, waggonNumber, from, to, date) {
                 console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid + ", from: " + from + ", to: " + to);
                 axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/reservation', {
                     firstname: 'Gael',
@@ -590,7 +646,8 @@ var blog_list = new Vue({
                     wagenNumber: waggonNumber,
                     sitzNumber: seatId,
                     departure: from,
-                    destination: to
+                    destination: to,
+                    date: this.getDate(date)
                 })
                     .then(response => {
                         home.reservationConfirmation = response.data;
@@ -667,6 +724,9 @@ var blog_list = new Vue({
             },
             setSeparator(nextDay){
                 return nextDay;
+            },
+            getDate(date) {
+                return date.year + '-' + date.monthValue + '-' + date.dayOfMonth;
             }
         },
         computed: {

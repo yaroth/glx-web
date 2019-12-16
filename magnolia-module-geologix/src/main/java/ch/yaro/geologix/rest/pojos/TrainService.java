@@ -4,6 +4,7 @@ package ch.yaro.geologix.rest.pojos;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.jcr.RepositoryException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
@@ -21,6 +22,7 @@ public class TrainService extends NodeItem {
 
 
     private String name;
+    private LocalDate date;
     private String departure;
     private String arrival;
     private String from;
@@ -170,5 +172,13 @@ public class TrainService extends NodeItem {
 
     public void setNextDay(boolean nextDay) {
         isNextDay = nextDay;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

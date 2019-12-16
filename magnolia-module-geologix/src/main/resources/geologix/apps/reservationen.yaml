@@ -350,6 +350,13 @@ subApps:
               propertyName: dateOfBirth
               expandRatio: 1.0
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: date
+              label: Reservationsdatum
+              editable: true
+              sortable: true
+              propertyName: date
+              expandRatio: 1.0
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: zugserviceID
               label: Zugservice
               editable: true
@@ -448,6 +455,10 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: dateOfBirth
                 label: Geburtsdatum
+                fieldType: date
+                time: false
+              - name: date
+                label: Reservationsdatum
                 fieldType: date
                 time: false
               - name: zugserviceID

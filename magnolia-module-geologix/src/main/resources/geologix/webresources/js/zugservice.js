@@ -39,8 +39,14 @@ var home = new Vue({
                         from: this.ruleForm.from.replace(/\s+/g, ''),
                         to: this.ruleForm.to.replace(/\s+/g, '')
                     })
-                        .then(response => (blog_list.zugservices = response.data))
-                        .catch(error => console.log(error));
+                        .then(response => {
+                            blog_list.zugservices = '';
+                            blog_list.zugservices = response.data;
+                        })
+                        .catch(error => {
+                            blog_list.zugservices = '';
+                            console.log(error);
+                        });
                     this.layout = '';
                     blog_list.layout = 'list';
                 } else {
@@ -83,7 +89,7 @@ var blog_list = new Vue({
             showSeatDetail() {
                 console.log("showSeatDetail line clicked");
             },
-            requestReservation(zugUuid, seatId, waggonNumber, from, to) {
+            requestReservation(zugUuid, seatId, waggonNumber, from, to, date) {
                 console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid + ", from: " + from + ", to: " + to);
                 axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/reservation', {
                     firstname: home.ruleForm.firstName,
@@ -93,7 +99,8 @@ var blog_list = new Vue({
                     wagenNumber: waggonNumber,
                     sitzNumber: seatId,
                     departure: from,
-                    destination: to
+                    destination: to,
+                    date: this.getDate(date)
                 })
                     .then(response => {
                         this.reservationStatus = response.data;
@@ -165,14 +172,22 @@ var blog_list = new Vue({
             correctDateFormat(enteredDate) {
                 return enteredDate.getFullYear() + '-' + enteredDate.getMonth() + '-' + enteredDate.getDate();
             },
-            setSeparator(nextDay){
+            setSeparator(nextDay) {
                 return nextDay;
+            },
+            getDate: function (date) {
+                return date.year + '-' + date.monthValue + '-' + date.dayOfMonth;
             }
         },
         computed: {
             infoRequest: function () {
-                return home.ruleForm.from.charAt(0).toUpperCase() + home.ruleForm.from.slice(1) + ' - ' +
-                    home.ruleForm.to.charAt(0).toUpperCase() + home.ruleForm.to.slice(1) + '  ab: ' + home.correctTimeFormat(home.ruleForm.time);
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+
+                today = mm + '.' + dd + '.' + yyyy;
+                return  today + '  ab: ' + home.correctTimeFormat(home.ruleForm.time);
             },
             infoTrainDetail: function () {
                 for (var i = 0; i < this.zugservices.length; i++) {

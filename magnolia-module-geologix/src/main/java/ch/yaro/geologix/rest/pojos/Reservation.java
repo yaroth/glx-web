@@ -27,10 +27,12 @@ package ch.yaro.geologix.rest.pojos;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
-import java.rmi.server.RemoteServer;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * This class is a simple POJO representation for a "Reservation" item stored in the "reservationen" app.<br/>
@@ -49,6 +51,7 @@ public class Reservation extends NodeItem {
     public static final String SITZNUMBER = "sitzNumber";
     public static final String FROMID = "fromID";
     public static final String TOID = "toID";
+    public static final String DATE = "date";
 
     private String firstname;
     private String lastname;
@@ -58,6 +61,9 @@ public class Reservation extends NodeItem {
     private String sitzNumber;
     private String departure;
     private String destination;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate date;
     @JsonIgnore
     private String fromID;
     @JsonIgnore
@@ -145,9 +151,19 @@ public class Reservation extends NodeItem {
         this.toID = toID;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public String toString(){
-        return "First: " + firstname + ", last: " + lastname + ", trainservice: " + zugserviceID + ", wagen nb: " + wagenNumber + ", seat nb: " + sitzNumber + ", from: " + departure + ", to: " + destination;
+        return "First: " + firstname + ", last: " + lastname + ", trainservice: " +
+                zugserviceID + ", wagen nb: " + wagenNumber + ", seat nb: " +
+                sitzNumber + ", from: " + departure + ", to: " + destination + ", date: " + date;
     }
 
 }

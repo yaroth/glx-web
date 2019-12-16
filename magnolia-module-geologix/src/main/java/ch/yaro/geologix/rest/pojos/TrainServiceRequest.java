@@ -2,15 +2,27 @@ package ch.yaro.geologix.rest.pojos;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** Incoming request containing departure time, departure Stop and destination Stop.
- * Is used to query for {@link TrainService}s fitting the request.*/
+/**
+ * Incoming request containing departure time, departure Stop and destination Stop.
+ * Is used to query for {@link TrainService}s fitting the request.
+ */
 public class TrainServiceRequest {
 
-    /** Time MUST be of format 'HH:mm' */
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate date = LocalDate.now();
+    /**
+     * Time MUST be of format 'HH:mm'
+     */
     private String time;
     private String from;
     private String to;
@@ -40,13 +52,23 @@ public class TrainServiceRequest {
         this.to = to;
     }
 
-    @Override
-    public String toString(){
-        return "From: " + from + " to: " + to + ", departure @" + time;
+    public LocalDate getDate() {
+        return date;
     }
 
-    /** We can only check if the time is valid.
-     * Checks on from and to are only 'not null' */
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "From: " + from + " to: " + to + ", departure date: " + date + " @" + time;
+    }
+
+    /**
+     * We can only check if the time is valid.
+     * Checks on from and to are only 'not null'
+     */
     @JsonIgnore
     public boolean isValid() {
         String TIME24HOURS_PATTERN = "([01]?[0-9]|2[0-3]):[0-5][0-9]";

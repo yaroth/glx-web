@@ -2,10 +2,6 @@ package ch.yaro.geologix.rest.service.v1;
 
 import ch.yaro.geologix.rest.pojos.*;
 import com.google.gson.Gson;
-import info.magnolia.context.MgnlContext;
-import info.magnolia.jcr.predicate.AbstractPredicate;
-import info.magnolia.jcr.util.NodeUtil;
-import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.rest.AbstractEndpoint;
 import info.magnolia.rest.EndpointDefinition;
 import info.magnolia.rest.registry.ConfiguredEndpointDefinition;
@@ -15,7 +11,7 @@ import javax.jcr.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,9 +21,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
-import info.magnolia.module.categorization.CategorizationModule;
-import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 
 /**
  * A REST endpoint producing json for content app items.<br/>
@@ -78,6 +71,9 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
     public Response getTrainServices(TrainServiceRequest trainServiceRequest) {
         boolean requestIsValid = trainServiceRequest.isValid();
         if (requestIsValid) {
+            // TODO: check if this is necessary, since we define date = LocalDate.now()
+            //  in TrainServiceRequest...
+            trainServiceRequest.setDate(LocalDate.now());
             List<TrainService> result;
             try {
                 result = blsPojoService.getTrainServicesForRequest(trainServiceRequest);
@@ -109,9 +105,9 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
     public Response reservation(Reservation reservation) {
         if (reservation != null) {
             try {
-                boolean isReservationValid = blsPojoService.validateReservation(reservation);
+                boolean isReservationValid = blsPojoService.reservationIsValid(reservation);
                 if (isReservationValid) {
-                    boolean isReservationAllowed = blsPojoService.checkReservation(reservation);
+                    boolean isReservationAllowed = blsPojoService.reservationIsAllowed(reservation);
                     if (isReservationAllowed) {
                         ReservationConfirmation reservationConfirmation = blsPojoService.makeReservation(reservation);
                         return Response.ok(reservationConfirmation).build();

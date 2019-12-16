@@ -33,7 +33,6 @@ import info.magnolia.jcr.util.PropertyUtil;
 import info.magnolia.module.categorization.CategorizationModule;
 import info.magnolia.rest.service.node.definition.ConfiguredNodeEndpointDefinition;
 import info.magnolia.rest.service.node.v1.NodeEndpoint;
-import info.magnolia.rest.service.node.v1.RepositoryMarshaller;
 import info.magnolia.rest.service.node.v1.RepositoryNode;
 import info.magnolia.rest.service.node.v1.RepositoryProperty;
 import info.magnolia.templating.functions.TemplatingFunctions;
@@ -45,6 +44,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.jcr.*;
 import javax.ws.rs.core.Response;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -503,7 +504,6 @@ public class BlsPojoService {
 
         for (TrainService trainService : allTrainServices) {
             if (trainService.fitsRequest(request)) {
-                setReservedSeats(trainService, request);
                 trainService.adaptTimetableToRequest(request);
                 trainServicesChronological.add(trainService);
             }
@@ -520,13 +520,18 @@ public class BlsPojoService {
             return result;
         });
         // TrainServices AFTER request time are put to the end -> next day!
+        // TODO: add date to all train services: today or tomorrow
         List<TrainService> tempTooEarly = new ArrayList<>();
         List<TrainService> trainServicesForRequest = new ArrayList<>();
         LocalTime requestTime = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
         for (TrainService trainService : trainServicesChronological) {
             if (trainService.getTimetable().getFirst().getTimeOut().isBefore(requestTime)) {
+                trainService.setDate(LocalDate.now().plusDays(1));
+                setReservedSeats(trainService, request);
                 tempTooEarly.add(trainService);
             } else {
+                trainService.setDate(LocalDate.now());
+                setReservedSeats(trainService, request);
                 trainServicesForRequest.add(trainService);
             }
         }
@@ -819,6 +824,15 @@ public class BlsPojoService {
         dateOfBirthProperty.setValues(dobPropertyValues);
         properties.add(dateOfBirthProperty);
 
+        RepositoryProperty dateProperty = new RepositoryProperty();
+        dateProperty.setMultiple(false);
+        dateProperty.setName(Reservation.DATE);
+        dateProperty.setType("Date");
+        ArrayList<String> datePropertyValues = new ArrayList<>();
+        datePropertyValues.add(reservation.getDate().toString());
+        dateProperty.setValues(datePropertyValues);
+        properties.add(dateProperty);
+
         RepositoryProperty zugserviceIDProperty = new RepositoryProperty();
         zugserviceIDProperty.setMultiple(false);
         zugserviceIDProperty.setName(Reservation.ZUGSERVICEID);
@@ -869,16 +883,18 @@ public class BlsPojoService {
 
     /**
      * Precondition: reservation is valid.
-     * checks if seat in waggon is available
-     * for the specified Strecke.
+     * Checks if seat in waggon is available
+     * for the specified Strecke on the
+     * reservation date.
      *
      * @param reservation
      */
-    public boolean checkReservation(Reservation reservation) throws RepositoryException {
+    public boolean reservationIsAllowed(Reservation reservation) throws RepositoryException {
         String zugserviceID = reservation.getZugserviceID();
-        List<Reservation> reservationsForZugservice = getReservationsForZugserviceID(zugserviceID);
+        LocalDate date = reservation.getDate();
+        List<Reservation> reservationsForZugserviceOnDate = getReservationsForZugserviceAndDate(zugserviceID, date);
         List<Reservation> sameSeatReservations = new ArrayList<>();
-        for (Reservation res : reservationsForZugservice) {
+        for (Reservation res : reservationsForZugserviceOnDate) {
             if (res.getWagenNumber().equals(reservation.getWagenNumber()) && res.getSitzNumber().equals(reservation.getSitzNumber())) {
                 sameSeatReservations.add(res);
             }
@@ -898,15 +914,15 @@ public class BlsPojoService {
      *
      * @param zugserviceID
      */
-    private List<Reservation> getReservationsForZugserviceID(String zugserviceID) throws RepositoryException {
+    private List<Reservation> getReservationsForZugserviceAndDate(String zugserviceID, LocalDate date) throws RepositoryException {
         List<Reservation> allReservations = getAllReservations();
-        List<Reservation> reservationsForZugservice = new ArrayList<>();
+        List<Reservation> reservationsForZugserviceAndDate = new ArrayList<>();
         for (Reservation reservation : allReservations) {
-            if (reservation.getZugserviceID().equals(zugserviceID)) {
-                reservationsForZugservice.add(reservation);
+            if (reservation.getZugserviceID().equals(zugserviceID) && reservation.getDate().equals(date)) {
+                reservationsForZugserviceAndDate.add(reservation);
             }
         }
-        return reservationsForZugservice;
+        return reservationsForZugserviceAndDate;
     }
 
     /**
@@ -948,6 +964,10 @@ public class BlsPojoService {
         String dateofbirth = PropertyUtil.getString(node, Reservation.DATEOFBIRTH, "");
         reservation.setDateOfBirth(dateofbirth);
 
+        Calendar calendar = PropertyUtil.getDate(node, Reservation.DATE);
+        LocalDate localDate = LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId()).toLocalDate();
+        reservation.setDate(localDate);
+
         String zugserviceID = PropertyUtil.getString(node, Reservation.ZUGSERVICEID, "");
         reservation.setZugserviceID(zugserviceID);
 
@@ -975,13 +995,13 @@ public class BlsPojoService {
 
     /**
      * Checks whether reservation is valid, i.e. if all reservation properties
-     * are alid trainservice properties?
+     * are valid trainservice properties?
      * Check if that
      * - waggon with that
      * - seat and
      * - from-to strecke of the trainservice is valid.
      */
-    public boolean validateReservation(Reservation reservation) throws RepositoryException {
+    public boolean reservationIsValid(Reservation reservation) throws RepositoryException {
         reservation.setFromID(getHaltestelleIdByName(reservation.getDeparture()));
         reservation.setToID(getHaltestelleIdByName(reservation.getDestination()));
         // TODO: catch possible errors!
@@ -1011,13 +1031,11 @@ public class BlsPojoService {
      * reserved.
      */
     private void setReservedSeats(TrainService trainService, TrainServiceRequest trainServiceRequest) throws RepositoryException {
-        List<Reservation> reservationsInTrainservice = getReservationsForZugserviceID(trainService.getUuid());
+        List<Reservation> reservationsInTrainservice = getReservationsForZugserviceAndDate(trainService.getUuid(), trainService.getDate());
         Strecke strecke = getStreckeById(trainService.getStreckeID());
         for (Reservation reservation : reservationsInTrainservice) {
             strecke.setTakenAbschnitteForReservation(reservation);
         }
-        // TODO: iterate over all seats in all waggons to check their reservation status on the
-        // required Strecke
         LinkedList<Wagen> waggons = trainService.getZugkomposition();
         if (waggons != null) {
             for (Wagen w : waggons) {

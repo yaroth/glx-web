@@ -46,7 +46,7 @@
             <div v-on:click="backToHome" class="home-btn" v-if="layout === 'list'"></div>
             <div v-on:click="layout = 'list'" class="back-icon" v-if="layout === 'zugservice-detail'"
                  title="Back"></div>
-            <div v-if="layout === 'list'" class="infopanel">{{infoRequest}}</div>
+            <div v-if="layout === 'list'" class="infopanel">{{dateToday}}</div>
             <div v-else-if="layout === 'zugservice-detail'" class="infopanel">{{infoTrainDetail}}</div>
             <div class="bls-icon"></div>
         </div>
@@ -55,7 +55,7 @@
             <template v-for="zug in zugservices">
                 <div class="date-separator" v-if="setSeparator(zug.nextDay)">{{zug.date.dayOfMonth}}.{{zug.date.monthValue}}.{{zug.date.year}}</div>
                 <div v-on:click="showZugserviceDetail(zug.uuid)" class="zugservice">
-                    <p>{{zug.departure}} <span>{{zug.from}}</span> ––––––– <span>{{zug.to}}</span> {{zug.arrival}}</p>
+                    <p>{{zug.departure}} <span>{{zug.from}}</span> –– <span>{{zug.to}}</span> {{zug.arrival}}</p>
                 </div>
             </template>
         </div>

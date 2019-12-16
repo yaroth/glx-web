@@ -180,20 +180,22 @@ var blog_list = new Vue({
             }
         },
         computed: {
-            infoRequest: function () {
+            dateToday: function () {
                 var today = new Date();
                 var dd = String(today.getDate()).padStart(2, '0');
                 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                 var yyyy = today.getFullYear();
 
                 today = mm + '.' + dd + '.' + yyyy;
-                return  today + '  ab: ' + home.correctTimeFormat(home.ruleForm.time);
+                return  today;
             },
             infoTrainDetail: function () {
                 for (var i = 0; i < this.zugservices.length; i++) {
                     if (this.zugservices[i].uuid === this.zugserviceId) {
                         let zug = this.zugservices[i];
-                        return zug.departure + ' ' + zug.from + ' ––––––––– ' + zug.to + ' ' + zug.arrival;
+                        return zug.departure + ' ' + zug.from + ' ––– ' + zug.to + ' ' + zug.arrival +
+                            '  (' + zug.date.dayOfMonth + '.' + zug.date.monthValue + '.' +
+                            zug.date.year + ')';
                     }
                 }
 

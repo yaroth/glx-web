@@ -9,6 +9,12 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+
+/**
+ * This class is a simple POJO representation for a TrainService item stored in the
+ * 'zugservices' app in the 'zugservice' repository.<br/>
+ */
 public class TrainService extends NodeItem {
 
     public static final String WORKSPACE = "zugservices";
@@ -33,7 +39,7 @@ public class TrainService extends NodeItem {
     private LinkedList<Stop> timetable;
     @JsonIgnore
     private String zugkompositionID;
-    private LinkedList<Wagen> zugkomposition;
+    private LinkedList<Waggon> zugkomposition;
 
 
 
@@ -78,11 +84,11 @@ public class TrainService extends NodeItem {
         this.timetable = timetable;
     }
 
-    public LinkedList<Wagen> getZugkomposition() {
+    public LinkedList<Waggon> getZugkomposition() {
         return zugkomposition;
     }
 
-    public void setZugkomposition(LinkedList<Wagen> zugkomposition) {
+    public void setZugkomposition(LinkedList<Waggon> zugkomposition) {
         this.zugkomposition = zugkomposition;
     }
 

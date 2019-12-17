@@ -24,13 +24,15 @@ import io.swagger.annotations.ApiResponses;
 
 /**
  * A REST endpoint producing json for content app items.<br/>
- * For the moment only providing GET methods.
+ * Endpoint /zugservices for querying for Zugservices.<br/>
+ * Endpoint /reservation for making a {@link Reservation}.<br/>
  *
  * @param <D> the ConfiguredEndpointDefinition.
+ * @param  <D> the BlsPojoService.
  */
-@Api(value = "/demo/v1", description = "The demo endpoint")
-@Path("/demo/v1")
-public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends AbstractEndpoint<D> {
+@Api(value = "/bls/v1", description = "The demo endpoint")
+@Path("/bls/v1")
+public class BlsEndpoint<D extends ConfiguredEndpointDefinition> extends AbstractEndpoint<D> {
 
     private static final String STATUS_MESSAGE_OK = "OK";
     private static final String STATUS_MESSAGE_UNAUTHORIZED = "Unauthorized";
@@ -47,13 +49,9 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
     private static final Logger log = LoggerFactory.getLogger(EndpointDefinition.class);
     private final BlsPojoService blsPojoService;
 
-//    public DemoEndpoint(D endpointDefinition) {
-//        super(endpointDefinition);
-////        this.blsPojoService = new BlsPojoService();
-//    }
 
     @Inject
-    public DemoEndpoint(BlsPojoService blsPojoService, final D endpointDefinition) {
+    public BlsEndpoint(BlsPojoService blsPojoService, final D endpointDefinition) {
         super(endpointDefinition);
         this.blsPojoService = blsPojoService;
     }
@@ -62,7 +60,7 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
     @Consumes({MediaType.APPLICATION_JSON})
     @POST
     @Produces({MediaType.APPLICATION_JSON})
-    @ApiOperation(value = "Get Zugservices providing departure time, departure and destination.")
+    @ApiOperation(value = "Get Zugservices providing departure time, departure date, departure station and destination station.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = STATUS_MESSAGE_OK),
             @ApiResponse(code = 406, message = STATUS_MESSAGE_NOT_ACCEPTABLE),
@@ -73,7 +71,6 @@ public class DemoEndpoint<D extends ConfiguredEndpointDefinition> extends Abstra
         if (requestIsValid) {
             // TODO: check if this is necessary, since we define date = LocalDate.now()
             //  in TrainServiceRequest...
-            trainServiceRequest.setDate(LocalDate.now());
             List<TrainService> result;
             try {
                 result = blsPojoService.getTrainServicesForRequest(trainServiceRequest);

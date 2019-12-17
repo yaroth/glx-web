@@ -30,13 +30,13 @@ package ch.yaro.geologix.rest.pojos;
 import java.util.ArrayList;
 
 /**
- * This class is a simple POJO representation for a "Abschnitt" item stored in the
+ * This class is a simple POJO representation for a {@link Section} (Abschnitt) item stored in the
  * 'Strecken' app in the 'Strecke' repository.<br/>
- * Is used to define whether the {@link Strecke} is reserved till the next {@link Stop}.
- * Contains a waggon list of {@link WagenReservation} listing which {@link Wagen} has
- * which {@link Seat} reserved on this specific Abschnitt.
+ * Is used to define whether the {@link Line} is reserved till the next {@link Stop}.
+ * Contains a waggon list of {@link WaggonReservation} listing which {@link Waggon} has
+ * which {@link Seat} reserved on this specific Section.
  */
-public class Abschnitt {
+public class Section {
 
     public static final String WORKSPACE = "strecken";
     public static final String NODETYPE = "mgnl:contentNode";
@@ -50,14 +50,14 @@ public class Abschnitt {
     private int stopDuration;
     private int tripDuration;
     private boolean isReservedTillNextStop = false;
-    private ArrayList<WagenReservation> waggonReservationList = new ArrayList<>();
+    private ArrayList<WaggonReservation> waggonReservationList = new ArrayList<>();
 
 
-    public ArrayList<WagenReservation> getWaggonReservationList() {
+    public ArrayList<WaggonReservation> getWaggonReservationList() {
         return waggonReservationList;
     }
 
-    public void setWaggonReservationList(ArrayList<WagenReservation> waggonReservationList) {
+    public void setWaggonReservationList(ArrayList<WaggonReservation> waggonReservationList) {
         this.waggonReservationList = waggonReservationList;
     }
 
@@ -95,14 +95,14 @@ public class Abschnitt {
     }
 
     public boolean containsWaggon(Integer waggonNumber) {
-        for (WagenReservation wr : waggonReservationList) {
+        for (WaggonReservation wr : waggonReservationList) {
             if (wr.getWaggonNumber().equals(waggonNumber)) return true;
         }
         return false;
     }
 
-    public WagenReservation getWagenReservation(Integer waggonNumber) {
-        for (WagenReservation wr : waggonReservationList) {
+    public WaggonReservation getWagenReservation(Integer waggonNumber) {
+        for (WaggonReservation wr : waggonReservationList) {
             if (wr.getWaggonNumber().equals(waggonNumber)) return wr;
         }
         return null;

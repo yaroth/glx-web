@@ -27,37 +27,26 @@
 package ch.yaro.geologix.rest.pojos;
 
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * This class is a simple POJO representation for a "WagenReservation" item.
- * Contains the waggon number and the list of seats identified by number of that waggon
- * that are reserved.
+ * This class is a simple POJO representation for a "Station" item stored in the "haltestellen" app in
+ * the 'category' workspace.<br/>
  */
-public class WagenReservation {
+public class Station extends NodeItem {
 
-    private Integer waggonNumber;
-    private ArrayList<Integer> reservedSeats = new ArrayList<>();
+    public static final String WORKSPACE = "haltestelle";
+    public static final String NODETYPE = "haltestelle";
+    public static final String BASEPATH = "/";
+    public static final String NAME = "name";
 
-    public WagenReservation(Integer waggonNumber, Integer seatNumber) {
-        this.waggonNumber = waggonNumber;
-        this.reservedSeats.add(seatNumber);
+    private String name;
+
+    public String getName() {
+        return name;
     }
 
-    public Integer getWaggonNumber() {
-        return waggonNumber;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public void setWaggonNumber(Integer waggonNumber) {
-        this.waggonNumber = waggonNumber;
-    }
-
-    public ArrayList<Integer> getReservedSeats() {
-        return reservedSeats;
-    }
-
-    public void setReservedSeats(ArrayList<Integer> reservedSeats) {
-        this.reservedSeats = reservedSeats;
-    }
-
 }

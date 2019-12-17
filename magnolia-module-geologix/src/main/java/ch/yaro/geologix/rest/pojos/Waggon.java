@@ -27,29 +27,48 @@
 package ch.yaro.geologix.rest.pojos;
 
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * This class is a simple POJO representation for a "Wagentyp" item stored in the "wagentypen" app
- * in the 'category' repository.<br/>
+ * This class is a simple POJO representation for a "Waggon" item stored in the "waegen" app in the
+ * 'wagen' repository.<br/>
  */
-public class Wagentyp extends NodeItem {
+public class Waggon extends NodeItem {
 
-    public static final String WORKSPACE = "category";
-    public static final String NODETYPE = "wagentyp";
-    public static final String BASEPATH = "/wagentypen";
+    public static final String WORKSPACE = "wagen";
+    public static final String NODETYPE = "wagen";
+    public static final String BASEPATH = "/";
 
-    public static final String NAME = "name";
+    public static final String NUMBER = "number";
+    public static final String WAGENPLAN_ID = "wagenplanID";
 
-    private String name;
+    private String number;
+    @JsonIgnore
+    private String wagenplanID;
+    private WaggonPlan waggonPlan;
 
-    public String getName() {
-        return name;
+    public String getNumber() {
+        return number;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
 
+    public void setWagenplanID(String wagenplanID) {
+        this.wagenplanID = wagenplanID;
+    }
+
+    public String getWagenplanID() {
+        return wagenplanID;
+    }
+
+    public WaggonPlan getWagenplan() {
+        return waggonPlan;
+    }
+
+    public void setWagenplan(WaggonPlan waggonPlan) {
+        this.waggonPlan = waggonPlan;
+    }
 }

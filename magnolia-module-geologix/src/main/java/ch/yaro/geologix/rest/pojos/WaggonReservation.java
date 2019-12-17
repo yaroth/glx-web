@@ -27,50 +27,37 @@
 package ch.yaro.geologix.rest.pojos;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * This class is a simple POJO representation for a "wagen" item stored in the "waegen" app in the
- * 'wagen' repository.<br/>
+ * This class is a simple POJO representation for a "WaggonReservation" item.
+ * Contains the waggon number and the list of seats identified by number of that waggon
+ * that are reserved.
  */
-public class Wagen extends NodeItem {
+public class WaggonReservation {
 
-    public static final String WORKSPACE = "wagen";
-    public static final String NODETYPE = "wagen";
-    public static final String BASEPATH = "/";
+    private Integer waggonNumber;
+    private ArrayList<Integer> reservedSeats = new ArrayList<>();
 
-    public static final String NUMBER = "number";
-    public static final String WAGENPLAN_ID = "wagenplanID";
-
-    private String number;
-    @JsonIgnore
-    private String wagenplanID;
-    private Wagenplan wagenplan;
-
-    public String getNumber() {
-        return number;
+    public WaggonReservation(Integer waggonNumber, Integer seatNumber) {
+        this.waggonNumber = waggonNumber;
+        this.reservedSeats.add(seatNumber);
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public Integer getWaggonNumber() {
+        return waggonNumber;
     }
 
-
-    public void setWagenplanID(String wagenplanID) {
-        this.wagenplanID = wagenplanID;
+    public void setWaggonNumber(Integer waggonNumber) {
+        this.waggonNumber = waggonNumber;
     }
 
-    public String getWagenplanID() {
-        return wagenplanID;
+    public ArrayList<Integer> getReservedSeats() {
+        return reservedSeats;
     }
 
-    public Wagenplan getWagenplan() {
-        return wagenplan;
+    public void setReservedSeats(ArrayList<Integer> reservedSeats) {
+        this.reservedSeats = reservedSeats;
     }
 
-    public void setWagenplan(Wagenplan wagenplan) {
-        this.wagenplan = wagenplan;
-    }
 }

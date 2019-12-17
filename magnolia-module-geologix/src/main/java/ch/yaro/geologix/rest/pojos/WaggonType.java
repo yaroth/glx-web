@@ -30,13 +30,15 @@ package ch.yaro.geologix.rest.pojos;
 import java.util.List;
 
 /**
- * This class is a simple POJO representation for a "wagen" item stored in the "wagen" app.<br/>
+ * This class is a simple POJO representation for a "WaggonType" item stored in the "wagentypen" app
+ * in the 'category' repository.<br/>
  */
-public class Haltestelle extends NodeItem {
+public class WaggonType extends NodeItem {
 
-    public static final String WORKSPACE = "haltestelle";
-    public static final String NODETYPE = "haltestelle";
-    public static final String BASEPATH = "/";
+    public static final String WORKSPACE = "category";
+    public static final String NODETYPE = "wagentyp";
+    public static final String BASEPATH = "/wagentypen";
+
     public static final String NAME = "name";
 
     private String name;
@@ -48,4 +50,6 @@ public class Haltestelle extends NodeItem {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

@@ -2,14 +2,13 @@ package ch.yaro.geologix.rest.pojos;
 
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
- * This class is a simple POJO representation for a "Zugkomposition" item stored in the "zugkompositionen"
+ * This class is a simple POJO representation for a "TrainComposition" item stored in the "zugkompositionen"
  * app in the 'zugkomposition' repository.<br/>
- * Mainly contains a list (LinkedList!) of {@link Wagen}.
+ * Mainly contains a list (LinkedList!) of {@link Waggon}.
  */
-public class Zugkomposition {
+public class TrainComposition {
 
     public static final String WORKSPACE = "zugkompositionen";
     public static final String NODETYPE = "zugkomposition";
@@ -19,7 +18,7 @@ public class Zugkomposition {
     public static final String WAEGEN = "waegen";
 
     private String name;
-    private LinkedList<Wagen> wagenList;
+    private LinkedList<Waggon> waggonList;
 
 
     public String getName() {
@@ -30,11 +29,11 @@ public class Zugkomposition {
         this.name = name;
     }
 
-    public LinkedList<Wagen> getWagenList() {
-        return wagenList;
+    public LinkedList<Waggon> getWagenList() {
+        return waggonList;
     }
 
-    public void setWagenList(LinkedList<Wagen> wagenList) {
-        this.wagenList = wagenList;
+    public void setWagenList(LinkedList<Waggon> waggonList) {
+        this.waggonList = waggonList;
     }
 }

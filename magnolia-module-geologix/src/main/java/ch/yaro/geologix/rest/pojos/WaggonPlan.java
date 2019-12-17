@@ -33,10 +33,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is a simple POJO representation for a "Wagenplan" item stored in the "wagenplaene" app
+ * This class is a simple POJO representation for a "WaggonPlan" item stored in the "wagenplaene" app
  * in the 'category' workspace.<br/>
  */
-public class Wagenplan extends NodeItem {
+public class WaggonPlan extends NodeItem {
 
     public static final String WORKSPACE = "category";
     public static final String NODETYPE = "wagenplan";

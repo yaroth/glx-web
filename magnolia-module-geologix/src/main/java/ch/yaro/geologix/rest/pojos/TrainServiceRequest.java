@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Incoming request containing departure time, departure Stop and destination Stop.
+ * Incoming request containing departure time, departure date, departure Stop and destination Stop.
  * Is used to query for {@link TrainService}s fitting the request.
  */
 public class TrainServiceRequest {

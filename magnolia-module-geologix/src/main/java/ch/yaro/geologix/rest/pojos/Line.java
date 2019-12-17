@@ -26,16 +26,13 @@
 package ch.yaro.geologix.rest.pojos;
 
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
- * This class is a simple POJO representation for a "Strecke" item stored in the "strecken" app in the 'strecke' repository.<br/>
+ * This class is a simple POJO representation for a "Line" item stored in the "strecken" app in the 'strecke' repository.<br/>
  */
-public class Strecke {
+public class Line {
 
     public static final String WORKSPACE = "strecken";
     public static final String NODETYPE = "strecke";
@@ -45,7 +42,7 @@ public class Strecke {
     public static final String ABSCHNITT = "abschnitt";
 
     private String name;
-    private LinkedList<Abschnitt> fahrstrecke;
+    private LinkedList<Section> fahrstrecke;
 
     public String getName() {
         return name;
@@ -56,11 +53,11 @@ public class Strecke {
     }
 
     // MUST be a LinkedList
-    public LinkedList<Abschnitt> getFahrstrecke() {
+    public LinkedList<Section> getFahrstrecke() {
         return fahrstrecke;
     }
 
-    public void setFahrstrecke(LinkedList<Abschnitt> fahrstrecke) {
+    public void setFahrstrecke(LinkedList<Section> fahrstrecke) {
         this.fahrstrecke = fahrstrecke;
     }
 
@@ -72,18 +69,18 @@ public class Strecke {
         String destination = reservation.getDestination();
         boolean isDepartureInStrecke = false;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
-            Abschnitt abschnitt = (Abschnitt) stopIterator.next();
-            if (!isDepartureInStrecke && abschnitt.getStopName().equals(departure)) {
+            Section section = (Section) stopIterator.next();
+            if (!isDepartureInStrecke && section.getStopName().equals(departure)) {
                 isDepartureInStrecke = true;
             }
-            if (isDepartureInStrecke && abschnitt.getStopName().equals(destination)) {
+            if (isDepartureInStrecke && section.getStopName().equals(destination)) {
                 return true;
             }
         }
         return false;
     }
 
-    /** Updates the reserved {@link Seat}s and the {@link Abschnitt}s reserved until the
+    /** Updates the reserved {@link Seat}s and the {@link Section}s reserved until the
      * next {@link Stop} on the whole Strecke.
      * @param reservation*/
     public void setTakenAbschnitteForReservation(Reservation reservation) {
@@ -94,8 +91,8 @@ public class Strecke {
 
         boolean isDepartureInStrecke = false;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
-            Abschnitt abschnitt = (Abschnitt) stopIterator.next();
-            String abschnittLower = abschnitt.getStopName().toLowerCase();
+            Section section = (Section) stopIterator.next();
+            String abschnittLower = section.getStopName().toLowerCase();
             if (!isDepartureInStrecke && abschnittLower.equals(departureLower)) {
                 isDepartureInStrecke = true;
             }
@@ -103,15 +100,15 @@ public class Strecke {
                 isDepartureInStrecke = false;
             }
             if (isDepartureInStrecke) {
-                abschnitt.setReservedTillNextStop(true);
+                section.setReservedTillNextStop(true);
                 // adds Waggons with Seats to the Abschnitt
-                if (abschnitt.containsWaggon(wagenNumber)) {
-                    WagenReservation wagenReservation = abschnitt.getWagenReservation(wagenNumber);
-                    if (!wagenReservation.getReservedSeats().contains(sitzNumber)) {
-                        wagenReservation.getReservedSeats().add(sitzNumber);
+                if (section.containsWaggon(wagenNumber)) {
+                    WaggonReservation waggonReservation = section.getWagenReservation(wagenNumber);
+                    if (!waggonReservation.getReservedSeats().contains(sitzNumber)) {
+                        waggonReservation.getReservedSeats().add(sitzNumber);
                     }
                 } else {
-                    abschnitt.getWaggonReservationList().add(new WagenReservation(wagenNumber, sitzNumber));
+                    section.getWaggonReservationList().add(new WaggonReservation(wagenNumber, sitzNumber));
                 }
             }
         }
@@ -130,8 +127,8 @@ public class Strecke {
         boolean isDepartureInStrecke = false;
         boolean seatIsAvailable = true;
         for (Iterator stopIterator = fahrstrecke.iterator(); stopIterator.hasNext(); ) {
-            Abschnitt abschnitt = (Abschnitt) stopIterator.next();
-            String abschnittLower = abschnitt.getStopName().toLowerCase();
+            Section section = (Section) stopIterator.next();
+            String abschnittLower = section.getStopName().toLowerCase();
             if (!isDepartureInStrecke && abschnittLower.equals(departure.toLowerCase())) {
                 isDepartureInStrecke = true;
             }
@@ -139,9 +136,9 @@ public class Strecke {
                 isDepartureInStrecke = false;
             }
             if (isDepartureInStrecke) {
-                if (abschnitt.isReservedTillNextStop()) {
-                    if (abschnitt.containsWaggon(waggonNumber)) {
-                        WagenReservation wr = abschnitt.getWagenReservation(waggonNumber);
+                if (section.isReservedTillNextStop()) {
+                    if (section.containsWaggon(waggonNumber)) {
+                        WaggonReservation wr = section.getWagenReservation(waggonNumber);
                         if (wr.getReservedSeats().contains(seatNumber)) {
                             seatIsAvailable = false;
                             return seatIsAvailable;

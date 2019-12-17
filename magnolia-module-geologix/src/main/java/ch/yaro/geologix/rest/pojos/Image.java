@@ -28,7 +28,7 @@ package ch.yaro.geologix.rest.pojos;
 
 
 /**
- * This class is a simple POJO representation for an "image" item stored in the 'dam' app.<br/>
+ * This class is a simple POJO representation for an {@link Image} item stored in the 'dam' app.<br/>
  */
 public class Image {
 

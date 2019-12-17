@@ -1,4 +1,0 @@
-title: News item
-dialog: geologix:components/newsItem
-templateScript: /geologix/templates/components/newsItem.ftl
-renderType: freemarker

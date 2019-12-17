@@ -1,8 +1,0 @@
-class: info.magnolia.rest.delivery.jcr.v2.JcrDeliveryEndpointDefinition
-workspace: category
-limit: 25
-depth: 2
-includeSystemProperties: false
-nodeTypes:
-  - mgnl:category
-  - mgnl:folder

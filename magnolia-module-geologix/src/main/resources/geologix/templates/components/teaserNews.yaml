@@ -1,4 +1,0 @@
-title: News teaser
-#dialog: geologix:components/teaserNews
-templateScript: /geologix/templates/components/teaserNews.ftl
-renderType: freemarker

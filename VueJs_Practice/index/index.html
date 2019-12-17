@@ -42,11 +42,16 @@
     <section id="js-grid-list" v-if="layout === 'zugservice-detail' || layout === 'list'" class="grid-list" v-cloak>
 
         <div class="tool-bar">
-            <div v-on:click="backToHome" class="home-btn" v-if="layout === 'list'"></div>
-            <div v-on:click="layout = 'list'" class="back-icon" v-if="layout === 'zugservice-detail'"  title="Back"></div>
+            <div class="mobile">
+                <div v-on:click="backToHome" class="home-btn" v-if="layout === 'list'"></div>
+
+                <div class="bls-icon"></div>
+            </div>
+            <div v-on:click="backToHome" class="home-btn desktop" v-if="layout === 'list'"></div>
+            <div v-on:click="layout = 'list'" class="back-icon desktop" v-if="layout === 'zugservice-detail'"  title="Back"></div>
             <div v-if="layout === 'list'" class="infopanel">{{infoRequest}}</div>
             <div v-else-if="layout === 'zugservice-detail'" class="infopanel">{{infoTrainDetail}}</div>
-            <div class="bls-icon"></div>
+            <div class="bls-icon desktop"></div>
         </div>
 
         <div v-if="layout === 'list'" class="list">

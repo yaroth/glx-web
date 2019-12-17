@@ -142,10 +142,10 @@ a:hover {
 /* waggon */
 .waggon {
     list-style: none;
-    margin-top: 30px;
+    margin-top: 5px;
     background-color: rgba(160, 225, 0, 0.3);
     padding-bottom: 30px;
-    border-radius: 15px;
+    /*border-radius: 15px;*/
 }
 
 .waggon p {
@@ -158,11 +158,14 @@ a:hover {
     position: relative;
     width: 300px;
     margin: 0 auto;
+    border: 1px solid gray;
+    border-radius: 5px;
+    line-height: 0;
 }
 
 .waggon-image img {
-    max-width: 100%;
-    border-radius: 10px;
+    width: 100%;
+    border-radius: 5px;
 }
 
 .row-placeholder {
@@ -194,11 +197,11 @@ a:hover {
 }
 
 .row4 {
-    top: 286px;
+    top: 284px;
 }
 
 .row5 {
-    top: 375px;
+    top: 371px;
 }
 
 button {
@@ -267,8 +270,8 @@ button {
     background-image: url(../img/back.svg);
     width: 40px;
     height: 40px;
-    float: left;
     cursor: pointer;
+    position: absolute;
 }
 
 .infopanel {
@@ -286,7 +289,7 @@ button {
 }
 
 .zugservice-detail {
-    margin: 0 100px;
+    /*margin: 0 100px;*/
     border-radius: 3px;
 }
 #container {

@@ -27,27 +27,37 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.util.ArrayList;
+
 /**
- * This class is a simple POJO representation for an {@link Image} item stored in the 'dam' app.<br/>
+ * This class is a simple POJO representation for a "WaggonReservation" item.
+ * Contains the waggon number and the list of seats identified by number of that waggon
+ * that are reserved.
  */
-public class Image {
+public class WaggonReservation {
 
-    private String assetKey;
-    private String link;
+    private Integer waggonNumber;
+    private ArrayList<Integer> reservedSeats = new ArrayList<>();
 
-    public String getAssetKey() {
-        return assetKey;
+    public WaggonReservation(Integer waggonNumber, Integer seatNumber) {
+        this.waggonNumber = waggonNumber;
+        this.reservedSeats.add(seatNumber);
     }
 
-    public void setAssetKey(String assetKey) {
-        this.assetKey = assetKey;
+    public Integer getWaggonNumber() {
+        return waggonNumber;
     }
 
-    public String getLink() {
-        return link;
+    public void setWaggonNumber(Integer waggonNumber) {
+        this.waggonNumber = waggonNumber;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public ArrayList<Integer> getReservedSeats() {
+        return reservedSeats;
     }
+
+    public void setReservedSeats(ArrayList<Integer> reservedSeats) {
+        this.reservedSeats = reservedSeats;
+    }
+
 }

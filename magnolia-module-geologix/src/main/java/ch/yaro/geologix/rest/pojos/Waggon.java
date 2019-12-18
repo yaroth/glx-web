@@ -27,27 +27,48 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
- * This class is a simple POJO representation for an {@link Image} item stored in the 'dam' app.<br/>
+ * This class is a simple POJO representation for a "Waggon" item stored in the "waegen" app in the
+ * 'wagen' repository.<br/>
  */
-public class Image {
+public class Waggon extends NodeItem {
 
-    private String assetKey;
-    private String link;
+    public static final String WORKSPACE = "wagen";
+    public static final String NODETYPE = "wagen";
+    public static final String BASEPATH = "/";
 
-    public String getAssetKey() {
-        return assetKey;
+    public static final String NUMBER = "number";
+    public static final String WAGENPLAN_ID = "wagenplanID";
+
+    private String number;
+    @JsonIgnore
+    private String wagenplanID;
+    private WaggonPlan waggonPlan;
+
+    public String getNumber() {
+        return number;
     }
 
-    public void setAssetKey(String assetKey) {
-        this.assetKey = assetKey;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
-    public String getLink() {
-        return link;
+
+    public void setWagenplanID(String wagenplanID) {
+        this.wagenplanID = wagenplanID;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public String getWagenplanID() {
+        return wagenplanID;
+    }
+
+    public WaggonPlan getWagenplan() {
+        return waggonPlan;
+    }
+
+    public void setWagenplan(WaggonPlan waggonPlan) {
+        this.waggonPlan = waggonPlan;
     }
 }

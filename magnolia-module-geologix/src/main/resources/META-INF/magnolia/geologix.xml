@@ -42,7 +42,6 @@
         <repository>
             <name>magnolia</name>
             <workspaces>
-                <workspace>news</workspace>
                 <workspace>wagen</workspace>
                 <workspace>haltestelle</workspace>
                 <workspace>strecken</workspace>

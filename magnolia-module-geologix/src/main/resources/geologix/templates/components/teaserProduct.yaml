@@ -1,4 +1,0 @@
-title: Product teaser
-#dialog: geologix:components/teaserNews
-templateScript: /geologix/templates/components/teaserProduct.ftl
-renderType: freemarker

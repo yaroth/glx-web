@@ -34,7 +34,7 @@ var home = new Vue({
                 if (valid) {
                     //REST post to get the trainservices.
                     //Removes spaces in the from/to strings for correct requesting
-                    axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/zugservices', {
+                    axios.post(location.protocol + '//' + location.host + '/.rest/bls/v1/zugservices', {
                         time: this.correctTimeFormat(this.ruleForm.time),
                         from: this.ruleForm.from.replace(/\s+/g, ''),
                         to: this.ruleForm.to.replace(/\s+/g, '')
@@ -91,7 +91,7 @@ var blog_list = new Vue({
             },
             requestReservation(zugUuid, seatId, waggonNumber, from, to, date) {
                 console.log("reservation requested, seat: " + seatId + ", waggon: " + waggonNumber + ", zug uuid: " + zugUuid + ", from: " + from + ", to: " + to);
-                axios.post(location.protocol + '//' + location.host + '/.rest/demo/v1/reservation', {
+                axios.post(location.protocol + '//' + location.host + '/.rest/bls/v1/reservation', {
                     firstname: home.ruleForm.firstName,
                     lastname: home.ruleForm.lastName,
                     dateOfBirth: home.ruleForm.birthDate.getFullYear() + '-' + home.ruleForm.birthDate.getMonth() + '-' + home.ruleForm.birthDate.getDate(),

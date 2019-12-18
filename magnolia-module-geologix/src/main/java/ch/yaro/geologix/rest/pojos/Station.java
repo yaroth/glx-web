@@ -27,27 +27,26 @@
 package ch.yaro.geologix.rest.pojos;
 
 
+import java.util.List;
+
 /**
- * This class is a simple POJO representation for an {@link Image} item stored in the 'dam' app.<br/>
+ * This class is a simple POJO representation for a "Station" item stored in the "haltestellen" app in
+ * the 'category' workspace.<br/>
  */
-public class Image {
+public class Station extends NodeItem {
 
-    private String assetKey;
-    private String link;
+    public static final String WORKSPACE = "haltestelle";
+    public static final String NODETYPE = "haltestelle";
+    public static final String BASEPATH = "/";
+    public static final String NAME = "name";
 
-    public String getAssetKey() {
-        return assetKey;
+    private String name;
+
+    public String getName() {
+        return name;
     }
 
-    public void setAssetKey(String assetKey) {
-        this.assetKey = assetKey;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
+    public void setName(String name) {
+        this.name = name;
     }
 }

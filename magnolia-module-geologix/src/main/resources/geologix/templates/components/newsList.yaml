@@ -1,3 +1,0 @@
-title: News list (latest first)
-templateScript: /geologix/templates/components/newsList.ftl
-renderType: freemarker

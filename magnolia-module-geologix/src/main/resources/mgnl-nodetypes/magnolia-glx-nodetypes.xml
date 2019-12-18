@@ -69,13 +69,6 @@
         xmlns:jcr="http://www.jcp.org/jcr/1.0">
 
     <!-- custom node types -->
-    <!-- News  -->
-    <nodeType name="news" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
-        <supertypes>
-            <supertype>mgnl:content</supertype>
-        </supertypes>
-    </nodeType>
-
     <!-- Haltestelle  -->
     <nodeType name="haltestelle" isMixin="false" hasOrderableChildNodes="true" primaryItemName="">
         <supertypes>

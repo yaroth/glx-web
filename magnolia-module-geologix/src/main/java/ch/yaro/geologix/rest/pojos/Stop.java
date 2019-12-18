@@ -27,12 +27,10 @@
 package ch.yaro.geologix.rest.pojos;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalTime;
 
 /**
- * This class is a simple Stop item to help setup a timetable
+ * This class is a simple Stop item to help setup a timetable in a TrainService
  */
 public class Stop {
 

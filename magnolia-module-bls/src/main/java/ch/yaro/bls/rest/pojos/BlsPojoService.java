@@ -520,7 +520,6 @@ public class BlsPojoService {
             return result;
         });
         // TrainServices AFTER request time are put to the end -> next day!
-        // TODO: add date to all train services: today or tomorrow
         List<TrainService> tempTooEarly = new ArrayList<>();
         List<TrainService> trainServicesForRequest = new ArrayList<>();
         LocalTime requestTime = LocalTime.parse(request.getTime(), DateTimeFormatter.ofPattern("HH:mm"));
@@ -784,8 +783,6 @@ public class BlsPojoService {
         // all reservations are saved at root level
         Response response = nodeEndpoint.createNode(Reservation.WORKSPACE, Reservation.BASEPATH, repositoryNode);
         ReservationConfirmation reservationConfirmation = new ReservationConfirmation(reservation);
-        // TODO: get reservation UUID !
-        // TODO: set QRCode!
         //reservationConfirmation.setUuid();
         reservationConfirmation.setMessage(response.getStatusInfo().toString());
         return reservationConfirmation;

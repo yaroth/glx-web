@@ -651,7 +651,6 @@ var blog_list = new Vue({
                 })
                     .then(response => {
                         home.reservationConfirmation = response.data;
-                        // TODO: move these lines into the .then part
                         let resConf = home.reservationConfirmation;
                         if (resConf.message == 'OK') {
                             let zugId = resConf.zugserviceID;

@@ -60,7 +60,6 @@ public class Stop {
         this.timeIN = timeIN;
     }
 
-    // TODO: fix this, so format in JSON will be of form HH:mm
     public LocalTime getTimeOut() {
         return timeOut;
     }

@@ -68,8 +68,6 @@ public class BlsEndpoint<D extends ConfiguredEndpointDefinition> extends Abstrac
     public Response getTrainServices(TrainServiceRequest trainServiceRequest) {
         boolean requestIsValid = trainServiceRequest.isValid();
         if (requestIsValid) {
-            // TODO: check if this is necessary, since we define date = LocalDate.now()
-            //  in TrainServiceRequest...
             List<TrainService> result;
             try {
                 result = blsPojoService.getTrainServicesForRequest(trainServiceRequest);

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>ch.yaro</groupId>
+        <artifactId>bls</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <artifactId>bls-webapp</artifactId>
+    <name>bls: webapp</name>
+    <packaging>war</packaging>
+    <dependencies>
+
+        <!-- Dependencies versions are already imported by parent pom. Requires "Option A" in the parent pom. -->
+        <dependency>
+            <groupId>info.magnolia.bundle</groupId>
+            <artifactId>magnolia-community-webapp</artifactId>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>info.magnolia.bundle</groupId>
+            <artifactId>magnolia-community-webapp</artifactId>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>info.magnolia.rest</groupId>
+            <artifactId>magnolia-rest-tools</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.yaro</groupId>
+            <artifactId>magnolia-module-bls</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <!-- exclude jars copied "physically" from the webapp overlay - so we only get those resolved by Maven's dependency management -->
+                    <dependentWarExcludes>WEB-INF/lib/*.jar</dependentWarExcludes>
+                </configuration>
+                <version>3.2.3</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

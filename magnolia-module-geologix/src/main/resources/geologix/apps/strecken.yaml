@@ -392,6 +392,7 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: abschnitt
                 label: Abschnitte
+                required: true
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 transformerClass: info.magnolia.ui.form.field.transformer.multi.DelegatingMultiValueFieldTransformer
                 field:
@@ -400,6 +401,7 @@ subApps:
                   fields:
                     - name: stopID
                       label: Haltestelle
+                      required: true
                       class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                       targetWorkspace: haltestelle
                       targetTreeRootPath: /

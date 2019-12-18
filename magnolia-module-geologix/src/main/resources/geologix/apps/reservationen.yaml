@@ -461,8 +461,10 @@ subApps:
                 label: Reservationsdatum
                 fieldType: date
                 time: false
+                required: true
               - name: zugserviceID
                 label: Zugservice
+                required: true
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: zugservices
                 targetTreeRootPath: /
@@ -471,6 +473,7 @@ subApps:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
               - name: wagenNumber
                 label: Wagen
+                required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 validators:
                   - name: number
@@ -479,6 +482,7 @@ subApps:
                     errorMessage: Format Error! Please enter a number only!
               - name: sitzNumber
                 label: Sitz
+                required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 validators:
                   - name: number
@@ -487,6 +491,7 @@ subApps:
                     errorMessage: Format Error! Please enter a number only!
               - name: fromID
                 label: Von
+                required: true
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: haltestelle
                 targetTreeRootPath: /
@@ -495,6 +500,7 @@ subApps:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
               - name: toID
                 label: Bis
+                required: true
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: haltestelle
                 targetTreeRootPath: /

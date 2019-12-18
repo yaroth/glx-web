@@ -423,6 +423,7 @@ subApps:
                     errorMessage: Format Error! Please enter letter, numbers, '-' and '_' only!
               - name: departure
                 label: Abfahrtszeit
+                required: true
                 description: Please enter a time with format 'hh:mm' (08:34, 00:12, 19:45)
                 fieldType: text
                 validators:
@@ -432,6 +433,7 @@ subApps:
                     errorMessage: Format Error! Please enter a time with format hh:mm (08:34, 00:12, 19:45)
               - name: strecke
                 label: Strecke
+                required: true
                 description: Strecke wählen
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: strecken
@@ -441,6 +443,7 @@ subApps:
                   class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
               - name: zugkomposition
                 label: Zugkomposition
+                required: true
                 description: Zugkomposition wählen
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: zugkompositionen

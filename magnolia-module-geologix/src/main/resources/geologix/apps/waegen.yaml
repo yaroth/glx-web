@@ -391,6 +391,7 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: number
                 label: Nummer
+                required: true
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 validators:
                   - name: number
@@ -399,6 +400,7 @@ subApps:
                     errorMessage: Format Error! Please enter a number only!
               - name: wagenplanID
                 label: Wagenplan
+                required: true
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: category
                 targetTreeRootPath: /wagenplaene

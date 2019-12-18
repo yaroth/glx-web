@@ -400,6 +400,7 @@ subApps:
                 field:
                   name: wagen
                   label: Wagen
+                  required: true
                   class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                   targetWorkspace: wagen
                   targetTreeRootPath: /

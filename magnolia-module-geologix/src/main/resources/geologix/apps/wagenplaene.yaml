@@ -404,6 +404,7 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: image
                 label: Wagenplan
+                required: true
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: dam
                 appName: assets

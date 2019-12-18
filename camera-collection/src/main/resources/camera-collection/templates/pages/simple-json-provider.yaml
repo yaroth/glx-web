@@ -1,6 +1,0 @@
-templateScript: /camera-collection/templates/pages/simple-json-provider.ftl
-renderType: json
-#renderType: freemarker
-visible: true
-title: Simple json provider
-# contentType: application/json

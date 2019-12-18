@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" sv:name="BLS-Typ-01---2019">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>wagenplan</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>6eaaa3e8-6023-4a7f-8ca9-f34dfc1d4127</sv:value>
+  </sv:property>
+  <sv:property sv:name="code" sv:type="String">
+    <sv:value>BLS Typ 01 - 2019</sv:value>
+  </sv:property>
+  <sv:property sv:name="description" sv:type="String">
+    <sv:value>Panoramawagen, 1. Klasse</sv:value>
+  </sv:property>
+  <sv:property sv:name="image" sv:type="String">
+    <sv:value>jcr:ef47089b-7670-4c5f-aded-0cf9992ce535</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2019-11-13T22:02:28.258+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2019-12-18T22:53:20.772+01:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="wagentyp" sv:type="String" sv:multiple="true">
+    <sv:value>1eca04d7-8f1a-48c6-836f-3fbb77d299e5</sv:value>
+    <sv:value>6b1c5c39-ffb9-4d1a-9758-cfef40a39f14</sv:value>
+  </sv:property>
+  <sv:node sv:name="sitz0">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>541e8ca2-0d29-4716-be0c-da3f93a777ce</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>88</sv:value>
+    </sv:property>
+    <sv:property sv:name="location" sv:type="String">
+      <sv:value>fenster</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-11-13T22:02:28.283+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.773+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz1">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>52c55340-7537-44e5-a0a5-d704149b3312</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>87</sv:value>
+    </sv:property>
+    <sv:property sv:name="location" sv:type="String">
+      <sv:value>gang</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-11-13T22:02:28.285+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.773+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz2">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>48e0f9db-4305-4b02-855e-e6e59e398f52</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>84</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:37:28.030+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.773+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz3">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>052e316d-85fc-47a0-80bc-9c0afa9d0866</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>83</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:37:28.031+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.774+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz4">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>d4d69396-5b9f-491c-aad1-a45f0c883121</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>82</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:37:28.032+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.774+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz5">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>0c15cb07-755c-4eed-89b8-858058e9d646</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>81</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:37:28.036+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.774+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz6">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>bff25195-869e-415d-b2fa-dbe0aea0f449</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>78</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:49:18.105+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.775+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz7">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>cb9c02ba-46d3-4a1a-b51c-71971042b118</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>77</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:49:18.106+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.775+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz8">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>b425109c-c49a-481d-9f3b-2d4e3fbbe4f9</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>76</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:49:18.107+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.775+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz9">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>21e71f26-f9c7-43bb-ba83-119a8c86d8d3</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>75</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:49:18.109+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.776+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz10">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>8b671abe-38ea-4325-99a9-aa6ddeb70b38</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>74</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:49:18.110+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.776+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz11">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>a012fedb-46bc-43dd-a424-086f477bb08b</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>73</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:49:18.110+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.777+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz12">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>eba1043f-6809-4971-9c89-b1f13d1ff2df</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>72</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:49:18.111+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.778+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+  <sv:node sv:name="sitz13">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>cd5bd14e-c87f-46ec-b920-ffccfcd6dca1</sv:value>
+    </sv:property>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>2</sv:value>
+    </sv:property>
+    <sv:property sv:name="id" sv:type="String">
+      <sv:value>71</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2019-12-18T22:49:18.111+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2019-12-18T22:53:20.778+01:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="options" sv:type="String" sv:multiple="true">
+      <sv:value>220V</sv:value>
+    </sv:property>
+  </sv:node>
+</sv:node>
+

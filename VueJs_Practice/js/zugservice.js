@@ -679,7 +679,7 @@ var blog_list = new Vue({
                             text: 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '\n'
                                 + 'Wagen: ' + wagNb + '\n'
                                 + 'Sitz: ' + sitzNb,
-                            imageUrl: location.protocol + '//' + location.host + '/.resources/geologix/webresources/img/Test_QR_Code.png',
+                            imageUrl: location.protocol + '//' + location.host + '/.resources/bls/webresources/img/Test_QR_Code.png',
                             customClass: 'reservation-confirmation',
                             showConfirmButton: false,
                             showCloseButton: true,

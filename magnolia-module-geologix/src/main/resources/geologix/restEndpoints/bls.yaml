@@ -1,2 +1,0 @@
-class: info.magnolia.rest.registry.ConfiguredEndpointDefinition
-implementationClass: ch.yaro.geologix.rest.service.v1.BlsEndpoint

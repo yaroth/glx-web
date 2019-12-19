@@ -30,12 +30,11 @@
             <name>core</name>
             <version>*</version>
         </dependency>
-        <!--  Add other dependencies here, e.g the mte (magnolia templating essentials).
+        <!--  Add other dependencies here, e.g the mtk (magnolia templating kit).-->
         <dependency>
-          <name>mte</name>
-          <version>0.7/*</version>
+            <name>mtk</name>
+            <version>1.2.3/*</version>
         </dependency>
-        -->
     </dependencies>
 
     <repositories>

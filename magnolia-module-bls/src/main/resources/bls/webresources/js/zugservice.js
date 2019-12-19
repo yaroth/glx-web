@@ -233,8 +233,10 @@ var blog_list = new Vue({
 
             },
             fromTo: function () {
-                return home.ruleForm.from + ' ––– ' + home.ruleForm.to;
+                return home.ruleForm.from.charAt(0).toUpperCase() + home.ruleForm.from.slice(1) +
+                    ' ––– ' + home.ruleForm.to.charAt(0).toUpperCase() + home.ruleForm.to.slice(1);
             }
         }
     })
 ;
+

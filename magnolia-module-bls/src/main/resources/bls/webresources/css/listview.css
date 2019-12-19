@@ -142,7 +142,7 @@ a:hover {
 /* waggon */
 .waggon {
     list-style: none;
-    margin-top: 5px;
+    margin-bottom: 5px;
     background-color: rgba(160, 225, 0, 0.3);
     padding-bottom: 30px;
     /*border-radius: 15px;*/
@@ -331,6 +331,14 @@ button {
 .date-separator p span {
     font-size: 25px;
 }
+.el-date-editor.el-input {
+    width: initial;
+}
+.el-date-editor.el-input, .el-input--medium {
+    max-width: 220px;
+}
+
+
 /*MOBILE*/
 
 @media only screen and (max-width: 400px) {

@@ -1,10 +1,15 @@
 package ch.yaro.bls.setup;
 
 import info.magnolia.jcr.nodebuilder.task.NodeBuilderTask;
+import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.module.DefaultModuleVersionHandler;
-import info.magnolia.module.delta.DeltaBuilder;
+import info.magnolia.module.InstallContext;
+import info.magnolia.module.delta.*;
 import info.magnolia.nodebuilder.task.ErrorHandling;
 import info.magnolia.repository.RepositoryConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is optional and lets you manage the versions of your module,
@@ -16,6 +21,24 @@ import info.magnolia.repository.RepositoryConstants;
  * @see info.magnolia.module.delta.Task
  */
 public class BlsModuleVersionHandler extends DefaultModuleVersionHandler {
+
+
+    public BlsModuleVersionHandler() {
+        super();
+    }
+
+
+
+    @Override
+    protected List<Task> getExtraInstallTasks(InstallContext installContext) {
+
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.addAll(super.getExtraInstallTasks(installContext));
+
+        tasks.add(new SetPropertyTask("Disable publishing to magnoliaPublic8080", RepositoryConstants.CONFIG, "/modules/publishing-core/config/receivers/magnoliaPublic8080", "enabled", "false"));
+
+        return tasks;
+    }
 
 
 

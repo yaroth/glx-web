@@ -69,7 +69,7 @@ var blog_list = new Vue({
                     year: 2019,
                     month: "DECEMBER",
                     monthValue: 12,
-                    dayOfMonth: 16,
+                    dayOfMonth: 20,
                     dayOfWeek: "MONDAY",
                     era: "CE",
                     dayOfYear: 350,
@@ -260,7 +260,7 @@ var blog_list = new Vue({
                     year: 2019,
                     month: "DECEMBER",
                     monthValue: 12,
-                    dayOfMonth: 16,
+                    dayOfMonth: 20,
                     dayOfWeek: "MONDAY",
                     era: "CE",
                     dayOfYear: 350,
@@ -395,7 +395,7 @@ var blog_list = new Vue({
                     year: 2019,
                     month: "DECEMBER",
                     monthValue: 12,
-                    dayOfMonth: 16,
+                    dayOfMonth: 20,
                     dayOfWeek: "MONDAY",
                     era: "CE",
                     dayOfYear: 350,
@@ -691,7 +691,6 @@ var blog_list = new Vue({
             backToHome() {
                 home.layout = 'home';
                 this.layout = '';
-                this.allowDateCheck = true;
             },
             setReservation(zugUuid, waggonNb, seatNb) {
                 let seat = this.getSeat(zugUuid, waggonNb, seatNb);
@@ -721,7 +720,18 @@ var blog_list = new Vue({
                     }
                 }
             },
-            setSeparator(nextDay){
+            //makes a multiline text for the reservation confirmation text in the sweetalert2 confirmation window
+            reservationConfirmation(fName, lName, departure, destination, wagNb, seatNb) {
+                var span = document.createElement("span");
+                return span.innerHTML = 'Benutzer: ' + fName + ' ' + lName + '<br>'
+                    + 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '<br>'
+                    + 'Wagen: ' + wagNb + ' Sitz Nr.: ' + seatNb;
+            },
+            // converts entered date into correct date format to save
+            correctDateFormat(enteredDate) {
+                return enteredDate.getFullYear() + '-' + enteredDate.getMonth() + '-' + enteredDate.getDate();
+            },
+            setSeparator(nextDay) {
                 return nextDay;
             },
             getDate(date) {
@@ -729,18 +739,62 @@ var blog_list = new Vue({
             }
         },
         computed: {
-            infoRequest: function () {
-                return home.from.charAt(0).toUpperCase() + home.from.slice(1) + ' - ' +
-                    home.to.charAt(0).toUpperCase() + home.to.slice(1) + '  ab: ' + home.correctTimeFormat(home.time);
+            dateToday: function () {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+
+                today = dd + '.' + mm + '.' + yyyy;
+                return today;
             },
-            infoTrainDetail: function () {
+            travelDate: function () {
                 for (var i = 0; i < this.zugservices.length; i++) {
                     if (this.zugservices[i].uuid === this.zugserviceId) {
                         let zug = this.zugservices[i];
-                        return zug.departure + ' ' + zug.from + ' ––––––––– ' + zug.to + ' ' + zug.arrival;
+                        return zug.date.dayOfMonth + '.' + zug.date.monthValue + '.' + zug.date.year;
                     }
                 }
 
+            },
+            departureTime: function () {
+                for (var i = 0; i < this.zugservices.length; i++) {
+                    if (this.zugservices[i].uuid === this.zugserviceId) {
+                        let zug = this.zugservices[i];
+                        return zug.departure;
+                    }
+                }
+
+            },
+            departureStation: function () {
+                for (var i = 0; i < this.zugservices.length; i++) {
+                    if (this.zugservices[i].uuid === this.zugserviceId) {
+                        let zug = this.zugservices[i];
+                        return zug.from;
+                    }
+                }
+
+            },
+            destinationStation: function () {
+                for (var i = 0; i < this.zugservices.length; i++) {
+                    if (this.zugservices[i].uuid === this.zugserviceId) {
+                        let zug = this.zugservices[i];
+                        return zug.to;
+                    }
+                }
+
+            },
+            arrivalTime: function () {
+                for (var i = 0; i < this.zugservices.length; i++) {
+                    if (this.zugservices[i].uuid === this.zugserviceId) {
+                        let zug = this.zugservices[i];
+                        return zug.arrival;
+                    }
+                }
+
+            },
+            fromTo: function () {
+                return home.from + ' ––– ' + home.to;
             }
         }
     })

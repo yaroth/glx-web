@@ -265,6 +265,7 @@ button {
     height: 40px;
     float: left;
     cursor: pointer;
+    position: absolute;
 }
 
 .infopanel {
@@ -286,10 +287,6 @@ button {
     background-color: rgba(160, 225, 0, 0.3);
     margin: 0 30px;
     border-radius: 3px;
-}
-
-#container {
-    margin-top: 5px;
 }
 
 #home {
@@ -323,11 +320,25 @@ button {
     padding: 5px;
 }
 
+.date-separator p {
+    margin: 0;
+    font-size: 17px;
+}
+.date-separator p span {
+    font-size: 25px;
+}
 /*MOBILE*/
 
 @media only screen and (max-width: 400px) {
     .desktop {
         display: none;
+    }
+
+    .grid-list {
+        min-width: initial;
+    }
+    .waggon, .zugservice-detail {
+        margin: initial;
     }
 }
 

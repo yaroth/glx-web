@@ -43,13 +43,21 @@
     <section id="js-grid-list" v-if="layout === 'zugservice-detail' || layout === 'list'" class="grid-list" v-cloak>
 
         <div class="tool-bar">
-            <div v-on:click="backToHome" class="home-btn" v-if="layout === 'list'"></div>
-            <div v-on:click="layout = 'list'" class="back-icon" v-if="layout === 'zugservice-detail'"
+            <div class="mobile">
+                <div v-on:click="backToHome" class="home-btn" v-if="layout === 'list'"></div>
+                <div v-on:click="layout = 'list'" class="back-icon" v-if="layout === 'zugservice-detail'"
+                     title="Back"></div>
+                <div class="bls-icon"></div>
+            </div>
+            <div v-on:click="backToHome" class="home-btn desktop" v-if="layout === 'list'"></div>
+            <div v-on:click="layout = 'list'" class="back-icon desktop" v-if="layout === 'zugservice-detail'"
                  title="Back"></div>
-            <div v-if="layout === 'list'" class="infopanel">{{dateToday}}</div>
-            <div v-else-if="layout === 'zugservice-detail'" class="infopanel">{{infoTrainDetail}}</div>
-            <div class="bls-icon"></div>
+            <div v-if="layout === 'list'" class="infopanel">{{fromTo}}</div>
+            <div v-else-if="layout === 'zugservice-detail'" class="infopanel">{{travelDate}}</div>
+            <div class="bls-icon desktop"></div>
         </div>
+        <div v-if="layout === 'list'" class="date-separator">{{dateToday}}</div>
+        <div v-else-if="layout === 'zugservice-detail'" class="date-separator"><p>{{departureTime}} <span>{{departureStation}} ––– {{destinationStation}}</span> {{arrivalTime}}</p></div>
 
         <div v-if="layout === 'list'" class="list">
             <template v-for="zug in zugservices">

@@ -292,9 +292,6 @@ button {
     /*margin: 0 100px;*/
     border-radius: 3px;
 }
-#container {
-    margin-top: 5px;
-}
 #home {
     max-width: 600px;
     min-width: 300px;
@@ -325,4 +322,32 @@ button {
     font-size: 20px;
     background-color: #a0e100;
     padding: 5px;
+}
+
+.date-separator p {
+    margin: 0;
+    font-size: 17px;
+}
+.date-separator p span {
+    font-size: 25px;
+}
+/*MOBILE*/
+
+@media only screen and (max-width: 400px) {
+    .desktop {
+        display: none;
+    }
+
+    .grid-list {
+        min-width: initial;
+    }
+    .waggon, .zugservice-detail {
+        margin: initial;
+    }
+}
+
+@media only screen and (min-width: 401px) {
+    .mobile {
+        display: none;
+    }
 }

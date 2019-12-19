@@ -28,19 +28,6 @@ public class BlsModuleVersionHandler extends DefaultModuleVersionHandler {
         super();
     }
 
-
-
-//    @Override
-//    protected List<Task> getExtraInstallTasks(InstallContext installContext) {
-//
-//        ArrayList<Task> tasks = new ArrayList<>();
-//        tasks.addAll(super.getExtraInstallTasks(installContext));
-//
-//        tasks.add(new SetPropertyTask("Disable publishing to magnoliaPublic8080", RepositoryConstants.CONFIG, "/modules/publishing-core/config/receivers/magnoliaPublic8080", "enabled", "false"));
-//
-//        return tasks;
-//    }
-
     @Override
     protected List<Task> getBasicInstallTasks(InstallContext ctx) {
         final List<Task> tasks = new ArrayList<>(super.getBasicInstallTasks(ctx));

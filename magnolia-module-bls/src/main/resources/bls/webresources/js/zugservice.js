@@ -94,6 +94,7 @@ var blog_list = new Vue({
                 Swal.mixin({
                     confirmButtonText: 'Weiter',
                     confirmButtonColor: '#a0e100',
+                    reverseButtons: true,
                     customClass: 'reservation-modal',
                     showCancelButton: true,
                     progressSteps: ['1', '2']

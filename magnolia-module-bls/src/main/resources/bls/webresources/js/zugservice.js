@@ -84,7 +84,7 @@ var home = new Vue({
             })
 
             //Error handling for situation like invalid request or unknown error
-            if(Object.entries(value).length === 0 && value.constructor === Object){
+            if(value === undefined || value.length == 0){
                 Toast.fire({
                     icon: 'error',
                     title: 'Bitte geben sie eine gültige Verbindungen ein.'

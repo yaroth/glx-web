@@ -35,11 +35,15 @@ var home = new Vue({
                         to: this.ruleForm.to.replace(/\s+/g, '')
                     })
                         .then(response => {
+                            //checks if the response is empty
+                            this.errorToastMessage(response);
                             blog_list.zugservices = '';
                             blog_list.zugservices = response.data;
                         })
                         .catch(error => {
                             blog_list.zugservices = '';
+                            //Shows error messages according to error response
+                            this.errorToastMessage(error);
                             console.log(error);
                         });
                     this.layout = '';
@@ -66,6 +70,37 @@ var home = new Vue({
                 return '0' + correctTimeDisplay;
             } else {
                 return correctTimeDisplay;
+            }
+        },
+        errorToastMessage(value){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showCloseButton: true,
+                showConfirmButton: false,
+                onOpen: (toast) => {
+                    toast.addEventListener();
+                }
+            })
+
+            //Error handling for situation like invalid request or unknown error
+            if(Object.entries(value).length === 0 && value.constructor === Object){
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Bitte geben sie eine gültige Verbindungen ein.'
+                })
+            } else if (value.status === "TrainServiceRequestNotValid") {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Bitte geben sie eine gültige Verbindungen ein.'
+                })
+            } else if(value.status === "UnknownError"){
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Leider ist ein Fehler geschehen... Versuchen sie es noch einmal.'
+                })
+            } else {
+
             }
         }
     }

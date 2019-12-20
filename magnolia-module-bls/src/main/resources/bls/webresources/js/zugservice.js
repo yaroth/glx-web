@@ -108,10 +108,25 @@ var blog_list = new Vue({
                         html:  '<input id="swal-input1" placeholder="Name" class="swal2-input">' +
                             '<input id="swal-input2" placeholder="Vorname" class="swal2-input">' +
                             '<input id="swal-input3" type="date" placeholder="Geburtsdatum" class="swal2-input">',
+                        //Validierung für die Eingaben der Personalien
                         preConfirm: () => {
-                            this.lastName = document.getElementById('swal-input1').value;
-                            this.firstName = document.getElementById('swal-input2').value;
-                            this.birthDate = document.getElementById('swal-input3').value;
+                            let nameField = document.getElementById('swal-input1').value;
+                            let firstNameField = document.getElementById('swal-input2').value;
+                            let dateField = document.getElementById('swal-input3').value;
+                            if (!nameField && !firstNameField) {
+                                Swal.showValidationMessage('Der Name und Vorname dürfen nicht leer sein!');
+                            } else if(!nameField){
+                                Swal.showValidationMessage('Der Name darf nicht leer sein!');
+                            } else if (!firstNameField) {
+                                Swal.showValidationMessage('Der Vorname darf nicht leer sein!');
+                            } else if(!dateField){
+                                Swal.showValidationMessage('Bitte geben sie Ihr Geburtsdatum ein!');
+                            }
+                            else {
+                                this.lastName = nameField;
+                                this.firstName = firstNameField;
+                                this.birthDate = dateField;
+                            }
                         }
                     }
                 ])

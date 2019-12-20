@@ -47,10 +47,11 @@
             <div v-else-if="layout === 'zugservice-detail'" class="infopanel">{{travelDate}}</div>
             <div class="bls-icon desktop"></div>
         </div>
-        <div v-if="layout === 'list'" class="date-separator">{{dateToday}}</div>
+        <div v-if="layout === 'list' && !noZugservices" class="date-separator">{{dateToday}}</div>
         <div v-else-if="layout === 'zugservice-detail'" class="date-separator"><p>{{departureTime}} <span>{{departureStation}} ––– {{destinationStation}}</span> {{arrivalTime}}</p></div>
 
         <div v-if="layout === 'list'" class="list">
+            <div v-if="noZugservices" class="no-zugservices">Keine Zugservices für diese Anfrage! </div>
             <template v-for="zug in zugservices">
                 <div class="date-separator" v-if="setSeparator(zug.nextDay)">{{zug.date.dayOfMonth}}.{{zug.date.monthValue}}.{{zug.date.year}}</div>
                 <div v-on:click="showZugserviceDetail(zug.uuid)" class="zugservice">

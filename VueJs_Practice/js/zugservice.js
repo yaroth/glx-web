@@ -24,7 +24,10 @@ var home = new Vue({
                 from: this.from,
                 to: this.to
             })
-                .then(response => (blog_list.zugservices = response.data))
+                .then(response => {
+                    blog_list.zugservices = response.data;
+
+                })
                 .catch(error => console.log(error));
             this.layout = '';
             blog_list.layout = 'list';
@@ -795,6 +798,9 @@ var blog_list = new Vue({
             },
             fromTo: function () {
                 return home.from + ' ––– ' + home.to;
+            },
+            noZugservices: function () {
+                return true;
             }
         }
     })

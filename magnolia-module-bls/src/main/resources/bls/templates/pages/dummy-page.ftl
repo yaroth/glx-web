@@ -15,16 +15,7 @@
             <div class="bls-icon"></div>
         </div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm" size="medium">
-            <el-form-item label="Name" prop="lastName">
-                <el-input v-model="ruleForm.lastName" placeholder="Name"></el-input>
-            </el-form-item>
-            <el-form-item label="Vorname" prop="firstName">
-                <el-input v-model="ruleForm.firstName" placeholder="Vorname"></el-input>
-            </el-form-item>
-            <el-form-item label="Geburtsdatum" prop="birthDate">
-                <el-date-picker v-model="ruleForm.birthDate" type="date" placeholder="Pick a date"></el-date-picker>
-            </el-form-item>
-            <el-form-item label="Zeit" prop="startTime">
+            <el-form-item label="Zeit" prop="time">
                 <el-time-picker v-model="ruleForm.time" format="HH:mm" placeholder="Departure time"></el-time-picker>
             </el-form-item>
             <el-form-item label="Von" prop="from">

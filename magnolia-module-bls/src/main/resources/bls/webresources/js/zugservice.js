@@ -3,25 +3,20 @@ var home = new Vue({
     data: {
         layout: 'home',
         ruleForm: {
-            lastName: '',
-            firstName: '',
-            birthDate: '',
-            time: '',
-            from: '',
-            to: ''
+            time: '08:30',
+            from: 'Bern',
+            to: 'Thun'
         },
         //Rules for the field validations
         rules: {
-            lastName: [
-                {type: 'string', required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur'},
-                {max: 25, message: 'Nicht mehr als 25 Zeichen erlaubt!', trigger: 'blur'}
+            time: [
+                {type: 'date', required: true, message: 'Bitte tragen sie die Startzeit ein.', trigger: 'blur'},
             ],
-            firstName: [
-                {type: 'string', required: true, message: 'Bitte tragen sie Ihren Nachnamen ein!', trigger: 'blur'},
-                {max: 25, message: 'Nicht mehr als 25 Zeichen erlaubt!', trigger: 'blur'}
+            from: [
+                {type: 'string', required: true, message: 'Bitte tragen sie den Startpunkt ein.', trigger: 'blur'},
             ],
-            birthDate: [
-                {type: 'date', required: true, message: 'Bitte tragen sie Ihr Geburtsdatum ein!', trigger: 'blur'}
+            to: [
+                {type: 'string', required: true, message: 'Bitte tragen sie das Ziel ein.', trigger: 'blur'},
             ]
         }
     },
@@ -61,8 +56,13 @@ var home = new Vue({
         },
         //Converts entered time into correct format for the request
         correctTimeFormat(enteredTime) {
-            var correctTimeDisplay = enteredTime.getHours() + ':' + enteredTime.getMinutes();
-            if (enteredTime.getHours() < 10) {
+            var correctTimeDisplay = enteredTime.getHours();
+            if(enteredTime.getMinutes() < 10){
+                correctTimeDisplay = correctTimeDisplay + ':' + '0' + enteredTime.getMinutes();
+            } else {
+                correctTimeDisplay = correctTimeDisplay + ':' + enteredTime.getMinutes();
+            }
+            if(enteredTime.getHours() < 10) {
                 return '0' + correctTimeDisplay;
             } else {
                 return correctTimeDisplay;
@@ -89,43 +89,63 @@ var blog_list = new Vue({
                 console.log("showSeatDetail line clicked");
             },
             requestReservation(zugUuid, seatId, waggonNumber, from, to, date) {
-                axios.post(location.protocol + '//' + location.host + '/.rest/bls/v1/reservation', {
-                    firstname: home.ruleForm.firstName,
-                    lastname: home.ruleForm.lastName,
-                    dateOfBirth: home.ruleForm.birthDate.getFullYear() + '-' + home.ruleForm.birthDate.getMonth() + '-' + home.ruleForm.birthDate.getDate(),
-                    zugserviceID: zugUuid,
-                    wagenNumber: waggonNumber,
-                    sitzNumber: seatId,
-                    departure: from,
-                    destination: to,
-                    date: this.getDate(date)
-                })
-                    .then(response => {
-                        this.reservationStatus = response.data;
-                        let resConf = this.reservationStatus;
-                        if (resConf.message == 'OK') {
-                            let zugId = resConf.zugserviceID;
-                            let wagNb = resConf.wagenNumber;
-                            let sitzNb = resConf.sitzNumber;
-                            let seat = this.getSeat(zugId, wagNb, sitzNb);
-                            if (seat !== undefined) {
-                                seat.reserved = true;
-                                //Shows confirmation of reservation
-                                var confirmation = this.reservationConfirmation(home.ruleForm.firstName, home.ruleForm.lastName,
-                                    this.reservationStatus.departure, this.reservationStatus.destination, wagNb, sitzNb);
-                                Swal.fire({
-                                    title: 'Reservation bestätigt.',
-                                    html: confirmation,
-                                    imageUrl: location.protocol + '//' + location.host + '/.resources/bls/webresources/img/Test_QR_Code.png',
-                                    customClass: 'reservation-confirmation',
-                                    showConfirmButton: false,
-                                    showCloseButton: true,
-                                    icon: 'success'
-                                })
-                            }
+                var seat = this.getSeat(zugUuid, waggonNumber, seatId);
+                var seatInformation = this.reservationSeatText(seat);
+                Swal.mixin({
+                    confirmButtonText: 'Weiter',
+                    confirmButtonColor: '#a0e100',
+                    customClass: 'reservation-modal',
+                    showCancelButton: true,
+                    progressSteps: ['1', '2']
+                }).queue([
+                    {
+                        title: 'Sitzübersicht',
+                        html: seatInformation
+                    },
+                    {
+                        title: 'Personalien eingeben zur Bestätigung',
+                        html:  '<input id="swal-input1" placeholder="Name" class="swal2-input">' +
+                            '<input id="swal-input2" placeholder="Vorname" class="swal2-input">' +
+                            '<input id="swal-input3" type="date" placeholder="Geburtsdatum" class="swal2-input">',
+                        preConfirm: () => {
+                            this.lastName = document.getElementById('swal-input1').value;
+                            this.firstName = document.getElementById('swal-input2').value;
+                            this.birthDate = document.getElementById('swal-input3').value;
                         }
-                    })
-                    .catch(error => console.log(error));
+                    }
+                ])
+                .then((result) => {
+                    if (result.value) {
+                        axios.post(location.protocol + '//' + location.host + '/.rest/bls/v1/reservation', {
+                            firstname: this.firstName,
+                            lastname: this.lastName,
+                            dateOfBirth: this.birthDate,
+                            zugserviceID: zugUuid,
+                            wagenNumber: waggonNumber,
+                            sitzNumber: seatId,
+                            departure: from,
+                            destination: to,
+                            date: this.getDate(date)
+                        })
+                            .then(response => {
+                                this.reservationStatus = response.data;
+                                let resConf = this.reservationStatus;
+                                if (resConf.message == 'OK') {
+                                    let zugId = resConf.zugserviceID;
+                                    let wagNb = resConf.wagenNumber;
+                                    let sitzNb = resConf.sitzNumber;
+                                    let seat = this.getSeat(zugId, wagNb, sitzNb);
+                                    if (seat !== undefined) {
+                                        seat.reserved = true;
+                                        //Shows confirmation of reservation
+                                        this.reservationConfirmationModal(this.firstName, this.lastName,
+                                            this.reservationStatus.departure, this.reservationStatus.destination, wagNb, sitzNb);
+                                    }
+                                }
+                            })
+                            .catch(error => console.log(error));
+                    }
+                })
             },
             backToHome() {
                 home.layout = 'home';
@@ -159,16 +179,51 @@ var blog_list = new Vue({
                     }
                 }
             },
+            //generates the multiline text for the seat information modal
+            reservationSeatText(seat){
+                //For the Locations of the seats
+                var seatLocation;
+                var optionsList;
+                if(seat.location === 'fenster'){
+                    seatLocation = 'Fenstersitz';
+                } else if(seat.location === 'gang'){
+                    seatLocation = 'Gangsitz';
+                } else if(seat.location === 'mitte'){
+                    seatLocation = 'mittlerer Sitz';
+                } else{
+                    seatLocation = '';
+                }
+                //For the options of the seat
+                if(seat.options.length < 1){
+                    optionsList = 'Kein Zubehör';
+                } else if (options.length = 1){
+                    optionsList += seat.options[0];
+                } else {
+                    optionsList = seat.options.join(' / ');
+                }
+                //The text, which is shown in the modal
+                var span = document.createElement('span');
+                span.innerHTML = 'Klasse: ' + seat.klasse + '. Klasse' + '<br>'
+                    + 'Platz: ' + seatLocation + '<br>'
+                    + 'Zubehör: ' + optionsList + '<br>';
+                return span;
+            },
             //makes a multiline text for the reservation confirmation text in the sweetalert2 confirmation window
             reservationConfirmation(fName, lName, departure, destination, wagNb, seatNb) {
                 var span = document.createElement("span");
                 return span.innerHTML = 'Benutzer: ' + fName + ' ' + lName + '<br>'
                     + 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '<br>'
                     + 'Wagen: ' + wagNb + ' Sitz Nr.: ' + seatNb;
-            },
-            // converts entered date into correct date format to save
-            correctDateFormat(enteredDate) {
-                return enteredDate.getFullYear() + '-' + enteredDate.getMonth() + '-' + enteredDate.getDate();
+                //Sweetalert2 modal success display
+                Swal.fire({
+                    title: 'Reservation bestätigt.',
+                    html: span,
+                    imageUrl: location.protocol + '//' + location.host + '/.resources/geologix/webresources/img/Test_QR_Code.png',
+                    customClass: 'reservation-confirmation',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    icon: 'success'
+                })
             },
             setSeparator(nextDay) {
                 return nextDay;

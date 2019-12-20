@@ -338,6 +338,17 @@ button {
     max-width: 220px;
 }
 
+.reservation-modal button{
+    height: initial;
+    width: initial;
+    position: relative;
+}
+
+.reservation-modal.swal2-input{
+    width: initial;
+    height: initial;
+}
+
 
 /*MOBILE*/
 

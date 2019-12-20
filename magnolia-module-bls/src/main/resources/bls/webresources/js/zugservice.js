@@ -216,6 +216,7 @@ var blog_list = new Vue({
                 var span = document.createElement("span");
                 span.innerHTML = 'Benutzer: ' + fName + ' ' + lName + '<br>'
                     + 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '<br>'
+                    + 'Datum: ' + this.reservationStatus.date + ', ' + this.reservationStatus.departureTime + '<br>'
                     + 'Wagen: ' + wagNb + ' Sitz Nr.: ' + seatNb;
                 //Sweetalert2 modal success display
                 Swal.fire({
@@ -233,6 +234,10 @@ var blog_list = new Vue({
             },
             getDate: function (date) {
                 return date.year + '-' + date.monthValue + '-' + date.dayOfMonth;
+            },
+            getReservationDate: function () {
+                let ds = this.reservationStatus.date;
+                return ds[2] + '.' + ds[1] + '.' + ds[0];
             }
         },
         computed: {

@@ -783,7 +783,9 @@ public class BlsPojoService {
         // all reservations are saved at root level
         Response response = nodeEndpoint.createNode(Reservation.WORKSPACE, Reservation.BASEPATH, repositoryNode);
         ReservationConfirmation reservationConfirmation = new ReservationConfirmation(reservation);
-        //reservationConfirmation.setUuid();
+
+        String depTime = getTrainserviceById(reservation.getZugserviceID()).getDeparture();
+        reservationConfirmation.setDepartureTime(depTime);
         reservationConfirmation.setMessage(response.getStatusInfo().toString());
         return reservationConfirmation;
     }

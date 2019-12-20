@@ -35,6 +35,7 @@ public class ReservationConfirmation extends Reservation {
     private String message;
     // TODO: do we need the qrCode???
     private String qrCode;
+    private String departureTime;
 
 
     public ReservationConfirmation(Reservation reservation) {
@@ -46,6 +47,7 @@ public class ReservationConfirmation extends Reservation {
         super.setSitzNumber(reservation.getSitzNumber());
         super.setDeparture(reservation.getDeparture());
         super.setDestination(reservation.getDestination());
+        super.setDate(reservation.getDate());
         this.message = "";
         this.qrCode = "";
     }
@@ -67,5 +69,13 @@ public class ReservationConfirmation extends Reservation {
 
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
     }
 }

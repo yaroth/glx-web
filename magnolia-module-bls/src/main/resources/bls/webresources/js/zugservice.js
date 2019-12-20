@@ -10,13 +10,13 @@ var home = new Vue({
         //Rules for the field validations
         rules: {
             time: [
-                {type: 'date', required: true, message: 'Bitte tragen sie die Startzeit ein.', trigger: 'blur'},
+                {type: 'date', required: true, message: 'Bitte tragen Sie die Abfahrtszeit ein.', trigger: 'blur'},
             ],
             from: [
-                {type: 'string', required: true, message: 'Bitte tragen sie den Startpunkt ein.', trigger: 'blur'},
+                {type: 'string', required: true, message: 'Bitte tragen Sie den Abfahrtsort ein.', trigger: 'blur'},
             ],
             to: [
-                {type: 'string', required: true, message: 'Bitte tragen sie das Ziel ein.', trigger: 'blur'},
+                {type: 'string', required: true, message: 'Bitte tragen Sie den Zielort ein.', trigger: 'blur'},
             ]
         }
     },
@@ -130,7 +130,7 @@ var blog_list = new Vue({
                             .then(response => {
                                 this.reservationStatus = response.data;
                                 let resConf = this.reservationStatus;
-                                if (resConf.message == 'OK') {
+                                if (resConf.message === 'OK') {
                                     let zugId = resConf.zugserviceID;
                                     let wagNb = resConf.wagenNumber;
                                     let sitzNb = resConf.sitzNumber;
@@ -189,17 +189,19 @@ var blog_list = new Vue({
                 } else if(seat.location === 'gang'){
                     seatLocation = 'Gangsitz';
                 } else if(seat.location === 'mitte'){
-                    seatLocation = 'mittlerer Sitz';
+                    seatLocation = 'Mittlerer Sitz';
                 } else{
                     seatLocation = '';
                 }
                 //For the options of the seat
                 if(seat.options.length < 1){
                     optionsList = 'Kein Zubehör';
-                } else if (options.length = 1){
-                    optionsList += seat.options[0];
+                } else if (seat.options.length === 1){
+                    optionsList = seat.options[0];
+                    optionsList = optionsList.replace("table", "Tisch");
                 } else {
                     optionsList = seat.options.join(' / ');
+                    optionsList = optionsList.replace("table", "Tisch");
                 }
                 //The text, which is shown in the modal
                 var span = document.createElement('span');
@@ -209,16 +211,16 @@ var blog_list = new Vue({
                 return span;
             },
             //makes a multiline text for the reservation confirmation text in the sweetalert2 confirmation window
-            reservationConfirmation(fName, lName, departure, destination, wagNb, seatNb) {
+            reservationConfirmationModal(fName, lName, departure, destination, wagNb, seatNb) {
                 var span = document.createElement("span");
-                return span.innerHTML = 'Benutzer: ' + fName + ' ' + lName + '<br>'
+                span.innerHTML = 'Benutzer: ' + fName + ' ' + lName + '<br>'
                     + 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '<br>'
                     + 'Wagen: ' + wagNb + ' Sitz Nr.: ' + seatNb;
                 //Sweetalert2 modal success display
                 Swal.fire({
                     title: 'Reservation bestätigt.',
                     html: span,
-                    imageUrl: location.protocol + '//' + location.host + '/.resources/geologix/webresources/img/Test_QR_Code.png',
+                    imageUrl: location.protocol + '//' + location.host + '/.resources/bls/webresources/img/Test_QR_Code.png',
                     customClass: 'reservation-confirmation',
                     showConfirmButton: false,
                     showCloseButton: true,

@@ -363,6 +363,9 @@ button {
     .waggon, .zugservice-detail {
         margin: initial;
     }
+    .swal2-header img.swal2-image {
+        width: 25%;
+    }
 }
 
 @media only screen and (min-width: 401px) {

@@ -94,6 +94,7 @@ var blog_list = new Vue({
                 Swal.mixin({
                     confirmButtonText: 'Weiter',
                     confirmButtonColor: '#a0e100',
+                    reverseButtons: true,
                     customClass: 'reservation-modal',
                     showCancelButton: true,
                     progressSteps: ['1', '2']
@@ -196,7 +197,7 @@ var blog_list = new Vue({
                 //For the options of the seat
                 if(seat.options.length < 1){
                     optionsList = 'Kein Zubehör';
-                } else if (options.length = 1){
+                } else if (options.length == 1){
                     optionsList += seat.options[0];
                 } else {
                     optionsList = seat.options.join(' / ');
@@ -211,7 +212,7 @@ var blog_list = new Vue({
             //makes a multiline text for the reservation confirmation text in the sweetalert2 confirmation window
             reservationConfirmation(fName, lName, departure, destination, wagNb, seatNb) {
                 var span = document.createElement("span");
-                return span.innerHTML = 'Benutzer: ' + fName + ' ' + lName + '<br>'
+                span.innerHTML = 'Benutzer: ' + fName + ' ' + lName + '<br>'
                     + 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '<br>'
                     + 'Wagen: ' + wagNb + ' Sitz Nr.: ' + seatNb;
                 //Sweetalert2 modal success display

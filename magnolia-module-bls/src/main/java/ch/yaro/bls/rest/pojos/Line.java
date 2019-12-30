@@ -108,7 +108,10 @@ public class Line {
                         waggonReservation.getReservedSeats().add(sitzNumber);
                     }
                 } else {
-                    section.getWaggonReservationList().add(new WaggonReservation(wagenNumber, sitzNumber));
+                    WaggonReservation waggonReservation = new WaggonReservation();
+                    waggonReservation.setWaggonNumber(wagenNumber);
+                    waggonReservation.getReservedSeats().add(sitzNumber);
+                    section.getWaggonReservationList().add(waggonReservation);
                 }
             }
         }

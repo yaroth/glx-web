@@ -14,7 +14,8 @@
             <div class="infopanel">Reservation</div>
             <div class="bls-icon"></div>
         </div>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm" size="medium">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm"
+                 size="medium">
             <el-form-item label="Zeit" prop="time">
                 <el-time-picker v-model="ruleForm.time" format="HH:mm" placeholder="Departure time"></el-time-picker>
             </el-form-item>
@@ -48,12 +49,15 @@
             <div class="bls-icon desktop"></div>
         </div>
         <div v-if="layout === 'list' && !noZugservices" class="date-separator">{{dateToday}}</div>
-        <div v-else-if="layout === 'zugservice-detail'" class="date-separator"><p>{{departureTime}} <span>{{departureStation}} ––– {{destinationStation}}</span> {{arrivalTime}}</p></div>
+        <div v-else-if="layout === 'zugservice-detail'" class="date-separator"><p>{{departureTime}} <span>{{departureStation}} ––– {{destinationStation}}</span>
+                {{arrivalTime}}</p></div>
 
         <div v-if="layout === 'list'" class="list">
-            <div v-if="noZugservices" class="no-zugservices">Keine Zugservices für diese Anfrage! </div>
+            <div v-if="noZugservices" class="no-zugservices">Keine Zugservices für diese Anfrage!</div>
             <template v-for="zug in zugservices">
-                <div class="date-separator" v-if="setSeparator(zug.nextDay)">{{zug.date.dayOfMonth}}.{{zug.date.monthValue}}.{{zug.date.year}}</div>
+                <div class="date-separator" v-if="setSeparator(zug.nextDay)">
+                    {{zug.date.dayOfMonth}}.{{zug.date.monthValue}}.{{zug.date.year}}
+                </div>
                 <div v-on:click="showZugserviceDetail(zug.uuid)" class="zugservice">
                     <p>{{zug.departure}} <span>{{zug.from}}</span> –– <span>{{zug.to}}</span> {{zug.arrival}}</p>
                 </div>

@@ -355,6 +355,11 @@ button {
     border: 1px solid red;
     text-align: center;
 }
+button.swal2-confirm {
+    height: initial;
+    position: initial;
+    width: initial;
+}
 
 
 /*MOBILE*/

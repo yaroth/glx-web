@@ -42,9 +42,26 @@ var home = new Vue({
                         })
                         .catch(error => {
                             blog_list.zugservices = '';
+                            if (error.response) {
+                                if (error.response.status === 406 && error.response.data.message === 'TrainServiceRequestNotValid') {
+                                    Swal.fire({
+                                        title: 'Anfrage fehlgeschlagen.',
+                                        text: 'Ihre Anfrage ist nicht gültig.',
+                                        icon: 'error'
+                                    })
+                                } else if (error.response.status === 500){
+                                    Swal.fire({
+                                        title: 'Unbekannter Fehler!',
+                                        text: 'Ein unbekannter Fehler ist aufgetaucht. Bitte versuchen Sie es nochmals.',
+                                        icon: 'error'
+                                    })
+                                }
+                            }
+
                             //Shows error messages according to error response
                             this.errorToastMessage(error);
-                            console.log(error);
+                            console.log(error.response.status);
+                            console.log(error.response.data.message);
                         });
                     this.layout = '';
                     blog_list.layout = 'list';
@@ -61,18 +78,18 @@ var home = new Vue({
         //Converts entered time into correct format for the request
         correctTimeFormat(enteredTime) {
             var correctTimeDisplay = enteredTime.getHours();
-            if(enteredTime.getMinutes() < 10){
+            if (enteredTime.getMinutes() < 10) {
                 correctTimeDisplay = correctTimeDisplay + ':' + '0' + enteredTime.getMinutes();
             } else {
                 correctTimeDisplay = correctTimeDisplay + ':' + enteredTime.getMinutes();
             }
-            if(enteredTime.getHours() < 10) {
+            if (enteredTime.getHours() < 10) {
                 return '0' + correctTimeDisplay;
             } else {
                 return correctTimeDisplay;
             }
         },
-        errorToastMessage(value){
+        errorToastMessage(value) {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top',
@@ -84,7 +101,7 @@ var home = new Vue({
             })
 
             //Error handling for situation like invalid request or unknown error
-            if(value === undefined || value.length == 0){
+            if (value === undefined || value.length == 0) {
                 Toast.fire({
                     icon: 'error',
                     title: 'Bitte geben sie eine gültige Verbindungen ein.'
@@ -94,7 +111,7 @@ var home = new Vue({
                     icon: 'error',
                     title: 'Bitte geben sie eine gültige Verbindungen ein.'
                 })
-            } else if(value.status === "UnknownError"){
+            } else if (value.status === "UnknownError") {
                 Toast.fire({
                     icon: 'error',
                     title: 'Leider ist ein Fehler geschehen... Versuchen sie es noch einmal.'
@@ -140,7 +157,7 @@ var blog_list = new Vue({
                     },
                     {
                         title: 'Personalien eingeben zur Bestätigung',
-                        html:  '<input id="swal-input1" placeholder="Name" class="swal2-input">' +
+                        html: '<input id="swal-input1" placeholder="Name" class="swal2-input">' +
                             '<input id="swal-input2" placeholder="Vorname" class="swal2-input">' +
                             '<input id="swal-input3" type="date" placeholder="Geburtsdatum" class="swal2-input">',
                         //Validierung für die Eingaben der Personalien
@@ -150,14 +167,13 @@ var blog_list = new Vue({
                             let dateField = document.getElementById('swal-input3').value;
                             if (!nameField && !firstNameField) {
                                 Swal.showValidationMessage('Der Name und Vorname dürfen nicht leer sein!');
-                            } else if(!nameField){
+                            } else if (!nameField) {
                                 Swal.showValidationMessage('Der Name darf nicht leer sein!');
                             } else if (!firstNameField) {
                                 Swal.showValidationMessage('Der Vorname darf nicht leer sein!');
-                            } else if(!dateField){
+                            } else if (!dateField) {
                                 Swal.showValidationMessage('Bitte geben sie Ihr Geburtsdatum ein!');
-                            }
-                            else {
+                            } else {
                                 this.lastName = nameField;
                                 this.firstName = firstNameField;
                                 this.birthDate = dateField;
@@ -165,38 +181,72 @@ var blog_list = new Vue({
                         }
                     }
                 ])
-                .then((result) => {
-                    if (result.value) {
-                        axios.post(location.protocol + '//' + location.host + '/.rest/bls/v1/reservation', {
-                            firstname: this.firstName,
-                            lastname: this.lastName,
-                            dateOfBirth: this.birthDate,
-                            zugserviceID: zugUuid,
-                            wagenNumber: waggonNumber,
-                            sitzNumber: seatId,
-                            departure: from,
-                            destination: to,
-                            date: this.getDate(date)
-                        })
-                            .then(response => {
-                                this.reservationStatus = response.data;
-                                let resConf = this.reservationStatus;
-                                if (resConf.message === 'OK') {
-                                    let zugId = resConf.zugserviceID;
-                                    let wagNb = resConf.wagenNumber;
-                                    let sitzNb = resConf.sitzNumber;
-                                    let seat = this.getSeat(zugId, wagNb, sitzNb);
-                                    if (seat !== undefined) {
-                                        seat.reserved = true;
-                                        //Shows confirmation of reservation
-                                        this.reservationConfirmationModal(this.firstName, this.lastName,
-                                            this.reservationStatus.departure, this.reservationStatus.destination, wagNb, sitzNb);
-                                    }
-                                }
+                    .then((result) => {
+                        if (result.value) {
+                            axios.post(location.protocol + '//' + location.host + '/.rest/bls/v1/reservation', {
+                                firstname: this.firstName,
+                                lastname: this.lastName,
+                                dateOfBirth: this.birthDate,
+                                zugserviceID: zugUuid,
+                                wagenNumber: waggonNumber,
+                                sitzNumber: seatId,
+                                departure: from,
+                                destination: to,
+                                date: this.getDate(date)
                             })
-                            .catch(error => console.log(error));
-                    }
-                })
+                                .then(response => {
+                                    this.reservationStatus = response.data;
+                                    let resConf = this.reservationStatus;
+                                    if (resConf.message === 'OK') {
+                                        let zugId = resConf.zugserviceID;
+                                        let wagNb = resConf.wagenNumber;
+                                        let sitzNb = resConf.sitzNumber;
+                                        let seat = this.getSeat(zugId, wagNb, sitzNb);
+                                        if (seat !== undefined) {
+                                            seat.reserved = true;
+                                            //Shows confirmation of reservation
+                                            this.reservationConfirmationModal(this.firstName, this.lastName,
+                                                this.reservationStatus.departure, this.reservationStatus.destination, wagNb, sitzNb);
+                                        }
+                                    }
+                                })
+                                .catch(error => {
+                                    if (error.response) {
+                                        if (error.response.status === 409 && error.response.data.message === 'SeatNoLongerAvailable') {
+                                            Swal.fire({
+                                                title: 'Reservation fehlgeschlagen.',
+                                                text: 'Sitz wurde in der Zwischenzeit schon reserviert.',
+                                                icon: 'error'
+                                            })
+                                        }
+                                        else if (error.response.status === 406 && error.response.data.message === 'ReservationNotValid') {
+                                            Swal.fire({
+                                                title: 'Reservation ungültig.',
+                                                text: 'Bitte passen Sie Ihre Reservation an.',
+                                                icon: 'error'
+                                            })
+                                        }
+                                        else if (error.response.status === 400 && error.response.data.message === 'NoReservationProvided') {
+                                            Swal.fire({
+                                                title: 'Keine Reservation angegeben.',
+                                                text: 'Bitte geben Sie eine Reservation an.',
+                                                icon: 'error'
+                                            })
+                                        }else if (error.response.status === 406 && error.response.data.message === 'UnknownError') {
+                                            Swal.fire({
+                                                title: 'Unbekannter Fehler.',
+                                                text: 'Bitte versuchen Sie es erneut.',
+                                                icon: 'error'
+                                            })
+                                        }
+                                    }
+                                    console.log(error);
+                                    console.log(error.response.status);
+                                    console.log(error.response.data.message);
+
+                                });
+                        }
+                    })
             },
             backToHome() {
                 home.layout = 'home';
@@ -231,23 +281,23 @@ var blog_list = new Vue({
                 }
             },
             //generates the multiline text for the seat information modal
-            reservationSeatText(seat){
+            reservationSeatText(seat) {
                 //For the Locations of the seats
                 var seatLocation;
                 var optionsList;
-                if(seat.location === 'fenster'){
+                if (seat.location === 'fenster') {
                     seatLocation = 'Fenstersitz';
-                } else if(seat.location === 'gang'){
+                } else if (seat.location === 'gang') {
                     seatLocation = 'Gangsitz';
-                } else if(seat.location === 'mitte'){
+                } else if (seat.location === 'mitte') {
                     seatLocation = 'Mittlerer Sitz';
-                } else{
+                } else {
                     seatLocation = '';
                 }
                 //For the options of the seat
-                if(seat.options.length < 1){
+                if (seat.options.length < 1) {
                     optionsList = 'Kein Zubehör';
-                } else if (seat.options.length === 1){
+                } else if (seat.options.length === 1) {
                     optionsList = seat.options[0];
                     optionsList = optionsList.replace("table", "Tisch");
                 } else {

@@ -59,7 +59,7 @@
         <div v-else-if="layout === 'zugservice-detail'" class="date-separator"><p>{{departureTime}} <span>{{departureStation}} ––– {{destinationStation}}</span> {{arrivalTime}}</p></div>
 
         <div v-if="layout === 'list'" class="list">
-            <div v-if="noZugservices" class="no-zugservices">Keine Zugservices für diese Anfrage! </div>
+            <div v-if="noZugservices" class="no-zugservices">Keine Zugservices für diese Anfrage!</div>
             <template v-for="zug in zugservices">
                 <div class="date-separator" v-if="setSeparator(zug.nextDay)">{{zug.date.dayOfMonth}}.{{zug.date.monthValue}}.{{zug.date.year}}</div>
                 <div v-on:click="showZugserviceDetail(zug.uuid)" class="zugservice">
@@ -77,10 +77,8 @@
                             <img v-bind:src="waggon.wagenplan.imageLink">
                             <div class="row-placeholder row1"></div>
                             <div class="row-placeholder row2">
-                                <button v-on:click="requestReservation(zug.uuid, 88, waggon.number, zug.from, zug.to, zug.date)"
-                                        id="88" type="button" class="col1"
-                                        :class="setReservation(zug.uuid, waggon.number, 88)"
-                                        :disabled="setDisabled(zug.uuid, waggon.number, 88)"></button>
+                                <button v-on:click="requestReservation(zug.uuid, 88, waggon.number, zug.from, zug.to, zug.date)" id="88" type="button" class="col1"
+                                        :class="setReservation(zug.uuid, waggon.number, 88)" :disabled="setDisabled(zug.uuid, waggon.number, 88)"></button>
                                 <button v-on:click="requestReservation(zug.uuid, 87, waggon.number, zug.from, zug.to, zug.date)"
                                         id="87" type="button" class="col2"
                                         :class="setReservation(zug.uuid, waggon.number, 87)"

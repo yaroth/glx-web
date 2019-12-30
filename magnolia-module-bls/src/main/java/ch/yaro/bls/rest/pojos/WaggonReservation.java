@@ -44,6 +44,8 @@ public class WaggonReservation {
         this.reservedSeats.add(seatNumber);
     }
 
+    public WaggonReservation(){}
+
     public Integer getWaggonNumber() {
         return waggonNumber;
     }

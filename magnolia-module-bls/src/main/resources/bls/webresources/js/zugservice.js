@@ -49,7 +49,7 @@ var home = new Vue({
                                         text: 'Ihre Anfrage ist nicht gültig.',
                                         icon: 'error'
                                     })
-                                } else if (error.response.status === 500){
+                                } else if (error.response.status === 500) {
                                     Swal.fire({
                                         title: 'Unbekannter Fehler!',
                                         text: 'Ein unbekannter Fehler ist aufgetaucht. Bitte versuchen Sie es nochmals.',
@@ -159,7 +159,7 @@ var blog_list = new Vue({
                         title: 'Personalien eingeben zur Bestätigung',
                         html: '<input id="swal-input1" placeholder="Name" class="swal2-input">' +
                             '<input id="swal-input2" placeholder="Vorname" class="swal2-input">' +
-                            '<input id="swal-input3" type="date" placeholder="Geburtsdatum" class="swal2-input">',
+                            '<input id="swal-input3" type="date" placeholder="Geburtsdatum (Format: 1988-01-15)" class="swal2-input">',
                         //Validierung für die Eingaben der Personalien
                         preConfirm: () => {
                             let nameField = document.getElementById('swal-input1').value;
@@ -172,7 +172,7 @@ var blog_list = new Vue({
                             } else if (!firstNameField) {
                                 Swal.showValidationMessage('Der Vorname darf nicht leer sein!');
                             } else if (!dateField) {
-                                Swal.showValidationMessage('Bitte geben sie Ihr Geburtsdatum ein!');
+                                Swal.showValidationMessage('Bitte geben sie Ihr Geburtsdatum korrekt ein (1988-01-15)!');
                             } else {
                                 this.lastName = nameField;
                                 this.firstName = firstNameField;
@@ -218,21 +218,19 @@ var blog_list = new Vue({
                                                 text: 'Sitz wurde in der Zwischenzeit schon reserviert.',
                                                 icon: 'error'
                                             })
-                                        }
-                                        else if (error.response.status === 406 && error.response.data.message === 'ReservationNotValid') {
+                                        } else if (error.response.status === 406 && error.response.data.message === 'ReservationNotValid') {
                                             Swal.fire({
                                                 title: 'Reservation ungültig.',
                                                 text: 'Bitte passen Sie Ihre Reservation an.',
                                                 icon: 'error'
                                             })
-                                        }
-                                        else if (error.response.status === 400 && error.response.data.message === 'NoReservationProvided') {
+                                        } else if (error.response.status === 400 && error.response.data.message === 'NoReservationProvided') {
                                             Swal.fire({
                                                 title: 'Keine Reservation angegeben.',
                                                 text: 'Bitte geben Sie eine Reservation an.',
                                                 icon: 'error'
                                             })
-                                        }else if (error.response.status === 406 && error.response.data.message === 'UnknownError') {
+                                        } else if (error.response.status === 406 && error.response.data.message === 'UnknownError') {
                                             Swal.fire({
                                                 title: 'Unbekannter Fehler.',
                                                 text: 'Bitte versuchen Sie es erneut.',
@@ -316,7 +314,7 @@ var blog_list = new Vue({
                 var span = document.createElement("span");
                 span.innerHTML = 'Benutzer: ' + fName + ' ' + lName + '<br>'
                     + 'Strecke: ' + this.reservationStatus.departure + '-' + this.reservationStatus.destination + '<br>'
-                    + 'Datum: ' + this.reservationStatus.date + ', ' + this.reservationStatus.departureTime + '<br>'
+                    + 'Datum: ' + this.getReservationDate() + ', ' + this.reservationStatus.departureTime + '<br>'
                     + 'Wagen: ' + wagNb + ' Sitz Nr.: ' + seatNb;
                 //Sweetalert2 modal success display
                 Swal.fire({
@@ -333,7 +331,11 @@ var blog_list = new Vue({
                 return nextDay;
             },
             getDate: function (date) {
-                return date.year + '-' + date.monthValue + '-' + date.dayOfMonth;
+                let monthStr = date.monthValue.toString();
+                if (monthStr.length === 1) monthStr = '0' + monthStr;
+                let dayStr = date.dayOfMonth.toString();
+                if (dayStr.length === 1) dayStr = '0' + dayStr;
+                return date.year + '-' + monthStr + '-' + dayStr;
             },
             getReservationDate: function () {
                 let ds = this.reservationStatus.date;

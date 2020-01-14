@@ -94,7 +94,7 @@ public class BlsPojoService {
     /**
      * Returns a single {@link Waggon} POJO.
      *
-     * @param id
+     * @param id WagenID
      */
     public Waggon getWagenById(String id) throws RepositoryException {
         Waggon waggon = new Waggon();
@@ -538,10 +538,11 @@ public class BlsPojoService {
             tempTooEarly.get(0).setNextDay(true);
         }
         trainServicesForRequest.addAll(tempTooEarly);
+        List<TrainService> trainServices = new ArrayList<>(trainServicesForRequest);
         if (trainServicesForRequest.size() > MAX_RESULT_SIZE) {
-            trainServicesForRequest.subList(0, MAX_RESULT_SIZE - 1);
+            trainServices = trainServicesForRequest.subList(0, MAX_RESULT_SIZE);
         }
-        return trainServicesForRequest;
+        return trainServices;
     }
 
 
